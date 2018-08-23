@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6163d6a7-69cb-4353-8f15-67b1fa57e4ca" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/webapp/public/adminlayouts/horizontal/assets/plugins/raphael/raphael-min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webapp/resources/views/adminlayouts/home.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webapp/resources/views/adminlayouts/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webapp/resources/views/backend/gianhang/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webapp/resources/views/backend/sanpham/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/.env" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/routes/web.php" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/webapp/composer.json</pharConfigPath>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>user</find>
+      <find>cssText</find>
+      <find>DEFAULT DATATABLE</find>
+      <find>datatable</find>
+      <find>DataTable</find>
+      <find>OUTLINE BUTTONS</find>
+      <find>container</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/webapp/resources/views/a.blade.php" />
+        <option value="$PROJECT_DIR$/webapp/resources/views/adminlayouts/a.blade.php" />
+        <option value="$PROJECT_DIR$/webapp/public/adminlayouts/horizontal/tables-datatable.html" />
+        <option value="$PROJECT_DIR$/webapp/resources/views/adminlayouts/home.blade.php" />
+        <option value="$PROJECT_DIR$/webapp/app/Http/Controllers/SanPhamController.php" />
+        <option value="$PROJECT_DIR$/webapp/resources/views/backend/sanpham/index.blade.php" />
+        <option value="$PROJECT_DIR$/webapp/resources/views/backend/gianhang/index.blade.php" />
+        <option value="$PROJECT_DIR$/webapp/routes/web.php" />
+        <option value="$PROJECT_DIR$/webapp/resources/views/adminlayouts/index.blade.php" />
+        <option value="$PROJECT_DIR$/webapp/app/Http/Controllers/GianHangController.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/webapp/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/webapp/vendor/fzaninotto/faker" />
+      <path value="$PROJECT_DIR$/webapp/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/webapp/vendor/jakub-onderka/php-console-highlighter" />
+      <path value="$PROJECT_DIR$/webapp/vendor/jakub-onderka/php-console-color" />
+      <path value="$PROJECT_DIR$/webapp/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/webapp/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/webapp/vendor/laravel/tinker" />
+      <path value="$PROJECT_DIR$/webapp/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/webapp/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/webapp/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/webapp/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/webapp/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/webapp/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/webapp/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/webapp/vendor/composer" />
+      <path value="$PROJECT_DIR$/webapp/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/webapp/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/webapp/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/webapp/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/webapp/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/webapp/vendor/fideloper/proxy" />
+      <path value="$PROJECT_DIR$/webapp/vendor/erusev/parsedown" />
+      <path value="$PROJECT_DIR$/webapp/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/webapp/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/webapp/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/webapp/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/webapp/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/webapp/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/webapp/vendor/dnoegel/php-xdg-base-dir" />
+      <path value="$PROJECT_DIR$/webapp/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/webapp/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/webapp/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/webapp/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/webapp/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/webapp/vendor/doctrine/instantiator" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="697" />
+    <option name="height" value="745" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="adminlayouts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="gianhang" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="sanpham" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="luanvanTN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="luanvanTN" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6163d6a7-69cb-4353-8f15-67b1fa57e4ca" name="Default" comment="" />
+      <created>1534569989486</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1534569989486</updated>
+      <workItem from="1534570016535" duration="576000" />
+      <workItem from="1534859036720" duration="4576000" />
+      <workItem from="1534922578845" duration="7147000" />
+      <workItem from="1534940483991" duration="569000" />
+      <workItem from="1534942697015" duration="384000" />
+      <workItem from="1534943964930" duration="835000" />
+      <workItem from="1534954236085" duration="599000" />
+      <workItem from="1534987714393" duration="226000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="14912000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25113463" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info active="true" anchor="right" id="Database" order="3" visible="true" weight="0.32980332" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.45192307" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/webapp/composer.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/backend/gianhang/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="25" column="63" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/adminlayouts/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2805">
+          <caret line="187" column="59" selection-start-line="187" selection-start-column="59" selection-end-line="187" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/app/Http/Controllers/GianHangController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/backend/sanpham/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/app/Http/Controllers/SanPhamController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/backend/gianhang/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="25" column="63" lean-forward="true" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/adminlayouts/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2805">
+          <caret line="187" column="59" selection-start-line="187" selection-start-column="59" selection-end-line="187" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/backend/sanpham/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/app/Http/Controllers/SanPhamController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="45" lean-forward="true" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/app/Http/Controllers/GianHangController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/adminlayouts/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2280">
+          <caret line="152" column="55" selection-start-line="152" selection-start-column="55" selection-end-line="152" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/public/adminlayouts/horizontal/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="10" lean-forward="true" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/adminlayouts/a.blade.php" />
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/a.blade.php" />
+    <entry file="file://$PROJECT_DIR$/webapp/public/adminlayouts/horizontal/assets/plugins/raphael/raphael-min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/public/adminlayouts/horizontal/tables-responsive.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/public/adminlayouts/horizontal/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4078">
+          <caret line="285" column="75" selection-start-line="285" selection-start-column="66" selection-end-line="285" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/public/adminlayouts/horizontal/tables-datatable.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="1386" column="7" selection-start-line="1386" selection-start-column="7" selection-end-line="1386" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/app/Http/Controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/adminlayouts/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="295" column="30" lean-forward="true" selection-start-line="295" selection-start-column="30" selection-end-line="295" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/public/adminlayouts/horizontal/ui-buttons.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="393" column="131" selection-start-line="393" selection-start-column="36" selection-end-line="393" selection-end-column="131" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="25" column="63" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/adminlayouts/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2805">
+          <caret line="187" column="59" selection-start-line="187" selection-start-column="59" selection-end-line="187" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/backend/gianhang/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/resources/views/backend/sanpham/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/app/Http/Controllers/SanPhamController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/app/Http/Controllers/GianHangController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/composer.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+</project>
