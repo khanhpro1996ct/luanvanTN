@@ -161,7 +161,7 @@
                         <ul class="submenu">
                             <li><a href="{{ route('sp.index') }}">Danh sách</a></li>
                             <li><a href="#">Cài đặt giá</a></li>
-                            <li><a href="#">Quản lý danh mục</a></li>
+                            <li><a href="{{ route('dm.index') }}">Quản lý danh mục</a></li>
                         </ul>
                     </li>
 

@@ -17,6 +17,9 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('adminlayouts.home');
 });
+Route::get('/user', function () {
+    return view('userlayouts.index');
+});
 
 Route::group(['prefix' => 'san-pham'], function () {
     Route::get('/', 'SanPhamController@index')->name('sp.index');
@@ -24,6 +27,10 @@ Route::group(['prefix' => 'san-pham'], function () {
 
 Route::group(['prefix' => 'gian-hang'], function () {
     Route::get('/', 'GianHangController@index')->name('gh.index');
+});
+
+Route::group(['prefix' => 'danh-muc-san-pham'], function () {
+    Route::get('/', 'DanhMucSanPhamController@index')->name('dm.index');
 });
 
 Auth::routes();
