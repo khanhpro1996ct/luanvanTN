@@ -12,7 +12,6 @@ class DanhMucSanPhamModel extends Model
     protected $fillable = [
         'id',
         'dm_ten',
-        'isquanly',
         'created_at',
         'updated_at',
     ];

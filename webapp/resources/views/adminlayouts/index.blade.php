@@ -11,6 +11,7 @@
 
     <!-- App Icons -->
     <link rel="shortcut icon" href="{{ url('adminlayouts/horizontal/assets/images/favicon.ico') }}"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="{{ url('adminlayouts/horizontal/assets/plugins/morris/morris.css') }}"/>
@@ -178,7 +179,7 @@
                         <ul class="submenu">
                             <li><a href="#">Danh sách hoa hồng</a></li>
                             <li><a href="#">Lịch sử nhận hoa hồng</a></li>
-                            <li><a href="#">Phân cấp hoa hồng</a></li>
+                            <li><a href="{{ route('pchh.index') }}">Phân cấp hoa hồng</a></li>
                         </ul>
                     </li>
 
@@ -223,12 +224,6 @@
 <script src="{{ url('adminlayouts/horizontal/assets/js/jquery.nicescroll.js') }}"></script>
 <script src="{{ url('adminlayouts/horizontal/assets/js/jquery.scrollTo.min.js') }}"></script>
 
-<!--Morris Chart-->
-{{--<script src="{{ url('adminlayouts/horizontal/assets/plugins/morris/morris.min.js') }}"></script>--}}
-{{--<script src="{{ url('adminlayouts/horizontal/assets/plugins/raphael/raphael-min.js') }}"></script>--}}
-
-{{--<script src="{{ url('adminlayouts/horizontal/assets/pages/dashborad.js') }}"></script>--}}
-
 <!-- Required datatable js -->
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
@@ -241,12 +236,19 @@
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/buttons.html5.min.js') }}"></script>
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/buttons.print.min.js') }}"></script>
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/buttons.colVis.min.js') }}"></script>
+
+
 <!-- Responsive examples -->
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
 
+<!-- Parsley js -->
+<script type="text/javascript" src="{{ url('adminlayouts/horizontal/assets/plugins/parsleyjs/parsley.min.js') }}"></script>
+
 <!-- App js -->
 <script src="{{ url('adminlayouts/horizontal/assets/js/app.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
+@include('adminlayouts.messages')
 @yield('script')
 </body>
 </html>

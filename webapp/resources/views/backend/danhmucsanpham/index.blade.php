@@ -19,9 +19,9 @@
                 <div class="col-12">
                     <div class="card m-b-30">
                         <div class="card-body">
-                            <a style="float: right" class="btn btn-outline-primary waves-effect waves-light">Thêm mới</a>
+                            <a href="{{ route('dm.create') }}" style="float: right" class="btn btn-outline-primary waves-effect waves-light">Thêm mới</a>
                             <h4 class="mt-0 header-title">Danh Sách Danh Mục</h4>
-                            <table class="table table-hover">
+                            <table style="text-align: center" class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>STT</th>
@@ -30,11 +30,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Caesar Vance</td>
-                                    <td>Pre-Sales Support</td>
-                                    <td>Pre-Sales Support</td>
-                                </tr>
+                                @foreach($data as $val)
+                                    <tr>
+                                        <td>{{ $val->stt }}</td>
+                                        <td>{{ $val->dm_ten }}</td>
+                                        <td>
+                                            <a href="{{ route('dm.edit',$val->id) }}" class="btn btn-outline-primary waves-effect waves-light"
+                                               onclick="return confirm('Bạn muốn cập nhật danh mục sản phẩm này ?')">
+                                                <i class="mdi mdi-tooltip-edit"></i>Sửa
+                                            </a>
+                                            <a href="{{ route('dm.destroy',$val->id) }}" class="btn btn-outline-danger waves-effect waves-light"
+                                               onclick="return confirm('Bạn có chắc chắn xóa danh mục sản phẩm này ?')">
+                                                <i class="mdi mdi-delete-sweep"></i> Xóa
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
