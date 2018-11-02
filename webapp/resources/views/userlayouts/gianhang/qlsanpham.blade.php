@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html>
 @include('userlayouts.thehead')
+
 <style>
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
+    .khanh {
+        color: black !important;
+        border-bottom: 1px solid !important;
     }
 
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #dddddd;
+    .khanh1 {
+        color: black !important;
+        border: 0.5px solid !important;
     }
 
     .rownew {
@@ -35,8 +30,10 @@
                 <a href="{{ url('user') }}">Trang chủ</a>
                 <span>|</span>
             </li>
-            <li><a href="#">Gian hàng</a><span>|</span></li>
-            <li>Quản lý sản phẩm</li>
+            <li><a href="{{ route('gh.profileGianHang') }}">Gian hàng @if(!empty(Auth::user()))
+                        : {{ Auth::user()->phone }}@else:@endif</a><span>|</span></li>
+            <li><a href="{{ url('gian-hang/quan-ly-san-pham') }}">Quản lý sản phẩm</a><span>|</span></li>
+            <li>Danh sách sản phẩm</li>
         </ul>
     </div>
 </div>
@@ -54,48 +51,80 @@
         </nav>
     </div>
     <div class="w3l_banner_nav_right" style="margin-bottom: 15px;">
-        <div class="row rownew">
-            <div class="col-md-12">
-                <table>
-                    <thead style="text-align: center">
-                    <tr>
-                        <th>STT</th>
-                        <th>Danh Mục</th>
-                        <th>Tên Sản Phẩm</th>
-                        <th>Giá Bán</th>
-                        <th>Giá Khuyến Mãi</th>
-                        <th>Số Lượng Còn Lại</th>
-                        <th>Ảnh</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($data as $val)
+        <div class="w3_login_module">
+            <div class="row rownew">
+                <div class="col-md-12">
+                    <table id="datatable" class="table table-bordered khanh">
+                        <thead>
                         <tr>
-                            <td>{{ $val->stt }}</td>
-                            <td>{{ $val->dm_ten }}</td>
-                            <td>{{ $val->sp_ten }}</td>
-                            <td>{{ $val->gia_goc }}</td>
-                            <td>{{ $val->gia_km }}</td>
-                            <td>{{ $val->sp_so_luong }}</td>
-                            <td>
-                                <img src="{{url('upload')}}/{{ $val->sp_image }}" width="50px" height="50px">
-                            </td>
-                            <td>
-                                <a class="btn btn-warning">Sửa</a>
-                                <a class="btn btn-danger">Xóa</a>
-                            </td>
+                            <th class="khanh">Stt</th>
+                            <th class="khanh">Danh mục</th>
+                            <th class="khanh">Tên sản phẩm</th>
+                            <th class="khanh">Giá bán</th>
+                            <th class="khanh">Giá khuyến mãi</th>
+                            <th class="khanh">SL còn lại</th>
+                            <th class="khanh">Ảnh</th>
+                            <th class="khanh"></th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($data as $val)
+                            <tr>
+                                <td class="khanh1">{{ $val->stt }}</td>
+                                <td class="khanh1">{{ $val->dm_ten }}</td>
+                                <td class="khanh1">{{ $val->sp_ten }}</td>
+                                <td class="khanh1">{{ number_format($val->gia_goc) }} vnđ</td>
+                                <td class="khanh1">{{ number_format($val->gia_km) }} vnđ</td>
+                                <td class="khanh1">{{ $val->sp_so_luong }}</td>
+                                <td class="khanh1">
+                                    <img src="{{url('upload')}}/{{ $val->sp_image }}" width="30px" height="30px"
+                                         alt="No image">
+                                </td>
+                                <td class="khanh1">
+                                    <a href="{{ route('gh.cnsanpham',$val->id) }}" class="btn btn-warning">Sửa</a>
+                                    <a href="{{ route('gh.xsanphamDestroy',$val->id) }}"
+                                       class="btn btn-danger">Xóa</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
     <div class="clearfix"></div>
 </div>
 @include('userlayouts.footer')
-<script src="{{ url('userlayouts/webuser/js/bootstrap.min.js') }}"></script>
+
+
+<!-- DataTables -->
+<link href="{{ url('adminlayouts/horizontal/assets/plugins/datatables/dataTables.bootstrap4.min.css') }}"
+      rel="stylesheet" type="text/css"/>
+<link href="{{ url('adminlayouts/horizontal/assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet"
+      type="text/css"/>
+
+<!-- Responsive datatable examples -->
+<link href="{{ url('adminlayouts/horizontal/assets/plugins/datatables/responsive.bootstrap4.min.css') }}"
+      rel="stylesheet" type="text/css"/>
+
+<!-- Required datatable js -->
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<!-- Buttons examples -->
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/jszip.min.js') }}"></script>
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/pdfmake.min.js') }}"></script>
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/vfs_fonts.js') }}"></script>
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/buttons.html5.min.js') }}"></script>
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/buttons.print.min.js') }}"></script>
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/buttons.colVis.min.js') }}"></script>
+
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+<script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
+
+{{--<script src="{{ url('userlayouts/webuser/js/bootstrap.min.js') }}"></script>--}}
 <script>
     $(document).ready(function () {
         $(".dropdown").hover(
@@ -143,6 +172,11 @@
             console.log(document.getElementById('fileAvatar').value);
         }
     }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datatable').DataTable();
+    });
 </script>
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>

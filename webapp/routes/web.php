@@ -72,27 +72,8 @@ Route::group(['prefix' => 'san-pham'], function () {
     Route::get('/', 'SanPhamController@index')->name('sp.index');
 });
 
-Route::group(['prefix' => 'gian-hang'], function () {
-    Route::get('/', 'GianHangController@index')->name('gh.index');
-
-    Route::get('/resgiter', 'GianHangController@resgiterGH')->name('gh.resgiterGH');
-    Route::post('/resgiter/add', 'GianHangController@regesterStore')->name('gh.regesterStore');
-
-    Route::get('/quan-ly-san-pham', 'GianHangController@qlsanpham')->name('gh.qlsanpham');
-
-    // thêm sản phẩm của gian hàng
-    Route::get('/quan-ly-san-pham/add', 'GianHangController@tmsanpham')->name('gh.tmsanpham');
-    Route::post('/quan-ly-san-pham/add', 'GianHangController@sanphamstore')->name('gh.sanphamstore');
-
-    Route::get('/quan-ly-san-pham/edit', 'GianHangController@cnsanpham')->name('gh.cnsanpham');
-});
-
-Route::group(['prefix' => 'nguoi-dung'], function () {
-
-    Route::get('/resgiter', 'UserController@registerND')->name('registerND');
-
-    Route::get('/resgiter', 'UserController@registerND')->name('registerND');
-});
+@include('gianhang.php');
+@include('nguoidung.php');
 
 Route::group(['prefix' => 'danh-muc-san-pham'], function () {
     Route::get('/', 'DanhMucSanPhamController@index')->name('dm.index');

@@ -21,12 +21,24 @@
     <div class="w3l_header_right">
         <ul>
             <li class="dropdown profile_details_drop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span
-                            class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    @if(!empty(Auth::user()))
+                        {{ Auth::user()->phone }}
+                    @else
+                    @endif<i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="caret"></span>
+                </a>
                 <div class="mega-dropdown-menu">
                     <div class="w3ls_vegetables">
                         <ul class="dropdown-menu drp-mnu">
                             @if(!empty(Auth::user()))
+                                <li>
+                                    <a href="{{ route('gh.profileGianHang') }}"><i
+                                                class="fa fa-phone"></i> {{ Auth::user()->phone }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('gh.profileGianHang') }}"><i class="fa fa-user"></i> Profile</a>
+                                </li>
                                 <li>
                                     <a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Đăng xuất</a>
                                 </li>

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SanPhamRequest extends FormRequest
+class SanPhamEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,6 @@ class SanPhamRequest extends FormRequest
             [
                 'sp_ten' => 'required',
                 'sp_so_luong' => 'required|numeric|min:0',
-                'file' => 'required|mimes:png,jpg',
                 'gia_goc' => 'required|numeric|min:0',
                 'gia_km' => 'numeric',
             ];
@@ -41,8 +40,6 @@ class SanPhamRequest extends FormRequest
                 'sp_so_luong.required' => 'Số lượng không được trống !',
                 'sp_so_luong.numeric' => 'Số lượng phải là số !',
                 'sp_so_luong.min' => 'Số lượng thấp nhất là 0 !',
-                'file.required' => 'Ảnh sản phẩm không được trống !',
-                'file.mimes' => 'Không phải ảnh !',
                 'gia_goc.required' => 'Giá bán không được trống !',
                 'gia_goc.numeric' => 'Giá bán phải là số !',
                 'gia_goc.min' => 'Giá bán thấp nhất là 0 vnđ !',

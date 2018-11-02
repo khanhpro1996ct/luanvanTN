@@ -32,7 +32,8 @@
         <ul>
             <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ url('user') }}">Trang chủ</a><span>|</span>
             </li>
-            <li><a href="#">Gian hàng</a><span>|</span></li>
+            <li><a href="{{ route('gh.profileGianHang') }}">Gian hàng</a><span>|</span></li>
+            <li><a href="{{ url('gian-hang/quan-ly-san-pham') }}">Quản lý sản phẩm</a><span>|</span></li>
             <li>Cập nhật sản phẩm</li>
         </ul>
     </div>
@@ -59,40 +60,70 @@
                     </div>
                     <div class="form">
                         <h2>Cập Nhật Sản Phẩm Mới Cho Gian Hàng Của Bạn</h2>
-                        <form action="#" method="post">
+                        <form action="{{ route('gh.cnsanphamStore',$data->sp_id) }}" method="post" enctype="multipart/form-data">
+                            @csrf
                             <label class="labelnew"><span style="color: red;">(*)</span> Danh Mục :</label>
                             <div class="form-group">
                                 <select class="form-control" name="dm_ten">
                                     <option value="">---</option>
                                     @foreach ($danhmuc as $key => $value)
-                                        <option value="{{ $value->id }}">{{ $value->dm_ten }}</option>
+                                        @if($value->id == $data->id_danh_muc)
+                                            <option value="{{ $value->id }}" selected>{{ $value->dm_ten }}</option>
+                                        @else
+                                            <option value="{{ $value->id }}">{{ $value->dm_ten }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Tên Sản Phẩm :</label>
-                            <input type="password" name="sp_ten" placeholder="Tên sản phẩm" required=" ">
+                            <input required value="{{ $data->sp_ten }}" type="text" name="sp_ten"
+                                   placeholder="Tên sản phẩm">
+                            @if ($errors->has('sp_ten'))
+                                <p class="erorr">{{ $errors->first('sp_ten') }}</p>
+                            @endif
 
-                            <label class="labelnew"><span style="color: red;">(*)</span> Số Lượng Hiện Có :</label>
-                            <input type="password" name="sp_so_luong" placeholder="Số lượng có trong của hàng" required=" ">
+                            <label class="labelnew"><span style="color: red;">(*)</span> Số Lượng Trong Kho :</label>
+                            <input required value="{{ $data->sp_so_luong }}" type="text" name="sp_so_luong"
+                                   placeholder="Số lượng có trong của hàng">
+                            @if ($errors->has('sp_so_luong'))
+                                <p class="erorr">{{ $errors->first('sp_so_luong') }}</p>
+                            @endif
 
                             <label class="labelnew" style="width: 100%;">Ảnh sản phẩm :</label>
                             <div style="display: flex;">
-                                <img class="imgnew" id="avatar" src="{{url('upload')}}/image.png" alt="your image"/>
+                                @if(empty($data->sp_image))
+                                    <img class="imgnew" id="avatar" src="{{url('upload')}}/image.png" alt="your image"/>
+                                @else
+                                    <img class="imgnew" id="avatar" src="{{url('upload',$data->sp_image)}}"
+                                         alt="your image"/>
+                                @endif
                             </div>
                             <br>
                             <input type='file' name="file" onchange="readURL(this)"/>
                             <br>
+                            @if ($errors->has('file'))
+                                <p class="erorr">{{ $errors->first('file') }}</p>
+                            @endif
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Giá Bán :</label>
-                            <input type="email" name="gia_goc" placeholder=" vd: {{ number_format(30000) }} vnđ" required=" ">
+                            <input required value="{{ $data->gia_goc }}" type="text" name="gia_goc"
+                                   placeholder=" vd: {{ number_format(30000) }} vnđ">
+                            @if ($errors->has('gia_goc'))
+                                <p class="erorr">{{ $errors->first('gia_goc') }}</p>
+                            @endif
 
-                            <label class="labelnew"><span style="color: red;">(*)</span> Giá Khuyến Mãi :</label>
-                            <p style="font-size: 12px;color: red;" class="help-block">Lưu ý : Giá khuyến mãi nhỏ hơn giá bán hoặc không nhập giá khuyến mãi !</p>
-                            <input type="text" name="gia_km" placeholder="vd: {{  number_format(25000) }} vnđ" required=" ">
+                            <label class="labelnew">Giá Khuyến Mãi :</label>
+                            <p style="font-size: 12px;color: red;" class="help-block">Lưu ý : Giá khuyến mãi nhỏ hơn giá
+                                bán hoặc không nhập giá khuyến mãi !</p>
+                            <input value="{{ $data->gia_km }}" type="text" name="gia_km"
+                                   placeholder="vd: {{  number_format(25000) }} vnđ">
+                            @if ($errors->has('gia_goc'))
+                                <p class="erorr">{{ $errors->first('gia_goc') }}</p>
+                            @endif
 
                             <br>
-                            <input disabled id="btnsm" type="submit" value="Cập nhật">
+                            <input id="btnsm" type="submit" value="Cập nhật">
                         </form>
                     </div>
                 </div>
@@ -148,9 +179,11 @@
                 $("#avatar").attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
-            console.log(document.getElementById('fileAvatar').value);
         }
     }
 </script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
+@include('userlayouts.messages')
 </body>
 </html>

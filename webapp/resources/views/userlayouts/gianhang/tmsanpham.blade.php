@@ -39,7 +39,8 @@
         <ul>
             <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ url('user') }}">Trang chủ</a><span>|</span>
             </li>
-            <li><a href="#">Gian hàng</a><span>|</span></li>
+            <li><a href="{{ route('gh.profileGianHang') }}">Gian hàng @if(!empty(Auth::user())): {{ Auth::user()->phone }}@else:@endif</a><span>|</span></li>
+            <li><a href="{{ url('gian-hang/quan-ly-san-pham') }}">Quản lý sản phẩm</a><span>|</span></li>
             <li>Thêm mới sản phẩm</li>
         </ul>
     </div>
@@ -66,7 +67,7 @@
                     </div>
                     <div class="form">
                         <h2>Thêm Sản Phẩm Mới Cho Gian Hàng Của Bạn</h2>
-                        <form action="{{ route('gh.sanphamstore') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('gh.tmsanphamStore') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <label class="labelnew"><span style="color: red;">(*)</span> Danh Mục :</label>
                             <div class="form-group">
@@ -170,7 +171,6 @@
                 $("#avatar").attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
-            console.log(document.getElementById('fileAvatar').value);
         }
     }
 </script>

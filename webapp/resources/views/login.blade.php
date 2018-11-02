@@ -70,7 +70,7 @@
                     </div>
                     <div class="form">
                         <h2>Đăng ký tài khoản mới</h2>
-                        <form action="#" method="post">
+                        <form action="{{ route('registerNDstore') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <label class="labelnew"><span style="color: red;">(*)</span> Số điện thoại :</label>
                             <input value="{{ old('phone') }}" type="text" name="phone" placeholder="Số điện thoại"
@@ -83,7 +83,7 @@
                             <input type="password" name="repassword" placeholder="Mật khẩu" required=" ">
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Tên người dùng :</label>
-                            <input value="{{ old('kh_ten') }}" type="email" name="kh_ten" placeholder="Tên người dùng"
+                            <input value="{{ old('kh_ten') }}" type="text" name="kh_ten" placeholder="Tên người dùng"
                                    required=" ">
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Địa chỉ email :</label>
@@ -91,16 +91,13 @@
                                    required=" ">
 
                             <label class="labelnew">Địa chỉ :</label>
-                            <input value="{{ old('kh_dia_chi') }}" type="text" name="kh_diachi" placeholder="Địa chỉ"
-                                   required=" ">
+                            <input value="{{ old('kh_dia_chi') }}" type="text" name="kh_diachi" placeholder="Địa chỉ">
 
                             <label class="labelnew">CMND :</label>
-                            <input value="{{ old('kh_cmnd') }}" type="text" name="kh_cmnd" placeholder="cmnd"
-                                   required=" ">
+                            <input value="{{ old('kh_cmnd') }}" type="text" name="kh_cmnd" placeholder="cmnd">
 
                             <label class="labelnew" style="width: 100%;">Ngày CMND :</label>
-                            <input value="{{ old('kh_ngay_cap') }}" style="width: 100%;" type="date" name="kh_ngay_cap"
-                                   required=" ">
+                            <input value="{{ old('kh_ngay_cap') }}" style="width: 100%;" type="date" name="kh_ngay_cap">
 
                             <br>
                             <br>
@@ -108,7 +105,7 @@
                             <p class="help-block" style="font-size: 12px;color: red;">
                                 Lưu ý: Nhập chính xác mã người giới thiệu.
                             </p>
-                            <input type="text" name="kh_code" required=" ">
+                            <input type="text" name="kh_code">
 
                             <label class="labelnew" style="width: 100%;">Ảnh đại diện :</label>
                             <div style="display: flex;">
