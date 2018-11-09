@@ -16,6 +16,7 @@ class SanPhamModel extends Model
         'sp_ten',
         'sp_so_luong',
         'sp_image',
+        'sp_description',
         'created_at',
         'updated_at',
     ];

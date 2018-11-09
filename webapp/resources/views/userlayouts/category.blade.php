@@ -7,7 +7,9 @@
             <ul class="nav navbar-nav nav_1">
                 <li><a style="color: red"><b>Danh Mục Sản Phẩm</b></a></li>
                 @foreach($data as $val)
-                    <li><a href="">{{ $val->dm_ten }}</a></li>
+                    <li>
+                        <a href="{{ route('sanphamdanhmuc',$val->id) }}">{{ $val->dm_ten }}</a>
+                    </li>
                 @endforeach
             </ul>
         </div>

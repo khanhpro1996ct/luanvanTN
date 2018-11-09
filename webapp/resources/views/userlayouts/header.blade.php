@@ -33,17 +33,30 @@
                         <ul class="dropdown-menu drp-mnu">
                             @if(!empty(Auth::user()))
                                 <li>
-                                    <a href="{{ route('gh.profileGianHang') }}"><i
-                                                class="fa fa-phone"></i> {{ Auth::user()->phone }}</a>
+                                    <a href="{{ route('gh.profileGianHang') }}">
+                                        <i class="fa fa-phone"></i>
+                                        {{ Auth::user()->phone }}
+                                    </a>
                                 </li>
-                                <li>
-                                    <a href="{{ route('gh.profileGianHang') }}"><i class="fa fa-user"></i> Profile</a>
-                                </li>
+                                @if(Auth::user()->role == 1)
+                                    <li>
+                                        <a href="{{ route('gh.profileGianHang') }}">
+                                            <i class="fa fa-user"></i> Profile
+                                        </a>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ route('nd.profileND') }}">
+                                            <i class="fa fa-user"></i> Profile
+                                        </a>
+                                    </li>
+                                @endif
                                 <li>
                                     <a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Đăng xuất</a>
                                 </li>
                             @else
-                                <li><a href="{{ url('user/login') }}"><i class="fa fa-user"></i> Đăng nhập</a></li>
+                                <li><a href="{{ url('user/login') }}"><i class="fa fa-user"></i> Đăng nhập</a>
+                                </li>
                             @endif
                         </ul>
                     </div>
@@ -77,7 +90,12 @@
         </div>
         <div class="w3ls_logo_products_left1">
             <ul class="special_items">
-                <li><a href="{{ route('gh.qlsanpham') }}">Quản lý sản phẩm</a><i>/</i></li>
+                @if(!empty(Auth::user()) && (Auth::user()->role == 1))
+                    <li>
+                        <a href="{{ route('gh.qlsanpham') }}">Quản lý sản phẩm</a><i>/</i>
+                    </li>
+                @else
+                @endif
                 <li><a href="about.html">Lợi nhuận</a><i>/</i></li>
                 <li><a href="about.html">Về chúng tôi</a><i>/</i></li>
                 <li><a href="products.html">Sản phẩm ưu đãi</a><i>/</i></li>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 @include('userlayouts.thehead')
-
 <style>
     .labelnew {
         margin-bottom: 5px;
@@ -16,14 +15,8 @@
         border-radius: 30px;
     }
 </style>
-
 <body>
-
-<!-- header -->
 @include('userlayouts.header')
-<!-- //header -->
-
-<!-- products-breadcrumb -->
 <div class="products-breadcrumb">
     <div class="container">
         <ul>
@@ -32,24 +25,9 @@
         </ul>
     </div>
 </div>
-<!-- //products-breadcrumb -->
-
-<!-- banner -->
 <div class="banner">
-    <div class="w3l_banner_nav_left">
-        <nav class="navbar nav_bottom">
-            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-                <ul class="nav navbar-nav nav_1">
-                    <li><a style="color: red"><b>Danh Mục Sản Phẩm</b></a></li>
-                    @foreach($data as $val)
-                        <li><a href="">{{ $val->dm_ten }}</a></li>
-                    @endforeach
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </nav>
-    </div>
+    @include('userlayouts.category')
     <div class="w3l_banner_nav_right">
-        <!-- login -->
         <div class="w3_login">
             <h3>Đăng Nhập</h3>
             <div class="w3_login_module">
@@ -74,21 +52,23 @@
                             @csrf
                             <label class="labelnew"><span style="color: red;">(*)</span> Số điện thoại :</label>
                             <input value="{{ old('phone') }}" type="text" name="phone" placeholder="Số điện thoại"
-                                   required=" ">
+                                   required>
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Mật khẩu :</label>
-                            <input type="password" name="password" placeholder="Mật khẩu" required=" ">
+                            <input type="password" name="password" placeholder="Mật khẩu"
+                                   required>
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Nhập lại mật khẩu :</label>
-                            <input type="password" name="repassword" placeholder="Mật khẩu" required=" ">
+                            <input type="password" name="repassword" placeholder="Mật khẩu"
+                                   required>
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Tên người dùng :</label>
                             <input value="{{ old('kh_ten') }}" type="text" name="kh_ten" placeholder="Tên người dùng"
-                                   required=" ">
+                                   required>
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Địa chỉ email :</label>
                             <input value="{{ old('email') }}" type="text" name="email" placeholder="Địa chỉ email"
-                                   required=" ">
+                                   required>
 
                             <label class="labelnew">Địa chỉ :</label>
                             <input value="{{ old('kh_dia_chi') }}" type="text" name="kh_diachi" placeholder="Địa chỉ">
@@ -105,7 +85,7 @@
                             <p class="help-block" style="font-size: 12px;color: red;">
                                 Lưu ý: Nhập chính xác mã người giới thiệu.
                             </p>
-                            <input type="text" name="kh_code">
+                            <input style="text-transform: uppercase" type="text" name="ma_code_cha">
 
                             <label class="labelnew" style="width: 100%;">Ảnh đại diện :</label>
                             <div style="display: flex;">
@@ -135,9 +115,7 @@
             </div>
             <script>
                 $('.toggle').click(function () {
-                    // Switches the Icon
                     $(this).children('i').toggleClass('fa-pencil');
-                    // Switches the forms
                     $('.form').animate({
                         height: "toggle",
                         'padding-top': 'toggle',
@@ -147,16 +125,10 @@
                 });
             </script>
         </div>
-        <!-- //login -->
     </div>
     <div class="clearfix"></div>
 </div>
-<!-- //banner -->
-
-<!-- footer -->
 @include('userlayouts.footer')
-<!-- //footer -->
-<!-- Bootstrap Core JavaScript -->
 <script src="{{ url('userlayouts/webuser/js/bootstrap.min.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -172,44 +144,27 @@
         );
     });
 </script>
-<!-- here stars scrolling icon -->
 <script type="text/javascript">
     $(document).ready(function () {
-        /*
-            var defaults = {
-            containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear'
-            };
-        */
-
         $().UItoTop({easingType: 'easeOutQuart'});
-
     });
 </script>
-<!-- //here ends scrolling icon -->
 <script src="{{ url('userlayouts/webuser/js/minicart.js') }}"></script>
 <script>
     paypal.minicart.render();
-
     paypal.minicart.cart.on('checkout', function (evt) {
         var items = this.items(),
             len = items.length,
             total = 0,
             i;
-
-        // Count the number of each item in the cart
         for (i = 0; i < len; i++) {
             total += items[i].get('quantity');
         }
-
         if (total < 3) {
             alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
             evt.preventDefault();
         }
     });
-
 </script>
 <script type="text/javascript">
     document.getElementById('checbox').onclick = function (e) {
@@ -225,16 +180,13 @@
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
             reader.onload = function (e) {
                 $("#avatar").attr('src', e.target.result);
             };
-
             reader.readAsDataURL(input.files[0]);
             console.log(document.getElementById('fileAvatar').value);
         }
     }
-
 </script>
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>

@@ -41,7 +41,7 @@ class GianHangController extends Controller
                 'password' => Hash::make($pas),
                 'email' => $request->get('email'),
                 'role' => 1,
-                'code' => 'null',
+                'code' => '',
             ]);
             GianHangUserModel::create([
                 'user_id' => $user->id,

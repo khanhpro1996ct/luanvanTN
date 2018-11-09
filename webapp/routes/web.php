@@ -64,16 +64,11 @@ Route::get('/admin', function () {
 
 Route::get('/logout', 'HomeController@logout')->name('admin.logout');
 
-Route::get('/user', 'FrontEndController@danhmucsanpham');
 
-Route::get('/user/login', 'FrontEndController@danhmucsanphamLogin');
-
-Route::group(['prefix' => 'san-pham'], function () {
-    Route::get('/', 'SanPhamController@index')->name('sp.index');
-});
-
+@include('frontend.php');
 @include('gianhang.php');
 @include('nguoidung.php');
+@include('sanpham.php');
 
 Route::group(['prefix' => 'danh-muc-san-pham'], function () {
     Route::get('/', 'DanhMucSanPhamController@index')->name('dm.index');

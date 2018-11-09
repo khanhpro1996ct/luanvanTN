@@ -11,6 +11,7 @@
     .khanh1 {
         color: black !important;
         border: 0.5px solid !important;
+        font-size: 12px !important;
     }
 
     .rownew {
@@ -77,7 +78,7 @@
                                 <td class="khanh1">{{ number_format($val->gia_km) }} vnđ</td>
                                 <td class="khanh1">{{ $val->sp_so_luong }}</td>
                                 <td class="khanh1">
-                                    <img src="{{url('upload')}}/{{ $val->sp_image }}" width="30px" height="30px"
+                                    <img src="{{url('upload')}}/{{ $val->sp_image }}" width="25px" height="25px"
                                          alt="No image">
                                 </td>
                                 <td class="khanh1">
