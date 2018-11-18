@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html>
 @include('userlayouts.thehead')
+<style>
+    .singlerow {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .gia {
+        font-size: 13px !important;
+    }
+
+    .khungSP {
+        height: 320px;
+        margin-bottom: 10px !important;
+    }
+</style>
 <body>
 @include('userlayouts.header')
 <div class="products-breadcrumb">
@@ -114,7 +132,7 @@
         <h3>Sản Phẩm Khuyến Mãi</h3>
         <div class="agile_top_brands_grids">
             @foreach($sanpham as $value)
-                <div class="col-md-3 top_brand_left">
+                <div class="col-md-3 top_brand_left khungSP">
                     <div class="hover14 column">
                         <div class="agile_top_brand_left_grid">
                             <div class="tag">
@@ -125,16 +143,16 @@
                                 <figure>
                                     <div class="snipcart-item block">
                                         <div class="snipcart-thumb">
-                                            <a href="#">
+                                            <a href="{{ route('singelproduct',$value->id_sp) }}">
                                                 <img style="width: 120px;height: 140px"
-                                                     src="{{url('upload')}}/{{ $value['image_sp'] }}"/>
+                                                     src="{{url('upload')}}/{{ $value->image_sp }}"/>
                                             </a>
-                                            <p>{{ $value['ten_sp'] }}</p>
-                                            @if($value['gia_km_sp'] == 0)
-                                                <h4>{{ number_format($value['gia_goc_sp']) }} vnđ</h4>
+                                            <p class="singlerow">{{ $value->ten_sp }}</p>
+                                            @if($value->gia_km_sp == 0)
+                                                <h4 class="gia">đ{{ number_format($value->gia_goc_sp) }}</h4>
                                             @else
-                                                <h4>{{ number_format($value['gia_km_sp']) }} vnđ
-                                                    <span>{{ number_format($value['gia_goc_sp']) }}vnđ</span>
+                                                <h4 class="gia">đ{{ number_format($value->gia_km_sp) }}
+                                                    <span>đ{{ number_format($value->gia_goc_sp) }}</span>
                                                 </h4>
                                             @endif
                                         </div>
@@ -145,10 +163,18 @@
                                                     <input type="hidden" name="add" value="1"/>
                                                     <input type="hidden" name="business" value=" "/>
                                                     <input type="hidden" name="item_name"
-                                                           value="Fortune Sunflower Oil"/>
-                                                    <input type="hidden" name="amount" value="7.99"/>
-                                                    <input type="hidden" name="discount_amount" value="1.00"/>
-                                                    <input type="hidden" name="currency_code" value="USD"/>
+                                                           value="{{ $value->ten_sp }}"/>
+                                                    @if($value->gia_km_sp == 0)
+                                                        <input type="hidden" name="amount"
+                                                               value="{{ $value->gia_goc_sp }}"/>
+                                                    @else
+                                                        <input type="hidden" name="amount"
+                                                               value="{{ $value->gia_km_sp }}"/>
+                                                    @endif
+
+                                                    <input type="hidden" name="discount_amount"
+                                                           value="{{ $value->gia_km_sp }}"/>
+                                                    <input type="hidden" name="currency_code" value="VND"/>
                                                     <input type="hidden" name="return" value=" "/>
                                                     <input type="hidden" name="cancel_return" value=" "/>
                                                     <input type="submit" name="submit" value="Thêm Giỏ Hàng"
@@ -164,6 +190,7 @@
                 </div>
             @endforeach
             <div class="clearfix"></div>
+            {{ $sanpham->links() }}
         </div>
     </div>
 </div>
@@ -238,6 +265,22 @@
         </div>
     </div>
 </div>
+
+<div class="newsletter">
+    <div class="container">
+        <div class="w3agile_newsletter_left">
+            <h3>Đăng ký nhận bản tin của chúng tôi</h3>
+        </div>
+        <div class="w3agile_newsletter_right">
+            <form action="#" method="post">
+                <input type="email" name="Email" value="Email" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                <input type="submit" value="subscribe now">
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
 <!-- //fresh-vegetables -->
 @include('userlayouts.footer')
 @yield('script')
@@ -289,7 +332,7 @@
             total += items[i].get('quantity');
         }
 
-        if (total < 3) {
+        if (total < 0) {
             alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
             evt.preventDefault();
         }

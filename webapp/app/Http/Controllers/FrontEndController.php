@@ -22,7 +22,7 @@ class FrontEndController extends Controller
             ->join('users', 'users.id', '=', 'san_pham.id_gian_hang')
             ->join('users_gian_hang', 'users.id', '=', 'users_gian_hang.user_id')
             ->where('san_pham_gia.gia_km', '>', 0)
-//            ->orderByRaw('san_pham.created_at desc')
+            ->orderByRaw('san_pham.created_at desc')
             ->select([
                 'san_pham.id as id_sp',
                 'san_pham.sp_ten as ten_sp',
@@ -32,8 +32,8 @@ class FrontEndController extends Controller
                 'san_pham_gia.gia_km as gia_km_sp',
                 'san_pham_danh_muc.dm_ten as dm_sp',
                 'users_gian_hang.gh_ten as gh_sp',
-            ])->get()->toArray();
-//        $sanpham = $sanpham->paginate(6);
+            ]);
+        $sanpham = $sanpham->paginate(8);
 //        dd($sanpham);
         return view('userlayouts.index', compact('data', 'sanpham'));
     }
@@ -47,7 +47,8 @@ class FrontEndController extends Controller
     //
     public function order()
     {
-        return view('userlayouts.sanpham.order');
+        $data = $this->data();
+        return view('userlayouts.sanpham.order', compact('data'));
     }
 
     // trang sản phẩm theo danh mục
@@ -68,8 +69,8 @@ class FrontEndController extends Controller
                 'san_pham_gia.gia_km as gia_km_sp',
                 'san_pham_danh_muc.dm_ten as dm_sp',
                 'users_gian_hang.gh_ten as gh_sp',
-            ])
-            ->get()->toArray();
+            ]);
+        $sanpham = $sanpham->paginate(8);
         $danhmuc = DanhMucSanPhamModel::where('id', $id)->first()->dm_ten;
 //        dd($danhmuc);
 //        dd($sanpham);
@@ -111,8 +112,28 @@ class FrontEndController extends Controller
                 'san_pham_gia.gia_km as gia_km_sp',
                 'san_pham_danh_muc.dm_ten as dm_sp',
                 'users_gian_hang.gh_ten as gh_sp',
-            ])
-            ->get()->toArray();
+            ]);
+        $sanpham = $sanpham->paginate(4);
         return view('userlayouts.sanpham.singleproduct', compact('sanpham', 'danhmuc', 'sanphamsigle', 'data'));
+    }
+
+    // về chúng tôi
+    public function about()
+    {
+        $data = DanhMucSanPhamModel::all();
+        return view('userlayouts.about', compact('data'));
+    }
+
+    // services.blade.php
+    public function services()
+    {
+        $data = DanhMucSanPhamModel::all();
+        return view('userlayouts.services', compact('data'));
+    }
+
+    // secret
+    public function secret()
+    {
+        return view('userlayouts.secret', compact('data'));
     }
 }

@@ -2,6 +2,10 @@
 // trang chủ
 Route::get('/user', 'FrontEndController@trangchu');
 
+Route::get('/about', 'FrontEndController@about')->name('about');
+Route::get('/services', 'FrontEndController@services')->name('services');
+Route::get('/secret', 'FrontEndController@secret')->name('secret');
+
 // trang đơm hàng
 Route::post('/order', 'FrontEndController@order')->name('order');
 

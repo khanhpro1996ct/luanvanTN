@@ -51,54 +51,59 @@
                         <form action="{{ route('registerNDstore') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <label class="labelnew"><span style="color: red;">(*)</span> Số điện thoại :</label>
-                            <input value="{{ old('phone') }}" type="text" name="phone" placeholder="Số điện thoại"
+                            <input value="{{ old('phone') }}" type="text" name="phone"
+                                   placeholder="Nhập số điện thoại của bạn"
                                    required>
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Mật khẩu :</label>
-                            <input type="password" name="password" placeholder="Mật khẩu"
+                            <input type="password" name="password" placeholder="Tối thiểu 6 kí tự bao gồm cả chữ và số"
                                    required>
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Nhập lại mật khẩu :</label>
-                            <input type="password" name="repassword" placeholder="Mật khẩu"
+                            <input type="password" name="repassword"
+                                   placeholder="Tối thiểu 6 kí tự bao gồm cả chữ và số"
                                    required>
 
-                            <label class="labelnew"><span style="color: red;">(*)</span> Tên người dùng :</label>
-                            <input value="{{ old('kh_ten') }}" type="text" name="kh_ten" placeholder="Tên người dùng"
+                            <label class="labelnew"><span style="color: red;">(*)</span> Tên :</label>
+                            <input value="{{ old('kh_ten') }}" type="text" name="kh_ten" placeholder="Họ Tên"
                                    required>
 
                             <label class="labelnew"><span style="color: red;">(*)</span> Địa chỉ email :</label>
-                            <input value="{{ old('email') }}" type="text" name="email" placeholder="Địa chỉ email"
+                            <input value="{{ old('email') }}" type="text" name="email"
+                                   placeholder="Vui lòng nhập email của bạn"
                                    required>
+                            {{--<label class="labelnew">Ngày sinh :</label>--}}
+                            {{--<input value="{{ old('kh_ngay_cap') }}" style="width: 100%;" type="date" name="kh_ngay_cap">--}}
 
-                            <label class="labelnew">Địa chỉ :</label>
-                            <input value="{{ old('kh_dia_chi') }}" type="text" name="kh_diachi" placeholder="Địa chỉ">
+                            {{--<label class="labelnew">Địa chỉ :</label>--}}
+                            {{--<input value="{{ old('kh_dia_chi') }}" type="text" name="kh_diachi" placeholder="Địa chỉ">--}}
 
-                            <label class="labelnew">CMND :</label>
-                            <input value="{{ old('kh_cmnd') }}" type="text" name="kh_cmnd" placeholder="cmnd">
+                            {{--<label class="labelnew">CMND :</label>--}}
+                            {{--<input value="{{ old('kh_cmnd') }}" type="text" name="kh_cmnd" placeholder="cmnd">--}}
 
-                            <label class="labelnew" style="width: 100%;">Ngày CMND :</label>
-                            <input value="{{ old('kh_ngay_cap') }}" style="width: 100%;" type="date" name="kh_ngay_cap">
+                            {{--<label class="labelnew" style="width: 100%;">Ngày CMND :</label>--}}
+                            {{--<input value="{{ old('kh_ngay_cap') }}" style="width: 100%;" type="date" name="kh_ngay_cap">--}}
 
-                            <br>
-                            <br>
-                            <label class="labelnew">Mã người giới thiệu :</label>
-                            <p class="help-block" style="font-size: 12px;color: red;">
-                                Lưu ý: Nhập chính xác mã người giới thiệu.
-                            </p>
-                            <input style="text-transform: uppercase" type="text" name="ma_code_cha">
+                            {{--<br>--}}
+                            {{--<br>--}}
+                            {{--<label class="labelnew">Mã người giới thiệu :</label>--}}
+                            {{--<p class="help-block" style="font-size: 12px;color: red;">--}}
+                            {{--Lưu ý: Nhập chính xác mã người giới thiệu.--}}
+                            {{--</p>--}}
+                            {{--<input style="text-transform: uppercase" type="text" name="ma_code_cha">--}}
 
-                            <label class="labelnew" style="width: 100%;">Ảnh đại diện :</label>
-                            <div style="display: flex;">
-                                <img class="imgnew" id="avatar" src="{{url('upload')}}/image.png" alt="your image"/>
-                            </div>
-                            <br>
-                            <input type='file' name="file" onchange="readURL(this)"/>
+                            {{--<label class="labelnew" style="width: 100%;">Ảnh đại diện :</label>--}}
+                            {{--<div style="display: flex;">--}}
+                            {{--<img class="imgnew" id="avatar" src="{{url('upload')}}/image.png" alt="your image"/>--}}
+                            {{--</div>--}}
+                            {{--<br>--}}
+                            {{--<input type='file' name="file" onchange="readURL(this)"/>--}}
 
                             <hr>
-                            <div style="display: -webkit-box;">
+                            <div style=" display: -webkit-box;">
                                 <input id="checbox" type="checkbox" name="checkbox">
                                 <div style="font-size: 13px;margin-left: 5px;">
-                                    Tôi đồng ý với <a href="">Chính sách bảo mật của Chúng Tôi.</a>
+                                    Tôi đồng ý với <a href="{{ route('secret') }}">Chính sách bảo mật của Chúng Tôi.</a>
                                 </div>
                             </div>
                             <br>

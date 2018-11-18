@@ -12,6 +12,8 @@ class NguoiDungModel extends Model
     protected $fillable = [
         'user_id',
         'kh_ten',
+        'kh_gioi_tinh',
+        'kh_ngay_sinh',
         'kh_diachi',
         'kh_cmnd',
         'kh_ngay_cap',

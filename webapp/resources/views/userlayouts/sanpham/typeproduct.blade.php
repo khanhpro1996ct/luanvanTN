@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html>
 @include('userlayouts.thehead')
+<style>
+    .singlerow {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .gia {
+        font-size: 13px !important;
+    }
+
+    .khungSP {
+        height: 320px;
+        margin-bottom: 10px !important;
+    }
+</style>
 <body>
 @include('userlayouts.header')
 <div class="products-breadcrumb">
@@ -35,7 +53,7 @@
             <h3>{{ $danhmuc }}</h3>
             <div class="w3ls_w3l_banner_nav_right_grid1">
                 @foreach($sanpham as $value)
-                    <div class="col-md-3 w3ls_w3l_banner_left">
+                    <div class="col-md-3 w3ls_w3l_banner_left khungSP">
                         <div class="hover14 column">
                             <div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
                                 <div class="agile_top_brand_left_grid_pos">
@@ -46,15 +64,19 @@
                                     <figure>
                                         <div class="snipcart-item block">
                                             <div class="snipcart-thumb">
-                                                <a href="{{ route('singelproduct',$value['id_sp']) }}">
+                                                <a href="{{ route('singelproduct',$value->id_sp) }}">
                                                     <img style="width: 140px;height: 140px"
-                                                         src="{{url('upload')}}/{{ $value['image_sp'] }}"
+                                                         src="{{url('upload')}}/{{ $value->image_sp }}"
                                                          class="img-responsive"/>
                                                 </a>
-                                                <p>{{ $value['ten_sp'] }}</p>
-                                                <h4>{{ number_format($value['gia_km_sp']) }} vnđ
-                                                    <span>{{ number_format($value['gia_goc_sp']) }} vnđ</span>
-                                                </h4>
+                                                <p class="singlerow">{{ $value->ten_sp }}</p>
+                                                @if($value->gia_km_sp == 0)
+                                                    <h4 class="gia">đ{{ number_format($value->gia_goc_sp) }}</h4>
+                                                @else
+                                                    <h4 class="gia">đ{{ number_format($value->gia_km_sp) }}
+                                                        <span>đ{{ number_format($value->gia_goc_sp) }}</span>
+                                                    </h4>
+                                                @endif
                                             </div>
                                             <div class="snipcart-details">
                                                 <form action="#" method="post">
@@ -82,6 +104,7 @@
                     </div>
                 @endforeach
                 <div class="clearfix"></div>
+                {{ $sanpham->links() }}
             </div>
         </div>
     </div>

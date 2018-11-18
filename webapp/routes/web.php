@@ -52,9 +52,7 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/admin', function () {
-    return view('adminlayouts.home');
-});
+
 //Route::get('/user', function () {
 //    return view('userlayouts.index');
 //});
@@ -64,7 +62,7 @@ Route::get('/admin', function () {
 
 Route::get('/logout', 'HomeController@logout')->name('admin.logout');
 
-
+@include('backend.php');
 @include('frontend.php');
 @include('gianhang.php');
 @include('nguoidung.php');

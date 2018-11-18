@@ -15,6 +15,7 @@ class UserController extends Controller
     // dữ liệu lưu thông tin người dùng
     public function registerNDstore(UserAddRequest $request)
     {
+//        dd($request->all());
         $pas = $request->get('password');
         $pasre = $request->get('repassword');
         $code = strtoupper(uniqid());
@@ -44,10 +45,12 @@ class UserController extends Controller
             NguoiDungModel::create([
                 'user_id' => $user->id,
                 'kh_ten' => $request->get('kh_ten'),
-                'kh_dia_chi' => $request->get('kh_diachi'),
-                'kh_cmnd' => $request->get('kh_cmnd'),
-                'kh_ngay_cap' => $request->get('kh_ngay_cap'),
-                'kh_image' => $kh_image,
+//                'kh_gioi_tinh' => "",
+//                'kh_ngay_sinh' => "",
+//                'kh_dia_chi' => "",
+//                'kh_cmnd' => "",
+//                'kh_ngay_cap' => "",
+//                'kh_image' => $kh_image,
             ]);
             HoaHongKhachHangModel::create([
                 'user_id' => $user->id,
@@ -69,6 +72,6 @@ class UserController extends Controller
     public function profileND()
     {
         $data = DanhMucSanPhamModel::all();
-        return view('userlayouts.nguoidung.profile',compact('data'));
+        return view('userlayouts.nguoidung.profile', compact('data'));
     }
 }

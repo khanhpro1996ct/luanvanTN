@@ -96,10 +96,8 @@
                     </li>
                 @else
                 @endif
-                <li><a href="about.html">Lợi nhuận</a><i>/</i></li>
-                <li><a href="about.html">Về chúng tôi</a><i>/</i></li>
-                <li><a href="products.html">Sản phẩm ưu đãi</a><i>/</i></li>
-                <li><a href="services.html">Dịch vụ</a></li>
+                <li><a href="{{ route('about') }}">Về chúng tôi</a><i>/</i></li>
+                <li><a href="{{ route('services') }}">Dịch vụ</a></li>
             </ul>
         </div>
         <div class="w3ls_logo_products_left1">
