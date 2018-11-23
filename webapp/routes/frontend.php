@@ -8,6 +8,7 @@ Route::get('/secret', 'FrontEndController@secret')->name('secret');
 
 // trang đơm hàng
 Route::post('/order', 'FrontEndController@order')->name('order');
+Route::post('/orderStore', 'FrontEndController@orderStore')->name('orderStore');
 
 // trang đang nhập
 Route::get('/user/login', 'FrontEndController@danhmucsanphamLogin');

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\DanhMucSanPhamModel;
+use App\HoaDonModel;
 use App\HoaHongKhachHangModel;
 use App\Http\Requests\UserAddRequest;
 use App\NguoiDungModel;
 use App\UsersModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -72,6 +74,68 @@ class UserController extends Controller
     public function profileND()
     {
         $data = DanhMucSanPhamModel::all();
-        return view('userlayouts.nguoidung.profile', compact('data'));
+        $user = UsersModel::join('users_profile', 'users_profile.user_id', '=', 'users.id')
+            ->join('hoa_hong_khach_hang', 'hoa_hong_khach_hang.user_id', '=', 'users.id')
+            ->where('users.role', '=', 2)
+            ->where('users.id', '=', Auth::user()->id)
+            ->select([
+                'users.id as id',
+                'users.phone as phone',
+                'users.email as email',
+                'users.code as code',
+                'users_profile.kh_ten as ten',
+                'users_profile.kh_gioi_tinh as gioitinh',
+                'users_profile.kh_ngay_sinh as ngaysinh',
+                'users_profile.kh_dia_chi as diachi',
+                'users_profile.kh_cmnd as cmnd',
+                'users_profile.kh_ngay_cap as ngaycap',
+                'users_profile.kh_image as image',
+                'hoa_hong_khach_hang.ma_code_cha as codecha',
+                'hoa_hong_khach_hang.tien_hoa_hong as tienhoahong',
+            ])->get()->first()->toArray();
+//        dd($user);
+        $order = HoaDonModel::join('users', 'users.id', 'hoa_don.id_kh')
+            ->join('users_profile', 'users_profile.user_id', 'hoa_don.id_kh')
+            ->where('hoa_don.id_kh', '=', Auth::user()->id)
+            ->orderByRaw('hoa_don.created_at asc')
+            ->select([
+                'hoa_don.id as idhoadon',
+                'hoa_don.tong_tien as tongtien',
+                'hoa_don.status as status',
+                'hoa_don.ma_hoa_don as mahoadon',
+                'hoa_don.ho_ten as hoten',
+                'hoa_don.sdt_kh as sdt',
+                'hoa_don.dia_chi_giao as diachi',
+            ])->get();
+        $count = count($order);
+        for ($i = 0; $i < $count; $i++) {
+            $order[$i]['stt'] = $i + 1;
+        }
+//        dd($order->toArray());
+        return view('userlayouts.nguoidung.profile', compact('data', 'user', 'order'));
+    }
+
+    public function profileCaNhan()
+    {
+        $user = UsersModel::join('users_profile', 'users_profile.user_id', '=', 'users.id')
+            ->join('hoa_hong_khach_hang', 'hoa_hong_khach_hang.user_id', '=', 'users.id')
+            ->where('users.role', '=', 2)
+            ->where('users.id', '=', Auth::user()->id)
+            ->select([
+                'users.id as id',
+                'users.phone as phone',
+                'users.email as email',
+                'users.code as code',
+                'users_profile.kh_ten as ten',
+                'users_profile.kh_gioi_tinh as gioitinh',
+                'users_profile.kh_ngay_sinh as ngaysinh',
+                'users_profile.kh_dia_chi as diachi',
+                'users_profile.kh_cmnd as cmnd',
+                'users_profile.kh_ngay_cap as ngaycap',
+                'users_profile.kh_image as image',
+                'hoa_hong_khach_hang.ma_code_cha as codecha',
+                'hoa_hong_khach_hang.tien_hoa_hong as tienhoahong',
+            ])->get()->first()->toArray();
+        return view('userlayouts.nguoidung.profilecanhan', compact('user'));
     }
 }

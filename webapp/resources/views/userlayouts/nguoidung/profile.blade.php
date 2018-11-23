@@ -24,7 +24,27 @@
     </div>
 </div>
 <div class="banner">
-    @include('userlayouts.category')
+    <div class="w3l_banner_nav_left">
+        <nav class="navbar nav_bottom">
+            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                <ul class="nav navbar-nav nav_1">
+                    <li><a style="color: red">
+                            <b>Xin chào
+                                {{ \App\NguoiDungModel::where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->get()->first()->kh_ten }}
+                            </b>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('profileCaNhan') }}">Thông tin cá nhân</a>
+                        <a href="#">Đơn hàng của tôi</a>
+                        <a href="#">Sổ địa chỉ</a>
+                        <a href="#">Mã giảm giá</a>
+                        <a href="#">Thông báo của tôi</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
     <div class="w3l_banner_nav_right">
         <div class="w3_login" style="padding-top: 1em">
             <h3 style="font-size: 26px;">Thông tin cá nhân</h3>
@@ -39,6 +59,19 @@
                             <p>Địa chỉ</p>
                             <p>Tiền lợi nhuận đã tích lũy</p>
                         </div>
+                        <div class="col-md-6">
+                            <p></p>
+                            <p>{{ $user['phone'] }}</p><br>
+                            <p>{{ $user['email'] }}</p><br>
+                            <p>{{ $user['diachi'] }}</p><br>
+                            <p>{{ $user['tienhoahong'] }}</p><br>
+                            <p>{{ $user['code'] }}</p><br>
+                            <p>{{ $user['ten'] }}</p><br>
+                            <p>{{ $user['gioitinh'] }}</p><br>
+                            <p>{{ $user['ngaysinh'] }}</p><br>
+                            <p>{{ $user['ngaycap'] }}</p><br>
+                            <p>{{ $user['cmnd'] }}</p><br>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -50,14 +83,25 @@
                             <thead>
                             <tr>
                                 <th class="khanh">Stt</th>
-                                <th class="khanh">Ngày thanh toán</th>
-                                <th class="khanh">Số tiền đã thanh toán</th>
-                                <th class="khanh">Ai thanh toán</th>
-                                <th class="khanh">Ghi chú</th>
-                                <th class="khanh"></th>
+                                <th class="khanh">Mã HĐ</th>
+                                <th class="khanh">Họ & tên</th>
+                                <th class="khanh">Số điện thoại</th>
+                                <th class="khanh">Địa chỉ</th>
+                                <th class="khanh">Trạng thái</th>
                             </tr>
                             </thead>
-
+                            <tbody>
+                            @foreach($order as $item)
+                                <tr>
+                                    <td>{{ $item->stt }}</td>
+                                    <td>{{ $item->mahoadon }}</td>
+                                    <td>{{ $item->hoten }}</td>
+                                    <td>{{ $item->sdt }}</td>
+                                    <td>{{ $item->diachi }}</td>
+                                    <td>{{ $item->status }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -67,6 +111,11 @@
     <div class="clearfix"></div>
 </div>
 @include('userlayouts.footer')
+@if(\Illuminate\Support\Facades\Session::get('clear_session')==1)
+    <script>
+        sessionStorage.clear();
+    </script>
+@endif
 <script src="{{ url('userlayouts/webuser/js/bootstrap.min.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -85,24 +134,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $().UItoTop({easingType: 'easeOutQuart'});
-    });
-</script>
-<script src="{{ url('userlayouts/webuser/js/minicart.js') }}"></script>
-<script>
-    paypal.minicart.render();
-    paypal.minicart.cart.on('checkout', function (evt) {
-        var items = this.items(),
-            len = items.length,
-            total = 0,
-            i;
-        for (i = 0; i < len; i++) {
-            total += items[i].get('quantity');
-        }
-
-        if (total < 3) {
-            alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-            evt.preventDefault();
-        }
     });
 </script>
 <script type="text/javascript">

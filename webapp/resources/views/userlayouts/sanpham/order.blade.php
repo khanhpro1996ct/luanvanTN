@@ -15,155 +15,98 @@
     @include('userlayouts.category')
     <div class="w3l_banner_nav_right">
         <!-- about -->
-        <div class="privacy about">
-            <h3>Giỏ Hàng</h3>
+        {{--{{ dd($order) }}--}}
+        <form action="{{ route('orderStore') }}" method="post">
+            @csrf
+            <div class="privacy about">
+                <h3>Giỏ Hàng</h3>
+                <div class="checkout-right">
+                    <h4>Giỏ hàng của bạn: <span>{{ count($order) }} Sản phẩm</span></h4>
+                    @if($order != null)
+                        <table class="timetable_sub">
+                            <thead>
+                            <tr>
+                                <th>Ảnh</th>
+                                <th>Số lượng</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Thao tác</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($order as $key => $value)
+                                <tr class="rem1">
+                                    <td class="invert-image">
+                                        <?php
+                                        $image = \App\SanPhamModel::where('id', $value['id'])->get()->first()->sp_image;
+                                        ?>
+                                        <a href="{{ route('singelproduct',$value['id']) }}">
+                                            <img src="{{url('upload')}}/{{ $image }}" style="width: 43px;height: 44px"
+                                                 alt=" "
+                                                 class="img-responsive">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"
+                                               type="number" name="soluong[{{$value['id']}}]"
+                                               value="{{ $value['soluong'] }}">
+                                    </td>
+                                    <td class="invert">{{ $value['name'] }}</td>
 
-            <div class="checkout-right">
-                <h4>Giỏ hàng của bạn: <span>3 Products</span></h4>
-                <table class="timetable_sub">
-                    <thead>
-                    <tr>
-                        <th>Stt</th>
-                        <th>Sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Giá</th>
-                        <th>Thao tác</th>
-                    </tr>
-                    </thead>
-                    <tbody><tr class="rem1">
-                        <td class="invert">1</td>
-                        <td class="invert-image"><a href="single.html"><img src="userlayouts/webuser/images/1.png" alt=" " class="img-responsive"></a></td>
-                        <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value"><span>1</span></div>
-                                    <div class="entry value-plus active">&nbsp;</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="invert">Fortune Sunflower Oil</td>
-
-                        <td class="invert">$290.00</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close1"> </div>
-                            </div>
-
-                        </td>
-                    </tr>
-                    <tr class="rem2">
-                        <td class="invert">2</td>
-                        <td class="invert-image"><a href="single.html"><img src="userlayouts/webuser/images/3.png" alt=" " class="img-responsive"></a></td>
-                        <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value"><span>1</span></div>
-                                    <div class="entry value-plus active">&nbsp;</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="invert">Basmati Rise (5 Kg)</td>
-
-                        <td class="invert">$250.00</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close2"> </div>
-                            </div>
-
-                        </td>
-                    </tr>
-                    <tr class="rem3">
-                        <td class="invert">3</td>
-                        <td class="invert-image"><a href="single.html"><img src="userlayouts/webuser/images/2.png" alt=" " class="img-responsive"></a></td>
-                        <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value"><span>1</span></div>
-                                    <div class="entry value-plus active">&nbsp;</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="invert">Pepsi Soft Drink (2 Ltr)</td>
-
-                        <td class="invert">$15.00</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close3"> </div>
-                            </div>
-
-                        </td>
-                    </tr>
-
-                    </tbody></table>
-            </div>
-            <div class="checkout-left">
-                <div class="col-md-4 checkout-left-basket">
-                    <h4>Continue to basket</h4>
-                    <ul>
-                        <li>Product1 <i>-</i> <span>$15.00 </span></li>
-                        <li>Product2 <i>-</i> <span>$25.00 </span></li>
-                        <li>Product3 <i>-</i> <span>$29.00 </span></li>
-                        <li>Total Service Charges <i>-</i> <span>$15.00</span></li>
-                        <li>Total <i>-</i> <span>$84.00</span></li>
-                    </ul>
+                                    <td class="invert">đ{{ number_format($value['gia'] * $value['soluong']) }}</td>
+                                    <td class="invert">
+                                        <div class="rem">
+                                            <div class="close1"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>Giỏ hàng của bạn hiện chưa có sản phẩm nào</p>
+                    @endif
                 </div>
-                <div class="col-md-8 address_form_agile">
-                    <h4>Add a new Details</h4>
-                    <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
+                <div class="checkout-left">
+                    <div class="col-md-4 checkout-left-basket"></div>
+                    <div class="col-md-8 address_form_agile">
                         <section class="creditly-wrapper wthree, w3_agileits_wrapper">
                             <div class="information-wrapper">
                                 <div class="first-row form-group">
                                     <div class="controls">
-                                        <label class="control-label">Full name: </label>
-                                        <input class="billing-address-name form-control" type="text" name="name" placeholder="Full name">
+                                        <label class="control-label">Họ & tên: </label>
+                                        <input required class="billing-address-name form-control" type="text"
+                                               name="ho_ten" placeholder="Họ và tên ">
                                     </div>
                                     <div class="w3_agileits_card_number_grids">
                                         <div class="w3_agileits_card_number_grid_left">
                                             <div class="controls">
-                                                <label class="control-label">Mobile number:</label>
-                                                <input class="form-control" type="text" placeholder="Mobile number">
+                                                <label class="control-label">Số điện thoại:</label>
+                                                <input required class="form-control" type="number" name="sdt_kh"
+                                                       placeholder="Số điện thoại">
                                             </div>
                                         </div>
                                         <div class="w3_agileits_card_number_grid_right">
                                             <div class="controls">
-                                                <label class="control-label">Landmark: </label>
-                                                <input class="form-control" type="text" placeholder="Landmark">
+                                                <label class="control-label">Địa chỉ giao: </label>
+                                                <textarea required class="form-control" type="text" name="dia_chi_giao"
+                                                          placeholder="Địa chỉ giao hàng"></textarea>
                                             </div>
                                         </div>
-                                        <div class="clear"> </div>
-                                    </div>
-                                    <div class="controls">
-                                        <label class="control-label">Town/City: </label>
-                                        <input class="form-control" type="text" placeholder="Town/City">
-                                    </div>
-                                    <div class="controls">
-                                        <label class="control-label">Address type: </label>
-                                        <select class="form-control option-w3ls">
-                                            <option>Office</option>
-                                            <option>Home</option>
-                                            <option>Commercial</option>
-
-                                        </select>
+                                        <div class="clear"></div>
                                     </div>
                                 </div>
-                                <button class="submit check_out">Delivery to this Address</button>
+                                <button class="submit check_out">Đặt Hàng</button>
                             </div>
                         </section>
-                    </form>
-                    <div class="checkout-right-basket">
-                        <a href="payment.html">Make a Payment <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </div>
+
+                    <div class="clearfix"></div>
+
                 </div>
 
-                <div class="clearfix"> </div>
-
             </div>
-
-        </div>
+        </form>
         <!-- //about -->
     </div>
     <div class="clearfix"></div>
@@ -172,129 +115,213 @@
 
 @include('userlayouts.footer')
 @yield('script')
+
 <!-- js -->
-<script src="userlayouts/webuser/js/jquery-1.11.1.min.js"></script>
+<script src="{{ url('userlayouts/webuser/js/jquery-1.11.1.min.js') }}"></script>
 <!--quantity-->
 <script>
-    $('.value-plus').on('click', function(){
-        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+    $('.value-plus').on('click', function () {
+        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
         divUpd.text(newVal);
     });
 
-    $('.value-minus').on('click', function(){
-        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-        if(newVal>=1) divUpd.text(newVal);
+    $('.value-minus').on('click', function () {
+        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
+        if (newVal >= 1) divUpd.text(newVal);
     });
 </script>
 <!--quantity-->
-<script>$(document).ready(function(c) {
-        $('.close1').on('click', function(c){
-            $('.rem1').fadeOut('slow', function(c){
+<script>
+    $(document).ready(function (c) {
+        $('.close1').on('click', function (c) {
+            $('.rem1').fadeOut('slow', function (c) {
                 $('.rem1').remove();
             });
         });
     });
 </script>
-<script>$(document).ready(function(c) {
-        $('.close2').on('click', function(c){
-            $('.rem2').fadeOut('slow', function(c){
-                $('.rem2').remove();
-            });
-        });
-    });
-</script>
-<script>$(document).ready(function(c) {
-        $('.close3').on('click', function(c){
-            $('.rem3').fadeOut('slow', function(c){
-                $('.rem3').remove();
-            });
-        });
-    });
-</script>
-
-<!-- //js -->
-<!-- script-for sticky-nav -->
 <script>
-    $(document).ready(function() {
-        var navoffeset=$(".agileits_header").offset().top;
-        $(window).scroll(function(){
-            var scrollpos=$(window).scrollTop();
-            if(scrollpos >=navoffeset){
+    $(document).ready(function () {
+        var navoffeset = $(".agileits_header").offset().top;
+        $(window).scroll(function () {
+            var scrollpos = $(window).scrollTop();
+            if (scrollpos >= navoffeset) {
                 $(".agileits_header").addClass("fixed");
-            }else{
+            } else {
                 $(".agileits_header").removeClass("fixed");
             }
         });
 
     });
 </script>
-<!-- //script-for sticky-nav -->
-<!-- start-smoth-scrolling -->
-<script type="text/javascript" src="userlayouts/webuser/js/move-top.js"></script>
-<script type="text/javascript" src="userlayouts/webuser/js/easing.js"></script>
+<script type="text/javascript" src="{{ url('userlayouts/webuser/js/move-top.js') }}"></script>
+<script type="text/javascript" src="{{ url('userlayouts/webuser/js/easing.js') }}"></script>
 <script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $(".scroll").click(function(event){
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
             event.preventDefault();
-            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+            $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
         });
     });
 </script>
-<!-- start-smoth-scrolling -->
-<!-- Bootstrap Core JavaScript -->
-<script src="userlayouts/webuser/js/bootstrap.min.js"></script>
+<script src="{{ url('userlayouts/webuser/js/bootstrap.min.js') }}"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $(".dropdown").hover(
-            function() {
-                $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideDown("fast");
                 $(this).toggleClass('open');
             },
-            function() {
-                $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideUp("fast");
                 $(this).toggleClass('open');
             }
         );
     });
 </script>
-<!-- here stars scrolling icon -->
 <script type="text/javascript">
-    $(document).ready(function() {
-        /*
-            var defaults = {
-            containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear'
-            };
-        */
-
-        $().UItoTop({ easingType: 'easeOutQuart' });
+    $(document).ready(function () {
+        $().UItoTop({easingType: 'easeOutQuart'});
 
     });
 </script>
-<!-- //here ends scrolling icon -->
-<script src="userlayouts/webuser/js/minicart.js"></script>
+@include('userlayouts.modal');
 <script>
-    paypal.minicart.render();
-
-    paypal.minicart.cart.on('checkout', function (evt) {
-        var items = this.items(),
-            len = items.length,
-            total = 0,
-            i;
-
-        // Count the number of each item in the cart
-        for (i = 0; i < len; i++) {
-            total += items[i].get('quantity');
+    function getCart(id, name, gia_km, gia_goc, id_shop) {
+        var item = $('#item');
+        var sp = sessionStorage.getItem('list_order');
+        sp = JSON.parse(sp);
+        if (sp != undefined && sp != []) {
+            html = '';
+            sp.forEach(function (element) {
+                html = html +
+                    '<div id="item' + element.id + '"> ' +
+                    '<div class="row">' +
+                    '<div class="col-sm-12" style="font-size: 14px">' +
+                    '<div class="col-sm-7">' +
+                    '<p style="font-weight: bold" >' + element.name + '</p>\n' +
+                    '<p style="font-weight: 300;color: #999"> Đơn giá: đ:' + Number(element.gia).toLocaleString('en') + '</p>\n' +
+                    '</div>' +
+                    '<div class="col-sm-2">' +
+                    '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;" name=soluong[] id="sl_' + element.id + '" class="form-control" type="number" placeholder="nhập số lượng" value="' + element.soluong + '">\n' +
+                    '</div>' +
+                    '<div class="col-sm-2">' +
+                    '<p id="tt_' + element.id + '">đ:' + Number(element.thanhtien).toLocaleString('en') + '</p>' +
+                    '</div>' +
+                    '<div class="col-sm-1">' +
+                    '<button  id="del_' + element.id + '" onclick="deleteItem(' + element.id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<input type="hidden" name=id[] value="' + element.id + '"> ' +
+                    '<input type="hidden" name=name[] value="' + element.name + '"> ' +
+                    '<input type="hidden" name=gia[] value="' + element.gia + '"> ' +
+                    '<hr>' +
+                    '</div> ';
+                item.html(html);
+            });
+            sp.forEach(function (element) {
+                $('#sl_' + element.id).on('input', function () {
+                    var tongtien = $('#sl_' + element.id).val() * element.gia;
+                    // var newtongtien= tongtien.toLocaleString('en');
+                    $('#tt_' + element.id).html('đ:' + Number(tongtien));
+                    sp.find(function (element2) {
+                        if (element2.id == id) {
+                            element2.soluong = Number($('#sl_' + element.id).val());
+                            element2.thanhtien = Number($('#sl_' + element.id).val() * element.gia);
+                        }
+                    });
+                    sessionStorage.setItem('list_order', JSON.stringify(sp));
+                });
+            });
         }
-
-        if (total < 3) {
-            alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-            evt.preventDefault();
+        else {
+            sp = [];
         }
-    });
+        var gia = gia_km == 0 ? gia_goc : gia_km;
+        if ($('#sl_' + id).val() != undefined) {
+            var temp = $('#sl_' + id).val();
+            temp++;
+            $('#sl_' + id).val(temp);
+            var tongtien = $('#sl_' + id).val() * gia;
+            // var newtongtien = tongtien.toLocaleString('en');
+            $('#tt_' + id).html('đ:' + Number(tongtien));
+            sp.find(function (element) {
+                if (element.id == id) {
+                    Number(element.soluong++);
+                    element.thanhtien = Number(element.soluong * element.gia);
+                }
+            });
+            sessionStorage.setItem('list_order', JSON.stringify(sp));
+        }
+        else {
+            html = "";
+            html =
+                '<div id="item' + id + '"> ' +
+                '<div class="row">' +
+                '<div class="col-sm-12" style="font-size: 14px">' +
+                '<div class="col-sm-7">' +
+                '<p style="font-weight: bold" > ' + name + '</p>\n' +
+                '<p style="font-weight: 300;color: #999"> Đơn giá:đ:' + Number(gia).toLocaleString('en') + '</p>\n' +
+                '</div>' +
+                '<div class="col-sm-2">' +
+                '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"name=soluong[] id="sl_' + id + '" class="form-control" type="number" placeholder="nhập số lượng" value="1">\n' +
+                '</div>' +
+                '<div class="col-sm-2">' +
+                '<p id="tt_' + id + '">đ:' + Number(gia).toLocaleString('en') + '</p>' +
+                '</div>' +
+                '<div class="col-sm-1">' +
+                '<button id="del_' + id + '" onclick="deleteItem(' + id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<input type="hidden" name=id[] value="' + id + '"> ' +
+                '<input type="hidden" name=name[] value="' + name + '"> ' +
+                '<input type="hidden" name=gia[] value="' + gia + '"> ' +
+                '<hr>' +
+                '</div> ';
+            item.append(html);
 
+            $('#sl_' + id).on('input', function () {
+                var tongtien = $('#sl_' + id).val() * gia;
+                // var newtongtien = tongtien.toLocaleString('en');
+                $('#tt_' + id).html('đ:' + Number(tongtien));
+                sp.find(function (element) {
+                    if (element.id == id) {
+                        element.soluong = Number($('#sl_' + id).val());
+                        element.thanhtien = Number($('#sl_' + id).val() * gia);
+                    }
+                });
+                sessionStorage.setItem('list_order', JSON.stringify(sp));
+            });
+            sp.push({
+                id: id,
+                name: name,
+                soluong: 1,
+                gia: gia,
+                thanhtien: gia
+            });
+            sessionStorage.setItem('list_order', JSON.stringify(sp));
+
+        }
+        $('#orderModal').modal('show');
+
+    }
+
+    function deleteItem(id) {
+        var sp = sessionStorage.getItem('list_order');
+        sp = JSON.parse(sp);
+        if (sp != [] && sp != undefined) {
+            //Xoa mang
+            var index = sp.map(x => {
+                return x.id;
+            }).indexOf(id);
+            sp.splice(index, 1);
+            sessionStorage.setItem('list_order', JSON.stringify(sp));
+            //Xoa giao dien
+            $('#item' + id).remove();
+        }
+    }
 </script>
 </body>
 </html>

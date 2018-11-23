@@ -1,37 +1,37 @@
-<!-- footer -->
 <div class="footer">
     <div class="container">
         <div class="col-md-3 w3_footer_grid">
-            <h3>Thông Tin</h3>
+            <h3>Thông Tin Về Chúng Tôi</h3>
             <ul class="w3_footer_grid_list">
-                <li><a href="events.html">Events</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="products.html">Best Deals</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="short-codes.html">Short Codes</a></li>
+                <li><a href="">Giới Thiệu</a></li>
+                <li><a href="">Tuyển Dụng</a></li>
+                <li><a href="">Điều Khoản Sử Dụng</a></li>
+                <li><a href="">Chính Sách Bảo Mật</a></li>
             </ul>
         </div>
         <div class="col-md-3 w3_footer_grid">
-            <h3>THÔNG TIN CHÍNH SÁCH</h3>
+            <h3>Chăm Sóc Khách Hàng</h3>
             <ul class="w3_footer_grid_list">
-                <li><a href="faqs.html">FAQ</a></li>
-                <li><a href="privacy.html">privacy policy</a></li>
-                <li><a href="privacy.html">terms of use</a></li>
+                <li><a href="">Trung tâm hổ trợ</a></li>
+                <li><a href="">Giải Quyết Khiếu nại</a></li>
+                <li><a href="">Chính Sách Bảo Hành</a></li>
             </ul>
         </div>
         <div class="col-md-3 w3_footer_grid">
-            <h3>Cửa hàng</h3>
+            <h3>Dành Cho Người Mua</h3>
             <ul class="w3_footer_grid_list">
-                <li><a href="pet.html">Pet Food</a></li>
-                <li><a href="frozen.html">Frozen Snacks</a></li>
-                <li><a href="kitchen.html">Kitchen</a></li>
-                <li><a href="products.html">Branded Foods</a></li>
-                <li><a href="household.html">Households</a></li>
+                <li><a href="">Hướng dẫn đặt hàng</a></li>
+                <li><a href="">Chính sách đổi trả</a></li>
+                <li><a href="">Hướng dẫn đăng ký tài khoản</a></li>
             </ul>
         </div>
         <div class="col-md-3 w3_footer_grid">
-            <h3>twitter posts</h3>
-
+            <h3>Dành Cho Người Bán</h3>
+            <ul class="w3_footer_grid_list">
+                <li><a href="">Quy định đối với người bán</a></li>
+                <li><a href="">Hướng dẫn đăng ký gian hàng</a></li>
+                <li><a href="">Hướng dẫn quản lý sản phẩm gian hàng</a></li>
+            </ul>
         </div>
         <div class="clearfix"></div>
         <div class="agile_footer_grids">
@@ -45,11 +45,11 @@
                 <div class="w3_footer_grid_bottom">
                     <h5>Kết nối với chúng tôi</h5>
                     <ul class="agileits_social_icons">
-                        <li><a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="google"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="dribbble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                        <li><a href="" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="" class="google"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li><a href="" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a href="" class="dribbble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -61,4 +61,3 @@
         </div>
     </div>
 </div>
-<!-- //footer -->

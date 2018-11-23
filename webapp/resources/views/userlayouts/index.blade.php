@@ -15,7 +15,7 @@
     }
 
     .khungSP {
-        height: 320px;
+        height: 360px;
         margin-bottom: 10px !important;
     }
 </style>
@@ -51,28 +51,28 @@
                 <ul class="slides">
                     <li>
                         <div class="w3l_banner_nav_right_banner">
-                            <h3>Make your <span>food</span> with Spicy.</h3>
+                            {{--<h3>Make your <span>food</span> with Spicy.</h3>--}}
                             <div class="more">
-                                <a href="products.html" class="button--saqui button--round-l button--text-thick"
-                                   data-text="Shop now">Shop now</a>
+                                <a href="" class="button--saqui button--round-l button--text-thick"
+                                   data-text="Mua ngay">Mua ngay</a>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="w3l_banner_nav_right_banner1">
-                            <h3>Make your <span>food</span> with Spicy.</h3>
+                            {{--<h3>Make your <span>food</span> with Spicy.</h3>--}}
                             <div class="more">
-                                <a href="products.html" class="button--saqui button--round-l button--text-thick"
-                                   data-text="Shop now">Shop now</a>
+                                <a href="" class="button--saqui button--round-l button--text-thick"
+                                   data-text="Mua ngay">Mua ngay</a>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="w3l_banner_nav_right_banner2">
-                            <h3>upto <i>50%</i> off.</h3>
+                            {{--<h3>upto <i>50%</i> off.</h3>--}}
                             <div class="more">
-                                <a href="products.html" class="button--saqui button--round-l button--text-thick"
-                                   data-text="Shop now">Shop now</a>
+                                <a href="" class="button--saqui button--round-l button--text-thick"
+                                   data-text="Mua ngay">Mua ngay</a>
                             </div>
                         </div>
                     </li>
@@ -101,25 +101,25 @@
     <div class="wthree_banner_bottom_left_grid_sub1">
         <div class="col-md-4 wthree_banner_bottom_left">
             <div class="wthree_banner_bottom_left_grid">
-                <img src="userlayouts/webuser/images/4.jpg" alt=" " class="img-responsive"/>
+                <img src="{{ url('userlayouts/webuser/images/4.jpg') }}" alt=" " class="img-responsive"/>
                 <div class="wthree_banner_bottom_left_grid_pos">
-                    <h4>Discount Offer <span>25%</span></h4>
+                    <h4>Ưu đãi giảm giá <span>25%</span></h4>
                 </div>
             </div>
         </div>
         <div class="col-md-4 wthree_banner_bottom_left">
             <div class="wthree_banner_bottom_left_grid">
-                <img src="userlayouts/webuser/images/5.jpg" alt=" " class="img-responsive"/>
+                <img src="{{ url('userlayouts/webuser/images/5.jpg') }}" alt=" " class="img-responsive"/>
                 <div class="wthree_banner_btm_pos">
-                    <h3>introducing <span>best store</span> for <i>groceries</i></h3>
+                    <h3>Là cửa hàng <span>Tạp hóa</span><i>dành cho bạn</i></h3>
                 </div>
             </div>
         </div>
         <div class="col-md-4 wthree_banner_bottom_left">
             <div class="wthree_banner_bottom_left_grid">
-                <img src="userlayouts/webuser/images/6.jpg" alt=" " class="img-responsive"/>
+                <img src="{{ url('userlayouts/webuser/images/6.jpg') }}" alt=" " class="img-responsive"/>
                 <div class="wthree_banner_btm_pos1">
-                    <h3>Save <span>Upto</span> $10</h3>
+                    {{--<h3>Save <span>Upto</span> $10</h3>--}}
                 </div>
             </div>
         </div>
@@ -157,31 +157,14 @@
                                             @endif
                                         </div>
                                         <div class="snipcart-details top_brand_home_details">
-                                            <form action="{{ route('order') }}" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart"/>
-                                                    <input type="hidden" name="add" value="1"/>
-                                                    <input type="hidden" name="business" value=" "/>
-                                                    <input type="hidden" name="item_name"
-                                                           value="{{ $value->ten_sp }}"/>
-                                                    @if($value->gia_km_sp == 0)
-                                                        <input type="hidden" name="amount"
-                                                               value="{{ $value->gia_goc_sp }}"/>
-                                                    @else
-                                                        <input type="hidden" name="amount"
-                                                               value="{{ $value->gia_km_sp }}"/>
-                                                    @endif
-
-                                                    <input type="hidden" name="discount_amount"
-                                                           value="{{ $value->gia_km_sp }}"/>
-                                                    <input type="hidden" name="currency_code" value="VND"/>
-                                                    <input type="hidden" name="return" value=" "/>
-                                                    <input type="hidden" name="cancel_return" value=" "/>
-                                                    <input type="submit" name="submit" value="Thêm Giỏ Hàng"
-                                                           class="button"/>
-                                                </fieldset>
-                                            </form>
+                                            <input type="button" name="submit" value="Thêm Giỏ Hàng"
+                                                   onclick="getCart('{{$value->id_sp}}','{{$value->ten_sp}}','{{$value->gia_km_sp}}','{{$value->gia_goc_sp}}','{{$value->gh_id}}')"
+                                                   class="button"/>
                                         </div>
+                                        <hr style="margin: 0px">
+                                        <p style="margin: 0px; font-size: 12px">
+                                            <img src="{{ url('upload') }}/shop.png"> {{ $value->gh_sp }}
+                                        </p>
                                     </div>
                                 </figure>
                             </div>
@@ -194,8 +177,6 @@
         </div>
     </div>
 </div>
-<!-- //top-brands -->
-<!-- fresh-vegetables -->
 <div class="fresh-vegetables">
     <div class="container">
         <h3>Sản Phẩm Hàng Đầu</h3>
@@ -203,57 +184,53 @@
             <div class="col-md-3 w3l_fresh_vegetables_grid w3l_fresh_vegetables_grid_left">
                 <div class="w3l_fresh_vegetables_grid2">
                     <ul>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">Shop 1</a></li>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="vegetables.html">Vegetables</a></li>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="vegetables.html">Fruits</a></li>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="drinks.html">Juices</a></li>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="pet.html">Pet Food</a></li>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="bread.html">Bread & Bakery</a></li>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="household.html">Cleaning</a></li>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">Spices</a></li>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">Dry Fruits</a></li>
-                        <li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">Dairy Products</a>
-                        </li>
+                        @foreach($data as $val)
+                            <li>
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                <a href="{{ route('sanphamdanhmuc',$val->id) }}">{{ $val->dm_ten }}</a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
             <div class="col-md-9 w3l_fresh_vegetables_grid_right">
                 <div class="col-md-4 w3l_fresh_vegetables_grid">
                     <div class="w3l_fresh_vegetables_grid1">
-                        <img src="userlayouts/webuser/images/8.jpg" alt=" " class="img-responsive"/>
+                        <img src="{{ url('userlayouts/webuser/images/8.jpg') }}" alt=" " class="img-responsive"/>
                     </div>
                 </div>
                 <div class="col-md-4 w3l_fresh_vegetables_grid">
                     <div class="w3l_fresh_vegetables_grid1">
                         <div class="w3l_fresh_vegetables_grid1_rel">
-                            <img src="userlayouts/webuser/images/7.jpg" alt=" " class="img-responsive"/>
+                            <img src="{{ url('userlayouts/webuser/images/7.jpg') }}" alt=" " class="img-responsive"/>
                             <div class="w3l_fresh_vegetables_grid1_rel_pos">
                                 <div class="more m1">
-                                    <a href="products.html" class="button--saqui button--round-l button--text-thick"
-                                       data-text="Shop now">Shop now</a>
+                                    <a href="" class="button--saqui button--round-l button--text-thick"
+                                       data-text="Shop now">Mua ngay</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="w3l_fresh_vegetables_grid1_bottom">
-                        <img src="userlayouts/webuser/images/10.jpg" alt=" " class="img-responsive"/>
+                        <img src="{{ url('userlayouts/webuser/images/10.jpg') }}" alt=" " class="img-responsive"/>
                         <div class="w3l_fresh_vegetables_grid1_bottom_pos">
-                            <h5>Special Offers</h5>
+                            <h5>Ưu đãi đặc biệt</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 w3l_fresh_vegetables_grid">
                     <div class="w3l_fresh_vegetables_grid1">
-                        <img src="userlayouts/webuser/images/9.jpg" alt=" " class="img-responsive"/>
+                        <img src="{{ url('userlayouts/webuser/images/9.jpg') }}" alt=" " class="img-responsive"/>
                     </div>
                     <div class="w3l_fresh_vegetables_grid1_bottom">
-                        <img src="userlayouts/webuser/images/11.jpg" alt=" " class="img-responsive"/>
+                        <img src="{{ url('userlayouts/webuser/images/11.jpg') }}" alt=" " class="img-responsive"/>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="agileinfo_move_text">
                     <div class="agileinfo_marquee">
-                        <h4>get <span class="blink_me">25% off</span> on first order and also get gift voucher</h4>
+                        <h4>Giảm giá <span class="blink_me">25%</span>cho đơn hàng đầu tiên và nhận phiếu thưởng quà
+                            tặng</h4>
                     </div>
                     <div class="agileinfo_breaking_news">
                         <span> </span>
@@ -265,7 +242,6 @@
         </div>
     </div>
 </div>
-
 <div class="newsletter">
     <div class="container">
         <div class="w3agile_newsletter_left">
@@ -273,18 +249,21 @@
         </div>
         <div class="w3agile_newsletter_right">
             <form action="#" method="post">
-                <input type="email" name="Email" value="Email" onfocus="this.value = '';"
+                <input type="email" name="Email" value="Email của bạn là" onfocus="this.value = '';"
                        onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                <input type="submit" value="subscribe now">
+                <input type="submit" value="Đăng ký">
             </form>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
-<!-- //fresh-vegetables -->
 @include('userlayouts.footer')
 @yield('script')
-<!-- Bootstrap Core JavaScript -->
+@if(\Illuminate\Support\Facades\Session::get('clear_session')==1)
+    <script>
+        sessionStorage.clear();
+    </script>
+@endif
 <script src="{{ url('userlayouts/webuser/js/bootstrap.min.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -300,47 +279,151 @@
         );
     });
 </script>
-<!-- here stars scrolling icon -->
 <script type="text/javascript">
     $(document).ready(function () {
-        /*
-            var defaults = {
-            containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear'
-            };
-        */
-
         $().UItoTop({easingType: 'easeOutQuart'});
-
     });
 </script>
-<!-- //here ends scrolling icon -->
-<script src="{{ url('userlayouts/webuser/js/minicart.js') }}"></script>
-<script>
-    paypal.minicart.render();
-
-    paypal.minicart.cart.on('checkout', function (evt) {
-        var items = this.items(),
-            len = items.length,
-            total = 0,
-            i;
-
-        // Count the number of each item in the cart
-        for (i = 0; i < len; i++) {
-            total += items[i].get('quantity');
-        }
-
-        if (total < 0) {
-            alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-            evt.preventDefault();
-        }
-    });
-
-</script>
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
 @include('userlayouts.messages')
+@include('userlayouts.modal');
+<script>
+    function getCart(id, name, gia_km, gia_goc, id_shop) {
+        var item = $('#item');
+        var sp = sessionStorage.getItem('list_order');
+        sp = JSON.parse(sp);
+        if (sp != undefined && sp != []) {
+            html = '';
+            sp.forEach(function (element) {
+                html = html +
+                    '<div id="item' + element.id + '"> ' +
+                    '<div class="row">' +
+                    '<div class="col-sm-12" style="font-size: 14px">' +
+                    '<div class="col-sm-7">' +
+                    '<p style="font-weight: bold" >' + element.name + '</p>\n' +
+                    '<p style="font-weight: 300;color: #999"> Đơn giá: đ:' + Number(element.gia).toLocaleString('en') + '</p>\n' +
+                    '</div>' +
+                    '<div class="col-sm-2">' +
+                    '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;" name=soluong[] id="sl_' + element.id + '" class="form-control" type="number" placeholder="nhập số lượng" value="' + element.soluong + '">\n' +
+                    '</div>' +
+                    '<div class="col-sm-2">' +
+                    '<p id="tt_' + element.id + '">đ:' + Number(element.thanhtien).toLocaleString('en') + '</p>' +
+                    '</div>' +
+                    '<div class="col-sm-1">' +
+                    '<button  id="del_' + element.id + '" onclick="deleteItem(' + element.id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<input type="hidden" name=id[] value="' + element.id + '"> ' +
+                    '<input type="hidden" name=name[] value="' + element.name + '"> ' +
+                    '<input type="hidden" name=gia[] value="' + element.gia + '"> ' +
+                    '<hr>' +
+                    '</div> ';
+                item.html(html);
+            });
+            sp.forEach(function (element) {
+                $('#sl_' + element.id).on('input', function () {
+                    var tongtien = $('#sl_' + element.id).val() * element.gia;
+                    // var newtongtien= tongtien.toLocaleString('en');
+                    $('#tt_' + element.id).html('đ:' + Number(tongtien));
+                    sp.find(function (element2) {
+                        if (element2.id == id) {
+                            element2.soluong = Number($('#sl_' + element.id).val());
+                            element2.thanhtien = Number($('#sl_' + element.id).val() * element.gia);
+                        }
+                    });
+                    sessionStorage.setItem('list_order', JSON.stringify(sp));
+                });
+            });
+        }
+        else {
+            sp = [];
+        }
+        var gia = gia_km == 0 ? gia_goc : gia_km;
+        if ($('#sl_' + id).val() != undefined) {
+            var temp = $('#sl_' + id).val();
+            temp++;
+            $('#sl_' + id).val(temp);
+            var tongtien = $('#sl_' + id).val() * gia;
+            // var newtongtien = tongtien.toLocaleString('en');
+            $('#tt_' + id).html('đ:' + Number(tongtien));
+            sp.find(function (element) {
+                if (element.id == id) {
+                    Number(element.soluong++);
+                    element.thanhtien = Number(element.soluong * element.gia);
+                }
+            });
+            sessionStorage.setItem('list_order', JSON.stringify(sp));
+        }
+        else {
+            html = "";
+            html =
+                '<div id="item' + id + '"> ' +
+                '<div class="row">' +
+                '<div class="col-sm-12" style="font-size: 14px">' +
+                '<div class="col-sm-7">' +
+                '<p style="font-weight: bold" > ' + name + '</p>\n' +
+                '<p style="font-weight: 300;color: #999"> Đơn giá:đ:' + Number(gia).toLocaleString('en') + '</p>\n' +
+                '</div>' +
+                '<div class="col-sm-2">' +
+                '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"name=soluong[] id="sl_' + id + '" class="form-control" type="number" placeholder="nhập số lượng" value="1">\n' +
+                '</div>' +
+                '<div class="col-sm-2">' +
+                '<p id="tt_' + id + '">đ:' + Number(gia).toLocaleString('en') + '</p>' +
+                '</div>' +
+                '<div class="col-sm-1">' +
+                '<button id="del_' + id + '" onclick="deleteItem(' + id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<input type="hidden" name=id[] value="' + id + '"> ' +
+                '<input type="hidden" name=name[] value="' + name + '"> ' +
+                '<input type="hidden" name=gia[] value="' + gia + '"> ' +
+                '<hr>' +
+                '</div> ';
+            item.append(html);
+
+            $('#sl_' + id).on('input', function () {
+                var tongtien = $('#sl_' + id).val() * gia;
+                // var newtongtien = tongtien.toLocaleString('en');
+                $('#tt_' + id).html('đ:' + Number(tongtien));
+                sp.find(function (element) {
+                    if (element.id == id) {
+                        element.soluong = Number($('#sl_' + id).val());
+                        element.thanhtien = Number($('#sl_' + id).val() * gia);
+                    }
+                });
+                sessionStorage.setItem('list_order', JSON.stringify(sp));
+            });
+            sp.push({
+                id: id,
+                name: name,
+                soluong: 1,
+                gia: gia,
+                thanhtien: gia
+            });
+            sessionStorage.setItem('list_order', JSON.stringify(sp));
+
+        }
+        $('#orderModal').modal('show');
+
+    }
+
+    function deleteItem(id) {
+        var sp = sessionStorage.getItem('list_order');
+        sp = JSON.parse(sp);
+        if (sp != [] && sp != undefined) {
+            //Xoa mang
+            var index = sp.map(x => {
+                return x.id;
+            }).indexOf(id);
+            sp.splice(index, 1);
+            sessionStorage.setItem('list_order', JSON.stringify(sp));
+            //Xoa giao dien
+            $('#item' + id).remove();
+        }
+    }
+</script>
 </body>
 </html>
+

@@ -6,4 +6,7 @@ Route::group(['prefix' => 'nguoi-dung'], function () {
 
     // thông tin người dùng
     Route::get('/profile', 'UserController@profileND')->name('nd.profileND');
+
+    // thông tin nguoi dùng cá nhân
+    Route::get('/ca-nhan', 'UserController@profileCaNhan')->name('profileCaNhan');
 });
