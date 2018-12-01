@@ -21,14 +21,6 @@ class UserController extends Controller
         $pas = $request->get('password');
         $pasre = $request->get('repassword');
         $code = strtoupper(uniqid());
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $new_file_name = time() . '.' . $file->getClientOriginalExtension();
-            $file->move('image', $new_file_name);
-            $kh_image = $new_file_name;
-        } else {
-            $kh_image = "";
-        }
         $macode = strtoupper($request->get('ma_code_cha'));
         $ma_code_cha = UsersModel::where('code', $macode)->first();
         if ($ma_code_cha == null) {
@@ -47,12 +39,8 @@ class UserController extends Controller
             NguoiDungModel::create([
                 'user_id' => $user->id,
                 'kh_ten' => $request->get('kh_ten'),
-//                'kh_gioi_tinh' => "",
-//                'kh_ngay_sinh' => "",
-//                'kh_dia_chi' => "",
-//                'kh_cmnd' => "",
-//                'kh_ngay_cap' => "",
-//                'kh_image' => $kh_image,
+                'kh_gioi_tinh' => $request->get('kh_gioi_tinh'),
+                'kh_ngay_sinh' => $request->get('kh_ngay_sinh'),
             ]);
             HoaHongKhachHangModel::create([
                 'user_id' => $user->id,
@@ -60,10 +48,10 @@ class UserController extends Controller
                 'tien_hoa_hong' => 0,
             ]);
             if ($macodecha == null) {
-                return redirect('user/login')->with('success', 'Thêm thành công !')
+                return redirect('user/login')->with('success', 'Đăng ký thành công !')
                     ->with('error', 'Mã người giới thiệu không tồn tại, vui lòng cập nhật lại trong thông tin cá nhân !');
             } else {
-                return redirect('user/login')->with('success', 'Thêm thành công !');
+                return redirect('user/login')->with('success', 'Đăng ký thành công !');
             }
         } else {
             return redirect('user/login')->with('error', 'Nhập lại mật khẩu không chính xác !');
@@ -115,6 +103,7 @@ class UserController extends Controller
         return view('userlayouts.nguoidung.profile', compact('data', 'user', 'order'));
     }
 
+    // trang cá nhân người dùng
     public function profileCaNhan()
     {
         $user = UsersModel::join('users_profile', 'users_profile.user_id', '=', 'users.id')
@@ -137,5 +126,11 @@ class UserController extends Controller
                 'hoa_hong_khach_hang.tien_hoa_hong as tienhoahong',
             ])->get()->first()->toArray();
         return view('userlayouts.nguoidung.profilecanhan', compact('user'));
+    }
+
+    // trang sổ địa chỉ
+    public function SoDiaChi()
+    {
+        return view('userlayouts.nguoidung.sodiachi', compact('user'));
     }
 }

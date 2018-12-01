@@ -28,12 +28,11 @@ class FrontEndController extends Controller
             ->join('san_pham_danh_muc', 'san_pham_danh_muc.id', '=', 'san_pham.id_danh_muc')
             ->join('users', 'users.id', '=', 'san_pham.id_gian_hang')
             ->join('users_gian_hang', 'users.id', '=', 'users_gian_hang.user_id')
-            ->where('san_pham_gia.gia_km', '>', 0)
+            ->where('san_pham.status', '<>', 0)
             ->orderByRaw('san_pham.created_at desc')
             ->select([
                 'san_pham.id as id_sp',
                 'san_pham.sp_ten as ten_sp',
-                'san_pham.sp_so_luong as so_luong_sp',
                 'san_pham.sp_image as image_sp',
                 'san_pham_gia.gia_goc as gia_goc_sp',
                 'san_pham_gia.gia_km as gia_km_sp',
@@ -63,7 +62,6 @@ class FrontEndController extends Controller
                     'name' => $request->name[$key],
                     'gia' => $request->gia[$key],
                     'soluong' => $request->soluong[$key],
-                    'tongtien' => $request->gia[$key] * $request->soluong[$key],
                 ];
             }
         } else {

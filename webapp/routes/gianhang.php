@@ -18,9 +18,16 @@ Route::group(['prefix' => 'gian-hang'], function () {
     Route::get('/quan-ly-san-pham/edit/{id}', 'GianHangController@cnsanpham')->name('gh.cnsanpham');
     Route::post('/quan-ly-san-pham/edit/{id}', 'GianHangController@cnsanphamStore')->name('gh.cnsanphamStore');
 
+    // cài đặt sản phẩm của gian hàng
+    Route::get('/quan-ly-san-pham/cai-dat/{id}', 'GianHangController@caidatSanPham')->name('gh.caidatSanPham');
+    Route::post('/quan-ly-san-pham/cai-dat/{id}', 'GianHangController@caidatStore')->name('gh.caidatStore');
+
     // xóa sản phẩm cảu gian hàng
     Route::get('/quan-ly-san-pham/destroy/{id}', 'GianHangController@xsanphamDestroy')->name('gh.xsanphamDestroy');
 
     // profile gian hàng
     Route::get('/profile', 'GianHangController@profileGianHang')->name('gh.profileGianHang');
+
+    // xem san pham
+    Route::get('/quan-ly-san-pham/chi-tiet/{id}', 'GianHangController@xemSanPham')->name('gh.xemSanPham');
 });

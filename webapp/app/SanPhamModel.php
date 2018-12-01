@@ -14,9 +14,9 @@ class SanPhamModel extends Model
         'id_gian_hang',
         'id_danh_muc',
         'sp_ten',
-        'sp_so_luong',
         'sp_image',
-        'sp_description',
+        'sp_thuong_hieu',
+        'status',
         'created_at',
         'updated_at',
     ];

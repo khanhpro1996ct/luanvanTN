@@ -9,4 +9,7 @@ Route::group(['prefix' => 'nguoi-dung'], function () {
 
     // thông tin nguoi dùng cá nhân
     Route::get('/ca-nhan', 'UserController@profileCaNhan')->name('profileCaNhan');
+
+    // trang sổ đại chỉ
+    Route::get('/so-dia-chi', 'UserController@SoDiaChi')->name('SoDiaChi');
 });

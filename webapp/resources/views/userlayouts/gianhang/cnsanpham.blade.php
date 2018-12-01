@@ -83,12 +83,18 @@
                                 <p class="erorr">{{ $errors->first('sp_ten') }}</p>
                             @endif
 
-                            <label class="labelnew"><span style="color: red;">(*)</span> Số Lượng Trong Kho :</label>
-                            <input required value="{{ $data->sp_so_luong }}" type="text" name="sp_so_luong"
-                                   placeholder="Số lượng có trong của hàng">
-                            @if ($errors->has('sp_so_luong'))
-                                <p class="erorr">{{ $errors->first('sp_so_luong') }}</p>
+                            <label class="labelnew"><span style="color: red;">(*)</span> Thương hiệu :</label>
+                            <input required value="{{ $data->sp_thuong_hieu }}" type="text" name="sp_thuong_hieu" placeholder="Thương hiệu của sản phẩm">
+                            @if ($errors->has('sp_thuong_hieu'))
+                                <p class="erorr">{{ $errors->first('sp_thuong_hieu') }}</p>
                             @endif
+
+                            {{--<label class="labelnew"><span style="color: red;">(*)</span> Số Lượng Trong Kho :</label>--}}
+                            {{--<input required value="{{ $data->sp_so_luong }}" type="text" name="sp_so_luong"--}}
+                                   {{--placeholder="Số lượng có trong của hàng">--}}
+                            {{--@if ($errors->has('sp_so_luong'))--}}
+                                {{--<p class="erorr">{{ $errors->first('sp_so_luong') }}</p>--}}
+                            {{--@endif--}}
 
                             <label class="labelnew" style="width: 100%;">Ảnh sản phẩm :</label>
                             <div style="display: flex;">
@@ -106,21 +112,21 @@
                                 <p class="erorr">{{ $errors->first('file') }}</p>
                             @endif
 
-                            <label class="labelnew"><span style="color: red;">(*)</span> Giá Bán :</label>
-                            <input required value="{{ $data->gia_goc }}" type="text" name="gia_goc"
-                                   placeholder=" vd: {{ number_format(30000) }} vnđ">
-                            @if ($errors->has('gia_goc'))
-                                <p class="erorr">{{ $errors->first('gia_goc') }}</p>
-                            @endif
+                            {{--<label class="labelnew"><span style="color: red;">(*)</span> Giá Bán :</label>--}}
+                            {{--<input required value="{{ $data->gia_goc }}" type="text" name="gia_goc"--}}
+                                   {{--placeholder=" vd: {{ number_format(30000) }} vnđ">--}}
+                            {{--@if ($errors->has('gia_goc'))--}}
+                                {{--<p class="erorr">{{ $errors->first('gia_goc') }}</p>--}}
+                            {{--@endif--}}
 
-                            <label class="labelnew">Giá Khuyến Mãi :</label>
-                            <p style="font-size: 12px;color: red;" class="help-block">Lưu ý : Giá khuyến mãi nhỏ hơn giá
-                                bán hoặc không nhập giá khuyến mãi !</p>
-                            <input value="{{ $data->gia_km }}" type="text" name="gia_km"
-                                   placeholder="vd: {{  number_format(25000) }} vnđ">
-                            @if ($errors->has('gia_goc'))
-                                <p class="erorr">{{ $errors->first('gia_goc') }}</p>
-                            @endif
+                            {{--<label class="labelnew">Giá Khuyến Mãi :</label>--}}
+                            {{--<p style="font-size: 12px;color: red;" class="help-block">Lưu ý : Giá khuyến mãi nhỏ hơn giá--}}
+                                {{--bán hoặc không nhập giá khuyến mãi !</p>--}}
+                            {{--<input value="{{ $data->gia_km }}" type="text" name="gia_km"--}}
+                                   {{--placeholder="vd: {{  number_format(25000) }} vnđ">--}}
+                            {{--@if ($errors->has('gia_goc'))--}}
+                                {{--<p class="erorr">{{ $errors->first('gia_goc') }}</p>--}}
+                            {{--@endif--}}
 
                             <br>
                             <input id="btnsm" type="submit" value="Cập nhật">

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 @include('userlayouts.thehead')
-
 <style>
     .khanh {
         color: black !important;
@@ -10,15 +9,11 @@
 
     .khanh1 {
         color: black !important;
-        border: 0.5px solid !important;
-        font-size: 12px !important;
     }
 
     .rownew {
         margin-left: 0px;
         margin-right: 0px;
-        margin-top: 15px;
-        margin-bottom: 15px;
     }
 </style>
 <body>
@@ -31,9 +26,10 @@
                 <a href="{{ url('user') }}">Trang chủ</a>
                 <span>|</span>
             </li>
-            <li><a href="{{ route('gh.profileGianHang') }}">Gian hàng @if(!empty(Auth::user()))
-                        : {{ Auth::user()->phone }}@else:@endif</a><span>|</span></li>
-            <li><a href="{{ url('gian-hang/quan-ly-san-pham') }}">Quản lý sản phẩm</a><span>|</span></li>
+            <li>
+                <a href="{{ url('gian-hang/quan-ly-san-pham') }}">Quản lý sản phẩm</a>
+                <span>|</span>
+            </li>
             <li>Danh sách sản phẩm</li>
         </ul>
     </div>
@@ -47,6 +43,15 @@
                     <li><a style="color: red"><b>Quản Lý Sản Phẩm</b></a></li>
                     <li><a href="{{ route('gh.qlsanpham') }}">Danh sách sản phẩm</a></li>
                     <li><a href="{{ route('gh.tmsanpham') }}">Thêm sản phẩm mới</a></li>
+                    <li><a href="{{ route('gh.profileGianHang') }}">Thông tin gian hàng</a></li>
+                    <li><a href="">Lịch sử bán các sản phẩm</a></li>
+                </ul>
+                <ul class="nav navbar-nav nav_1">
+                    <li><a style="color: red"><b>Quản Lý Sản Phẩm</b></a></li>
+                    <li><a href="{{ route('gh.qlsanpham') }}">Danh sách sản phẩm</a></li>
+                    <li><a href="{{ route('gh.tmsanpham') }}">Thêm sản phẩm mới</a></li>
+                    <li><a href="{{ route('gh.profileGianHang') }}">Thông tin gian hàng</a></li>
+                    <li><a href="">Lịch sử bán các sản phẩm</a></li>
                 </ul>
             </div>
         </nav>
@@ -54,17 +59,37 @@
     <div class="w3l_banner_nav_right" style="margin-bottom: 15px;">
         <div class="w3_login_module">
             <div class="row rownew">
+                {!! Form::open(['method'=>'GET','class'=>'form']) !!}
+                <div class="col-md-12" style="margin-top: 15px;">
+                    <div class="col-md-4">
+                        {!! Form::select('k',\App\DanhMucSanPhamModel::pluck('dm_ten','id')
+                        ->prepend( '-- danh mục --',''),
+                        \Illuminate\Support\Facades\Input::get('k',''),['class'=>'form-control select2']) !!}
+                    </div>
+                    <div class="col-md-4">
+                        <input style="height: 28px;" class="form-control" placeholder="Tìm kiếm" name="q"
+                               value="{{\Illuminate\Support\Facades\Input::get('q','')}}">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-info"><i class="fa fa-search"></i> Tìm</button>
+                        <a href="{{ url('gian-hang/quan-ly-san-pham') }}" class="btn btn-success">
+                            <i class="fa fa-refresh"></i> Tải lại
+                        </a>
+                    </div>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <div class="row rownew">
                 <div class="col-md-12">
-                    <table id="datatable" class="table table-bordered khanh">
+                    <table id="datatable" class="table table-striped">
                         <thead>
                         <tr>
                             <th class="khanh">Stt</th>
                             <th class="khanh">Danh mục</th>
                             <th class="khanh">Tên sản phẩm</th>
-                            <th class="khanh">Giá bán</th>
-                            <th class="khanh">Giá khuyến mãi</th>
-                            <th class="khanh">SL còn lại</th>
                             <th class="khanh">Ảnh</th>
+                            <th class="khanh">Thương hiệu</th>
+                            <th class="khanh">Trạng thái</th>
                             <th class="khanh"></th>
                         </tr>
                         </thead>
@@ -73,18 +98,34 @@
                             <tr>
                                 <td class="khanh1">{{ $val->stt }}</td>
                                 <td class="khanh1">{{ $val->dm_ten }}</td>
-                                <td class="khanh1">{{ $val->sp_ten }}</td>
-                                <td class="khanh1">{{ number_format($val->gia_goc) }} vnđ</td>
-                                <td class="khanh1">{{ number_format($val->gia_km) }} vnđ</td>
-                                <td class="khanh1">{{ $val->sp_so_luong }}</td>
                                 <td class="khanh1">
-                                    <img src="{{url('upload')}}/{{ $val->sp_image }}" width="25px" height="25px"
-                                         alt="No image">
+                                    <a href="{{ route('gh.xemSanPham',$val->id) }}">
+                                        {{ $val->sp_ten }}
+                                    </a>
                                 </td>
+                                <td>
+                                    <img src="{{url('upload', $val->sp_image)}}" width="30px" height="30px">
+                                </td>
+                                <td class="khanh1">{{ $val->sp_thuong_hieu }}</td>
+                                @if($val->status == 0)
+                                    <td class="khanh1">
+                                        <a href="{{ route('gh.caidatSanPham',$val->id) }}">
+                                            <span style="color: red">Chưa kinh hoanh</span>
+                                        </a>
+                                    </td>
+                                @else
+                                    <td class="khanh1">
+                                        <a href="{{ route('gh.caidatSanPham',$val->id) }}">
+                                            <span style="color: green">Đang kinh doanh</span>
+                                        </a>
+                                    </td>
+                                @endif
                                 <td class="khanh1">
                                     <a href="{{ route('gh.cnsanpham',$val->id) }}" class="btn btn-warning">Sửa</a>
-                                    <a href="{{ route('gh.xsanphamDestroy',$val->id) }}"
-                                       class="btn btn-danger">Xóa</a>
+                                    <a href="{{ route('gh.xsanphamDestroy',$val->id) }}" class="btn btn-danger"
+                                       onclick="return confirm('Bạn có chắc là ngưng bán sản phẩm này ?')">
+                                        Xóa
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -97,7 +138,6 @@
     <div class="clearfix"></div>
 </div>
 @include('userlayouts.footer')
-
 
 <!-- DataTables -->
 <link href="{{ url('adminlayouts/horizontal/assets/plugins/datatables/dataTables.bootstrap4.min.css') }}"
@@ -145,23 +185,6 @@
         $().UItoTop({easingType: 'easeOutQuart'});
     });
 </script>
-<script src="{{ url('userlayouts/webuser/js/minicart.js') }}"></script>
-<script>
-    paypal.minicart.render();
-    paypal.minicart.cart.on('checkout', function (evt) {
-        var items = this.items(),
-            len = items.length,
-            total = 0,
-            i;
-        for (i = 0; i < len; i++) {
-            total += items[i].get('quantity');
-        }
-        if (total < 3) {
-            alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-            evt.preventDefault();
-        }
-    });
-</script>
 <script type="text/javascript">
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -174,13 +197,15 @@
         }
     }
 </script>
-<script type="text/javascript">
+<script>
     $(document).ready(function () {
-        $('#datatable').DataTable();
+        $('.select2').select2();
     });
 </script>
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 @include('userlayouts.messages')
 </body>
 </html>

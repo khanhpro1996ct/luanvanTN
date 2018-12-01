@@ -20,7 +20,7 @@
 <div class="products-breadcrumb">
     <div class="container">
         <ul>
-            <li><i class="fa fa-home" aria-hidden="true"></i><a href="#">Trang chủ</a><span>|</span></li>
+            <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ url('user') }}">Trang chủ</a><span>|</span></li>
             <li>Đăng nhập & Đăng ký</li>
         </ul>
     </div>
@@ -40,9 +40,9 @@
                         <form action="{{ route('login') }}" method="post">
                             @csrf
                             <label class="labelnew"><span style="color: red;">(*)</span> Số điện thoại :</label>
-                            <input type="text" name="phone" placeholder="Số điện thoại" required=" ">
+                            <input type="text" name="phone" placeholder="Nhập số điện thoại" required=" ">
                             <label class="labelnew"><span style="color: red;">(*)</span> Mật khẩu :</label>
-                            <input type="password" name="password" placeholder="Mật khẩu" required=" ">
+                            <input type="password" name="password" placeholder="Mật khẩu từ 6 đến 32 ký tự" required=" ">
                             <input type="submit" value="Đăng Nhập">
                         </form>
                     </div>
@@ -68,12 +68,25 @@
                             <input value="{{ old('kh_ten') }}" type="text" name="kh_ten" placeholder="Họ Tên"
                                    required>
 
+                            <label class="labelnew"><span style="color: red;">(*)</span> Ngày sinh :</label>
+                            <input value="{{ old('kh_ngay_sinh') }}" style="width: 100%;" type="date" name="kh_ngay_sinh">
+
+                            <div class="form-group" style="margin-top: 15px;">
+                                <div class="form-check">
+                                    <label style="font-size: 14px"><span style="color: red;">(*)</span> Giới tính:</label> &nbsp &nbsp &nbsp &nbsp
+                                    <input class="form-check-input" name="kh_gioi_tinh" value="Nam" type="radio"
+                                           id="nam" checked>
+                                    <label style="font-size: 14px;font-weight: normal" class="form-check-label" for="nam">Nam</label> &nbsp &nbsp &nbsp &nbsp
+                                    <input class="form-check-input" name="kh_gioi_tinh" value="Nữ" type="radio" id="nu">
+                                    <label style="font-size: 14px;font-weight: normal" class="form-check-label" for="nu">Nữ</label>
+                                </div>
+                            </div>
+
                             <label class="labelnew"><span style="color: red;">(*)</span> Địa chỉ email :</label>
                             <input value="{{ old('email') }}" type="text" name="email"
                                    placeholder="Vui lòng nhập email của bạn"
                                    required>
-                            {{--<label class="labelnew">Ngày sinh :</label>--}}
-                            {{--<input value="{{ old('kh_ngay_cap') }}" style="width: 100%;" type="date" name="kh_ngay_cap">--}}
+
 
                             {{--<label class="labelnew">Địa chỉ :</label>--}}
                             {{--<input value="{{ old('kh_dia_chi') }}" type="text" name="kh_diachi" placeholder="Địa chỉ">--}}
@@ -86,11 +99,11 @@
 
                             {{--<br>--}}
                             {{--<br>--}}
-                            {{--<label class="labelnew">Mã người giới thiệu :</label>--}}
-                            {{--<p class="help-block" style="font-size: 12px;color: red;">--}}
-                            {{--Lưu ý: Nhập chính xác mã người giới thiệu.--}}
-                            {{--</p>--}}
-                            {{--<input style="text-transform: uppercase" type="text" name="ma_code_cha">--}}
+                            <label class="labelnew">Mã giới thiệu :</label>
+                            <p class="help-block" style="font-size: 12px;color: red;">
+                            Lưu ý: Nhập chính xác mã người giới thiệu.
+                            </p>
+                            <input style="text-transform: uppercase" type="text" name="ma_code_cha">
 
                             {{--<label class="labelnew" style="width: 100%;">Ảnh đại diện :</label>--}}
                             {{--<div style="display: flex;">--}}

@@ -70,7 +70,7 @@ class GianHangController extends Controller
     }
 
     // view danh sách sản phẩm của gian hàng
-    public function qlsanpham()
+    public function qlsanpham(Request $req)
     {
         $data = SanPhamModel::leftjoin('san_pham_danh_muc', 'san_pham_danh_muc.id', '=', 'san_pham.id_danh_muc')
             ->leftjoin('san_pham_gia', 'san_pham_gia.id_sp', '=', 'san_pham.id')
@@ -79,12 +79,19 @@ class GianHangController extends Controller
             ->select([
                 'san_pham.id as id',
                 'san_pham.sp_ten',
-                'san_pham.sp_so_luong',
                 'san_pham.sp_image',
+                'san_pham.status',
+                'san_pham.sp_thuong_hieu',
                 'san_pham_danh_muc.dm_ten',
-                'san_pham_gia.gia_goc',
-                'san_pham_gia.gia_km',
-            ])->get();
+            ]);
+        if ($req->has('q') && $req->get('q') != '')
+            $data = $data->where(function ($q) use ($req) {
+                return $q->where('sp_ten', 'like', '%' . $req->get('q') . '%');
+            });
+        if ($req->has('k') && $req->get('k') != '') {
+            $data = $data->where('san_pham_danh_muc.id', $req->get('k'));
+        }
+        $data = $data->paginate(10);
         $count = count($data);
         for ($i = 0; $i < $count; $i++) {
             $data[$i]['stt'] = $i + 1;
@@ -115,13 +122,14 @@ class GianHangController extends Controller
             'id_gian_hang' => Auth::user()->id,
             'id_danh_muc' => $request->dm_ten,
             'sp_ten' => $request->get('sp_ten'),
-            'sp_so_luong' => $request->get('sp_so_luong'),
             'sp_image' => $sp_image,
+            'sp_thuong_hieu' => $request->get('sp_thuong_hieu'),
+            'status' => 0,
         ]);
         SanPhamGiaModel::create([
             'id_sp' => $sanpham->id,
-            'gia_goc' => $request->get('gia_goc'),
-            'gia_km' => $request->get('gia_km'),
+            'gia_goc' => 0,
+            'gia_km' => 0,
         ]);
         return redirect('gian-hang/quan-ly-san-pham')->with('success', 'Thêm thành công !');
     }
@@ -138,11 +146,11 @@ class GianHangController extends Controller
                 'san_pham.id_gian_hang',
                 'san_pham.id_danh_muc',
                 'san_pham.sp_ten',
-                'san_pham.sp_so_luong',
                 'san_pham.sp_image',
                 'san_pham_gia.id_sp',
                 'san_pham_gia.gia_goc',
                 'san_pham_gia.gia_km',
+                'san_pham.sp_thuong_hieu',
             ])->get()->first();
 //        dd($data);
         return view('userlayouts.gianhang.cnsanpham', compact('danhmuc', 'data'));
@@ -167,23 +175,83 @@ class GianHangController extends Controller
             ->update([
                 'id_danh_muc' => $request->dm_ten,
                 'sp_ten' => $request->get('sp_ten'),
-                'sp_so_luong' => $request->get('sp_so_luong'),
+                'sp_thuong_hieu' => $request->get('sp_thuong_hieu'),
                 'sp_image' => $sp_image,
+            ]);
+        return redirect('gian-hang/quan-ly-san-pham')->with('success', 'Cập nhật thành công !');
+    }
+
+    // cài đặt sản phẩm
+    public function caidatSanPham($id)
+    {
+        $danhmuc = DanhMucSanPhamModel::all();
+        $data = SanPhamModel::join('san_pham_gia', 'san_pham_gia.id_sp', '=', 'san_pham.id')
+            ->where('san_pham.id', '=', $id)
+            ->where('san_pham.id_gian_hang', '=', Auth::user()->id)
+            ->select([
+                'san_pham.id as sp_id',
+                'san_pham.id_gian_hang',
+                'san_pham.id_danh_muc',
+                'san_pham.sp_ten',
+                'san_pham.sp_image',
+                'san_pham_gia.id_sp',
+                'san_pham_gia.gia_goc',
+                'san_pham_gia.gia_km',
+                'san_pham_gia.sp_description',
+            ])->get()->first();
+//        dd($data);
+        return view('userlayouts.gianhang.caidatsanpham', compact('danhmuc', 'data'));
+    }
+
+    public function caidatStore(Request $request, $id)
+    {
+        SanPhamModel::where('id', $id)
+            ->update([
+                'status' => 1,
             ]);
         SanPhamGiaModel::where('id_sp', $id)
             ->update([
                 'gia_goc' => $request->get('gia_goc'),
                 'gia_km' => $request->get('gia_km'),
+                'sp_description' => $request->get('sp_description'),
             ]);
-        return redirect('gian-hang/quan-ly-san-pham')->with('success', 'Cập nhật thành công !');
+        return redirect('gian-hang/quan-ly-san-pham')->with('success', 'Cài đặt thành công !');
     }
 
     // xóa sản phẩm của gia hàng
     public function xsanphamDestroy($id)
     {
-        SanPhamModel::where('id', $id)->delete();
-        SanPhamGiaModel::where('id_sp', $id)->delete();
-        return redirect('gian-hang/quan-ly-san-pham')->with('success', 'Xóa thành công !');
+        SanPhamModel::where('id', $id)->update([
+            'status' => 0,
+        ]);
+        SanPhamGiaModel::where('id_sp', $id)->update([
+            'gia_goc' => 0,
+            'gia_km' => 0,
+        ]);
+        return redirect('gian-hang/quan-ly-san-pham')->with('success', 'Sản phẩm không còn bán nữa !');
+    }
+
+    // xem thong tin sản phẩm
+    public function xemSanPham($id)
+    {
+        $danhmuc = DanhMucSanPhamModel::all();
+        $data = SanPhamModel::join('san_pham_gia', 'san_pham_gia.id_sp', '=', 'san_pham.id')
+            ->where('san_pham.id', '=', $id)
+            ->where('san_pham.id_gian_hang', '=', Auth::user()->id)
+            ->select([
+                'san_pham.id as sp_id',
+                'san_pham.id_gian_hang',
+                'san_pham.id_danh_muc',
+                'san_pham.sp_ten',
+                'san_pham.sp_thuong_hieu',
+                'san_pham.sp_image',
+                'san_pham_gia.id_sp',
+                'san_pham_gia.gia_goc',
+                'san_pham_gia.gia_km',
+                'san_pham_gia.sp_description',
+            ])->get()->first();
+//        dd($data);
+        return view('userlayouts.gianhang.xemsanpham', compact('danhmuc', 'data'));
     }
 
     // trang thông tin của gian hàng

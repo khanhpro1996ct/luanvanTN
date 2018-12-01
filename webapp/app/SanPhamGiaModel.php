@@ -13,6 +13,7 @@ class SanPhamGiaModel extends Model
         'id_sp',
         'gia_goc',
         'gia_km',
+        'sp_description',
         'created_at',
         'updated_at',
     ];

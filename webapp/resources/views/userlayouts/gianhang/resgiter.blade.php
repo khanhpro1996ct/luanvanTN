@@ -14,24 +14,16 @@
 <div class="products-breadcrumb">
     <div class="container">
         <ul>
-            <li><i class="fa fa-home" aria-hidden="true"></i><a href="#">Trang chủ</a><span>|</span></li>
-            <li>Đăng ký gian hàng</li>
+            <li>
+                <i class="fa fa-home" aria-hidden="true"></i>
+                <a href="{{ url('user') }}">Trang chủ</a><span>|</span>
+            </li>
+            <li>Đăng ký mở gian hàng</li>
         </ul>
     </div>
 </div>
 <div class="banner">
-    <div class="w3l_banner_nav_left">
-        <nav class="navbar nav_bottom">
-            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-                <ul class="nav navbar-nav nav_1">
-                    @foreach($data as $val)
-                        <li><a href="">{{ $val->dm_ten }}</a></li>
-                    @endforeach
-
-                </ul>
-            </div>
-        </nav>
-    </div>
+    @include('userlayouts.category')
     <div class="w3l_banner_nav_right">
         <div class="w3_login">
             <h3>Đăng Ký Gian Hàng</h3>
@@ -40,7 +32,7 @@
                     <div class="">
                     </div>
                     <div class="form">
-                        <h2>Đăng ký tài khoản gian hàng</h2>
+                        <h2>Đăng ký mở gian hàng</h2>
                         <form action="{{ route('gh.regesterStore') }}" method="post">
                             @csrf
                             <label class="labelnew"><span style="color: red;">(*)</span> Số điện thoại :</label>

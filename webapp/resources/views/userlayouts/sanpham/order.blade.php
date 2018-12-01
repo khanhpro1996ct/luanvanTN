@@ -35,7 +35,7 @@
                             </thead>
                             <tbody>
                             @foreach($order as $key => $value)
-                                <tr class="rem1">
+                                <tr class="rem1" id="tr{{$value['id']}}">
                                     <td class="invert-image">
                                         <?php
                                         $image = \App\SanPhamModel::where('id', $value['id'])->get()->first()->sp_image;
@@ -55,7 +55,7 @@
 
                                     <td class="invert">đ{{ number_format($value['gia'] * $value['soluong']) }}</td>
                                     <td class="invert">
-                                        <div class="rem">
+                                        <div class="rem" onclick="deleteItem2('tr{{$value["id"]}}')">
                                             <div class="close1"></div>
                                         </div>
                                     </td>
@@ -131,15 +131,15 @@
     });
 </script>
 <!--quantity-->
-<script>
-    $(document).ready(function (c) {
-        $('.close1').on('click', function (c) {
-            $('.rem1').fadeOut('slow', function (c) {
-                $('.rem1').remove();
-            });
-        });
-    });
-</script>
+{{--<script>--}}
+    {{--$(document).ready(function (c) {--}}
+        {{--$('.close1').on('click', function (c) {--}}
+            {{--$('.rem1').fadeOut('slow', function (c) {--}}
+                {{--$('.rem1').remove();--}}
+            {{--});--}}
+        {{--});--}}
+    {{--});--}}
+{{--</script>--}}
 <script>
     $(document).ready(function () {
         var navoffeset = $(".agileits_header").offset().top;
@@ -184,10 +184,12 @@
         $().UItoTop({easingType: 'easeOutQuart'});
 
     });
+
 </script>
 @include('userlayouts.modal');
 <script>
-    function getCart(id, name, gia_km, gia_goc, id_shop) {
+    function getCart() {
+        $('#item').html('');
         var item = $('#item');
         var sp = sessionStorage.getItem('list_order');
         sp = JSON.parse(sp);
@@ -238,78 +240,80 @@
         else {
             sp = [];
         }
-        var gia = gia_km == 0 ? gia_goc : gia_km;
-        if ($('#sl_' + id).val() != undefined) {
-            var temp = $('#sl_' + id).val();
-            temp++;
-            $('#sl_' + id).val(temp);
-            var tongtien = $('#sl_' + id).val() * gia;
-            // var newtongtien = tongtien.toLocaleString('en');
-            $('#tt_' + id).html('đ:' + Number(tongtien));
-            sp.find(function (element) {
-                if (element.id == id) {
-                    Number(element.soluong++);
-                    element.thanhtien = Number(element.soluong * element.gia);
-                }
-            });
-            sessionStorage.setItem('list_order', JSON.stringify(sp));
-        }
-        else {
-            html = "";
-            html =
-                '<div id="item' + id + '"> ' +
-                '<div class="row">' +
-                '<div class="col-sm-12" style="font-size: 14px">' +
-                '<div class="col-sm-7">' +
-                '<p style="font-weight: bold" > ' + name + '</p>\n' +
-                '<p style="font-weight: 300;color: #999"> Đơn giá:đ:' + Number(gia).toLocaleString('en') + '</p>\n' +
-                '</div>' +
-                '<div class="col-sm-2">' +
-                '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"name=soluong[] id="sl_' + id + '" class="form-control" type="number" placeholder="nhập số lượng" value="1">\n' +
-                '</div>' +
-                '<div class="col-sm-2">' +
-                '<p id="tt_' + id + '">đ:' + Number(gia).toLocaleString('en') + '</p>' +
-                '</div>' +
-                '<div class="col-sm-1">' +
-                '<button id="del_' + id + '" onclick="deleteItem(' + id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '<input type="hidden" name=id[] value="' + id + '"> ' +
-                '<input type="hidden" name=name[] value="' + name + '"> ' +
-                '<input type="hidden" name=gia[] value="' + gia + '"> ' +
-                '<hr>' +
-                '</div> ';
-            item.append(html);
-
-            $('#sl_' + id).on('input', function () {
-                var tongtien = $('#sl_' + id).val() * gia;
-                // var newtongtien = tongtien.toLocaleString('en');
-                $('#tt_' + id).html('đ:' + Number(tongtien));
-                sp.find(function (element) {
-                    if (element.id == id) {
-                        element.soluong = Number($('#sl_' + id).val());
-                        element.thanhtien = Number($('#sl_' + id).val() * gia);
-                    }
-                });
-                sessionStorage.setItem('list_order', JSON.stringify(sp));
-            });
-            sp.push({
-                id: id,
-                name: name,
-                soluong: 1,
-                gia: gia,
-                thanhtien: gia
-            });
-            sessionStorage.setItem('list_order', JSON.stringify(sp));
-
-        }
-        $('#orderModal').modal('show');
+        // var gia = gia_km == 0 ? gia_goc : gia_km;
+        // if ($('#sl_' + id).val() != undefined) {
+        //     var temp = $('#sl_' + id).val();
+        //     temp++;
+        //     $('#sl_' + id).val(temp);
+        //     var tongtien = $('#sl_' + id).val() * gia;
+        //     // var newtongtien = tongtien.toLocaleString('en');
+        //     $('#tt_' + id).html('đ:' + Number(tongtien));
+        //     sp.find(function (element) {
+        //         if (element.id == id) {
+        //             Number(element.soluong++);
+        //             element.thanhtien = Number(element.soluong * element.gia);
+        //         }
+        //     });
+        //     sessionStorage.setItem('list_order', JSON.stringify(sp));
+        // }
+        // else {
+        //     html = "";
+        //     html =
+        //         '<div id="item' + id + '"> ' +
+        //         '<div class="row">' +
+        //         '<div class="col-sm-12" style="font-size: 14px">' +
+        //         '<div class="col-sm-7">' +
+        //         '<p style="font-weight: bold" > ' + name + '</p>\n' +
+        //         '<p style="font-weight: 300;color: #999"> Đơn giá:đ:' + Number(gia).toLocaleString('en') + '</p>\n' +
+        //         '</div>' +
+        //         '<div class="col-sm-2">' +
+        //         '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"name=soluong[] id="sl_' + id + '" class="form-control" type="number" placeholder="nhập số lượng" value="1">\n' +
+        //         '</div>' +
+        //         '<div class="col-sm-2">' +
+        //         '<p id="tt_' + id + '">đ:' + Number(gia).toLocaleString('en') + '</p>' +
+        //         '</div>' +
+        //         '<div class="col-sm-1">' +
+        //         '<button id="del_' + id + '" onclick="deleteItem(' + id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +
+        //         '</div>' +
+        //         '</div>' +
+        //         '</div>' +
+        //         '<input type="hidden" name=id[] value="' + id + '"> ' +
+        //         '<input type="hidden" name=name[] value="' + name + '"> ' +
+        //         '<input type="hidden" name=gia[] value="' + gia + '"> ' +
+        //         '<hr>' +
+        //         '</div> ';
+        //     item.append(html);
+        //
+        //     $('#sl_' + id).on('input', function () {
+        //         var tongtien = $('#sl_' + id).val() * gia;
+        //         // var newtongtien = tongtien.toLocaleString('en');
+        //         $('#tt_' + id).html('đ:' + Number(tongtien));
+        //         sp.find(function (element) {
+        //             if (element.id == id) {
+        //                 element.soluong = Number($('#sl_' + id).val());
+        //                 element.thanhtien = Number($('#sl_' + id).val() * gia);
+        //             }
+        //         });
+        //         sessionStorage.setItem('list_order', JSON.stringify(sp));
+        //     });
+        //     sp.push({
+        //         id: id,
+        //         name: name,
+        //         soluong: 1,
+        //         gia: gia,
+        //         thanhtien: gia
+        //     });
+        //     sessionStorage.setItem('list_order', JSON.stringify(sp));
+        //
+        // }
+        // $('#orderModal').modal('show');
 
     }
 
-    function deleteItem(id) {
+    function deleteItem2(id) {
+
         var sp = sessionStorage.getItem('list_order');
+        console.log(sp);
         sp = JSON.parse(sp);
         if (sp != [] && sp != undefined) {
             //Xoa mang
@@ -319,7 +323,9 @@
             sp.splice(index, 1);
             sessionStorage.setItem('list_order', JSON.stringify(sp));
             //Xoa giao dien
-            $('#item' + id).remove();
+            $('#tr'+id).remove();
+            getCart();
+            $('#orderForm').submit();
         }
     }
 </script>

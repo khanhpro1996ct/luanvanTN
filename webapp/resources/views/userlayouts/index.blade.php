@@ -129,7 +129,7 @@
 </div>
 <div class="top-brands">
     <div class="container">
-        <h3>Sản Phẩm Khuyến Mãi</h3>
+        <h3>Sản Phẩm</h3>
         <div class="agile_top_brands_grids">
             @foreach($sanpham as $value)
                 <div class="col-md-3 top_brand_left khungSP">
@@ -158,7 +158,7 @@
                                         </div>
                                         <div class="snipcart-details top_brand_home_details">
                                             <input type="button" name="submit" value="Thêm Giỏ Hàng"
-                                                   onclick="getCart('{{$value->id_sp}}','{{$value->ten_sp}}','{{$value->gia_km_sp}}','{{$value->gia_goc_sp}}','{{$value->gh_id}}')"
+                                                   onclick="getCart('{{$value->id_sp}}','{{$value->ten_sp}}','{{$value->gia_km_sp}}','{{$value->gia_goc_sp}}')"
                                                    class="button"/>
                                         </div>
                                         <hr style="margin: 0px">
@@ -288,7 +288,7 @@
 @include('userlayouts.messages')
 @include('userlayouts.modal');
 <script>
-    function getCart(id, name, gia_km, gia_goc, id_shop) {
+    function getCart(id, name, gia_km, gia_goc) {
         var item = $('#item');
         var sp = sessionStorage.getItem('list_order');
         sp = JSON.parse(sp);
@@ -304,7 +304,7 @@
                     '<p style="font-weight: 300;color: #999"> Đơn giá: đ:' + Number(element.gia).toLocaleString('en') + '</p>\n' +
                     '</div>' +
                     '<div class="col-sm-2">' +
-                    '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;" name=soluong[] id="sl_' + element.id + '" class="form-control" type="number" placeholder="nhập số lượng" value="' + element.soluong + '">\n' +
+                    '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"name=soluong[] id="sl_' + element.id + '" class="form-control" type="number" placeholder="nhập số lượng" value="' + element.soluong + '">\n' +
                     '</div>' +
                     '<div class="col-sm-2">' +
                     '<p id="tt_' + element.id + '">đ:' + Number(element.thanhtien).toLocaleString('en') + '</p>' +

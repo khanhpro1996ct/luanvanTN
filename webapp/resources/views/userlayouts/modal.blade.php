@@ -2,7 +2,7 @@
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form action="{{ route('order') }}" method="post">
+        <form action="{{ route('order') }}" method="post" id="orderForm">
             @csrf()
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #84c639;">

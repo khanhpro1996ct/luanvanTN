@@ -26,10 +26,8 @@ class SanPhamAddRequest extends FormRequest
         return
             [
                 'sp_ten' => 'required',
-                'sp_so_luong' => 'required|numeric|min:0',
                 'file' => 'required|image',
-                'gia_goc' => 'required|numeric|min:0',
-                'gia_km' => 'numeric',
+                'sp_thuong_hieu' => 'required',
             ];
     }
 
@@ -38,15 +36,9 @@ class SanPhamAddRequest extends FormRequest
         return
             [
                 'sp_ten.required' => 'Tên sản phẩm không được trống !',
-                'sp_so_luong.required' => 'Số lượng không được trống !',
-                'sp_so_luong.numeric' => 'Số lượng phải là số !',
-                'sp_so_luong.min' => 'Số lượng thấp nhất là 0 !',
                 'file.required' => 'Ảnh sản phẩm không được trống !',
                 'file.image' => 'Không phải ảnh !',
-                'gia_goc.required' => 'Giá bán không được trống !',
-                'gia_goc.numeric' => 'Giá bán phải là số !',
-                'gia_goc.min' => 'Giá bán thấp nhất là 0 vnđ !',
-                'gia_km.numeric' => 'Giá khuyến mãi phải là số !',
+                'sp_thuong_hieu.required' => 'Thương hiệu không được trống !',
             ];
     }
 }
