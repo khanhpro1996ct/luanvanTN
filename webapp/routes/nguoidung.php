@@ -12,4 +12,5 @@ Route::group(['prefix' => 'nguoi-dung'], function () {
 
     // trang sổ đại chỉ
     Route::get('/so-dia-chi', 'UserController@SoDiaChi')->name('SoDiaChi');
+    Route::get('/so-dia-chi/add', 'UserController@themSoDiaChi')->name('themSoDiaChi');
 });

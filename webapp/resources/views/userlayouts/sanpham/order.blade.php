@@ -18,7 +18,7 @@
         {{--{{ dd($order) }}--}}
         <form action="{{ route('orderStore') }}" method="post">
             @csrf
-            <div class="privacy about">
+            <div class="privacy about" style="padding-top: 10px">
                 <h3>Giỏ Hàng</h3>
                 <div class="checkout-right">
                     <h4>Giỏ hàng của bạn: <span>{{ count($order) }} Sản phẩm</span></h4>
@@ -27,9 +27,10 @@
                             <thead>
                             <tr>
                                 <th>Ảnh</th>
-                                <th>Số lượng</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
                                 <th>Thao tác</th>
                             </tr>
                             </thead>
@@ -46,13 +47,13 @@
                                                  class="img-responsive">
                                         </a>
                                     </td>
+                                    <td class="invert">{{ $value['name'] }}</td>
+                                    <td class="invert">đ{{ number_format($value['gia'] * $value['soluong']) }}</td>
                                     <td>
                                         <input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"
                                                type="number" name="soluong[{{$value['id']}}]"
                                                value="{{ $value['soluong'] }}">
                                     </td>
-                                    <td class="invert">{{ $value['name'] }}</td>
-
                                     <td class="invert">đ{{ number_format($value['gia'] * $value['soluong']) }}</td>
                                     <td class="invert">
                                         <div class="rem" onclick="deleteItem2('tr{{$value["id"]}}')">
@@ -63,6 +64,8 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <br>
+                        <div style="float: right;">Tổng tiền hóa đơn : </div>
                     @else
                         <p>Giỏ hàng của bạn hiện chưa có sản phẩm nào</p>
                     @endif
@@ -71,32 +74,58 @@
                     <div class="col-md-4 checkout-left-basket"></div>
                     <div class="col-md-8 address_form_agile">
                         <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                            <div class="information-wrapper">
-                                <div class="first-row form-group">
-                                    <div class="controls">
-                                        <label class="control-label">Họ & tên: </label>
-                                        <input required class="billing-address-name form-control" type="text"
-                                               name="ho_ten" placeholder="Họ và tên ">
-                                    </div>
-                                    <div class="w3_agileits_card_number_grids">
-                                        <div class="w3_agileits_card_number_grid_left">
+                            <ul class="nav nav-pills nav-justified" role="tablist">
+                                <li class="nav-item waves-effect waves-light">
+                                    <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">Thêm địa chỉ mới</a>
+                                </li>
+                                <li class="nav-item waves-effect waves-light">
+                                    <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab">Chọn từ sổ địa chỉ</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+                                    <p class="font-14 mb-0">
+                                    <div class="information-wrapper">
+                                        <div class="first-row form-group">
                                             <div class="controls">
-                                                <label class="control-label">Số điện thoại:</label>
-                                                <input required class="form-control" type="number" name="sdt_kh"
-                                                       placeholder="Số điện thoại">
+                                                <label class="control-label">Họ & tên: </label>
+                                                <input required class="billing-address-name form-control" type="text"
+                                                       name="ho_ten" placeholder="Họ và tên ">
+                                            </div>
+                                            <div class="w3_agileits_card_number_grids">
+                                                <div class="w3_agileits_card_number_grid_left">
+                                                    <div class="controls">
+                                                        <label class="control-label">Số điện thoại:</label>
+                                                        <input required class="form-control" type="number" name="sdt_kh"
+                                                               placeholder="Số điện thoại">
+                                                    </div>
+                                                </div>
+                                                <div class="w3_agileits_card_number_grid_right">
+                                                    <div class="controls">
+                                                        <label class="control-label">Địa chỉ giao: </label>
+                                                        <textarea required class="form-control" type="text" name="dia_chi_giao"
+                                                                  placeholder="Địa chỉ giao hàng"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
                                             </div>
                                         </div>
-                                        <div class="w3_agileits_card_number_grid_right">
-                                            <div class="controls">
-                                                <label class="control-label">Địa chỉ giao: </label>
-                                                <textarea required class="form-control" type="text" name="dia_chi_giao"
-                                                          placeholder="Địa chỉ giao hàng"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
+                                        <button class="submit check_out">Đặt Hàng</button>
                                     </div>
+                                    </p>
                                 </div>
-                                <button class="submit check_out">Đặt Hàng</button>
+                                <div class="tab-pane p-3" id="profile-1" role="tabpanel">
+                                    <p class="font-14 mb-0">
+                                    <div class="information-wrapper">
+                                        <label class="control-label">Chọn địa chỉ: </label>
+                                        <select class="form-control" name="ho_ten">
+                                            <option value="1">6A/1 Cái Răng,Ninh Kiều,TP Cần Thơ</option>
+                                            <option value="1">sss</option>
+                                        </select>
+                                        <button class="submit check_out">Đặt Hàng</button>
+                                    </div>
+                                    </p>
+                                </div>
                             </div>
                         </section>
                     </div>

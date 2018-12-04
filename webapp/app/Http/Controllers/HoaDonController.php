@@ -21,7 +21,7 @@ class HoaDonController extends Controller
                 'users_profile.kh_ten as tennguoidat',
             ])
             ->get();
-        dd($order_cd->toArray());
+//        dd($order_cd->toArray());
         return view('backend.hoadon.index', compact('order_cd'));
     }
 }

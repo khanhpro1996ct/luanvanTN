@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
 @include('userlayouts.thehead')
+<style>
+    .imgnew1 {
+        width: 41px;
+        height: 41px;
+        border-radius: 41px;
+    }
+</style>
 <body>
 @include('userlayouts.header')
 <div class="products-breadcrumb">
@@ -28,12 +35,21 @@
         <nav class="navbar nav_bottom">
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav nav_1">
-                    <li><a style="color: red">
-                            <b>Xin chào
-                                {{ \App\NguoiDungModel::where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->get()->first()->kh_ten }}
-                            </b>
+                    <li>
+                        <a style="color: red">
+                            @if(\App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_image == null)
+                                <img class="imgnew1" src="{{ url('imageKH/images.png') }}">
+                            @else
+                                <img class="imgnew1" src="{{ url('imageKH') }}/{{\App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_image}}">
+                            @endif
+                            Xin chào,
+                            <b>{{ \App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_ten }}</b>
                         </a>
                     </li>
+                    <li><a>{{ Auth::user()->phone }}</a></li>
+                    <li><a>{{ Auth::user()->email }}</a></li>
+                </ul>
+                <ul class="nav navbar-nav nav_1">
                     <li>
                         <a href="{{ route('profileCaNhan') }}">Thông tin cá nhân</a>
                         <a href="#">Đơn hàng của tôi</a>

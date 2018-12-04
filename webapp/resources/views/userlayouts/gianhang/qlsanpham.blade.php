@@ -15,6 +15,11 @@
         margin-left: 0px;
         margin-right: 0px;
     }
+    .imgnew {
+        width: 41px;
+        height: 41px;
+        border-radius: 41px;
+    }
 </style>
 <body>
 @include('userlayouts.header')
@@ -40,11 +45,14 @@
         <nav class="navbar nav_bottom">
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav nav_1">
-                    <li><a style="color: red"><b>Quản Lý Sản Phẩm</b></a></li>
-                    <li><a href="{{ route('gh.qlsanpham') }}">Danh sách sản phẩm</a></li>
-                    <li><a href="{{ route('gh.tmsanpham') }}">Thêm sản phẩm mới</a></li>
-                    <li><a href="{{ route('gh.profileGianHang') }}">Thông tin gian hàng</a></li>
-                    <li><a href="">Lịch sử bán các sản phẩm</a></li>
+                    <li>
+                        <a style="color: red">
+                            <img class="imgnew" src="{{ url('upload/shop.jpg') }}">
+                            Xin chào, <b>{{ \App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_ten }}</b>
+                        </a>
+                    </li>
+                    <li><a>{{ Auth::user()->phone }}</a></li>
+                    <li><a>{{ Auth::user()->email }}</a></li>
                 </ul>
                 <ul class="nav navbar-nav nav_1">
                     <li><a style="color: red"><b>Quản Lý Sản Phẩm</b></a></li>

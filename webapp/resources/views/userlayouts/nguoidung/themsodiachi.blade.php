@@ -2,6 +2,26 @@
 <html>
 @include('userlayouts.thehead')
 <style>
+    .labelnew {
+        margin-bottom: 5px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .imgnew {
+        width: 100px;
+        height: 100px;
+        margin: auto;
+        border-radius: 30px;
+    }
+
+    .erorr {
+        margin-top: -15px;
+        font-size: 12px;
+        color: red;
+        margin-bottom: 10px;
+    }
+
     .imgnew1 {
         width: 41px;
         height: 41px;
@@ -18,12 +38,17 @@
                 <a href="{{ url('user') }}">Trang chủ</a>
                 <span>|</span>
             </li>
-            <li>Sổ địa chỉ</li>
+            <li title="Trang chủ">
+                <a href="{{ url('user') }}">Sổ địa chỉ</a>
+                <span>|</span>
+            </li>
+            <li>Thêm sổ địa chỉ</li>
         </ul>
     </div>
 </div>
 <div class="banner">
     <div class="w3l_banner_nav_left">
+        <br>
         <nav class="navbar nav_bottom">
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav nav_1">
@@ -55,73 +80,54 @@
         </nav>
     </div>
     <div class="w3l_banner_nav_right">
-        <div class="privacy about">
-            <h3>Sổ địa chỉ</h3>
-            <div class="checkout-right">
-                <h4>Lưu địa chỉ thanh toán và giao hàng</h4>
-                <table class="timetable_sub">
-                    <thead>
-                    <tr>
-                        <th>Stt</th>
-                        <th>Họ tên</th>
-                        <th>Số điện thoại</th>
-                        <th>Địa chỉ</th>
-                        <th>Thao tác</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Quốc Khánh</td>
-                        <td>0972705703</td>
-                        <td>6Y/1 Bình Thủy, Ninh Kiều, TP Cần Thơ</td>
-                        <td>
-                            <a class="btn btn-warning">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="checkout-left">
-                <div class="col-md-4 checkout-left-basket"></div>
-                <div class="col-md-8 address_form_agile">
-                    <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                    <div class="information-wrapper">
-                        <button class=" submit check_out" style="text-transform: none"><a
-                                    href="{{ route('themSoDiaChi') }}">+ Thêm địa chỉ mới</a></button>
+        <div class="w3_login" style="padding-top: 1em">
+            <h3 style="font-size: 26px;">Thêm Đia Chỉ Mới</h3>
+            <div class="w3_login_module">
+                <div class="module form-module">
+                    <div class="">
                     </div>
-                    </section>
+                    <div class="form">
+                        <form action="" method="post">
+                            @csrf
+                            <label class="labelnew"><span style="color: red;">(*)</span> Họ Tên :</label>
+                            <input required value="{{ old('sp_ten') }}" type="text" name="sp_ten"
+                                   placeholder="Họ tên">
+                            <label class="labelnew"><span style="color: red;">(*)</span> Số điện thoại :</label>
+                            <input required value="{{ old('sp_ten') }}" type="text" name="sp_ten"
+                                   placeholder="Vui lòng nhập số điện thoại của bạn">
+                            <label class="labelnew"><span style="color: red;">(*)</span> Địa chỉ :</label>
+                            <input required value="{{ old('sp_ten') }}" type="text" name="sp_ten"
+                                   placeholder="Vui lòng nhập địa chỉ của bạn">
+                            <label class="labelnew"><span style="color: red;">(*)</span> Tỉnh/Thành phố :</label>
+                            <div class="form-group">
+                                <select class="form-control" name="dm_ten">
+                                        <option value="">Vui lòng chọn Tỉnh/Thành phố</option>
+                                </select>
+                            </div>
+                            <label class="labelnew"><span style="color: red;">(*)</span> Quận/Huyện :</label>
+                            <div class="form-group">
+                                <select class="form-control" name="dm_ten" disabled>
+                                        <option value="">Vui lòng chọn Quận/Huyện</option>
+                                </select>
+                            </div>
+                            <label class="labelnew"><span style="color: red;">(*)</span> Phường/Xã :</label>
+                            <div class="form-group">
+                                <select class="form-control" name="dm_ten" disabled>
+                                        <option value="">Vui lòng chọn Phường/Xã</option>
+                                </select>
+                            </div>
+
+                            <br>
+                            <input id="btnsm" type="submit" value="Lưu">
+                        </form>
+                    </div>
                 </div>
-                <div class="clearfix"></div>
             </div>
         </div>
-        <!-- //about -->
     </div>
     <div class="clearfix"></div>
 </div>
-<div class="newsletter">
-    <div class="container">
-        <div class="w3agile_newsletter_left">
-            <h3>Đăng ký nhận bản tin của chúng tôi</h3>
-        </div>
-        <div class="w3agile_newsletter_right">
-            <form action="#" method="post">
-                <input type="email" name="Email" value="Email của bạn là" onfocus="this.value = '';"
-                       onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                <input type="submit" value="Đăng ký">
-            </form>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
 @include('userlayouts.footer')
-@if(\Illuminate\Support\Facades\Session::get('clear_session')==1)
-    <script>
-        sessionStorage.clear();
-    </script>
-@endif
 <script src="{{ url('userlayouts/webuser/js/bootstrap.min.js') }}"></script>
 <script>
     $(document).ready(function () {

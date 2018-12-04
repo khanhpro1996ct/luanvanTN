@@ -24,6 +24,12 @@
         margin: auto;
         border-radius: 30px;
     }
+
+    .imgnew1 {
+        width: 41px;
+        height: 41px;
+        border-radius: 41px;
+    }
 </style>
 <body>
 @include('userlayouts.header')
@@ -44,9 +50,22 @@
         <nav class="navbar nav_bottom">
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav nav_1">
+                    <li>
+                        <a style="color: red">
+                            <img class="imgnew1" src="{{ url('upload/shop.jpg') }}">
+                            Xin chào,
+                            <b>{{ \App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_ten }}</b>
+                        </a>
+                    </li>
+                    <li><a>{{ Auth::user()->phone }}</a></li>
+                    <li><a>{{ Auth::user()->email }}</a></li>
+                </ul>
+                <ul class="nav navbar-nav nav_1">
                     <li><a style="color: red"><b>Quản Lý Sản Phẩm</b></a></li>
                     <li><a href="{{ route('gh.qlsanpham') }}">Danh sách sản phẩm</a></li>
                     <li><a href="{{ route('gh.tmsanpham') }}">Thêm sản phẩm mới</a></li>
+                    <li><a href="{{ route('gh.profileGianHang') }}">Thông tin gian hàng</a></li>
+                    <li><a href="">Lịch sử bán các sản phẩm</a></li>
                 </ul>
             </div>
         </nav>
@@ -60,7 +79,8 @@
                     </div>
                     <div class="form">
                         <h2>Cập Nhật Sản Phẩm Mới Cho Gian Hàng Của Bạn</h2>
-                        <form action="{{ route('gh.cnsanphamStore',$data->sp_id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('gh.cnsanphamStore',$data->sp_id) }}" method="post"
+                              enctype="multipart/form-data">
                             @csrf
                             <label class="labelnew"><span style="color: red;">(*)</span> Danh Mục :</label>
                             <div class="form-group">
@@ -75,27 +95,18 @@
                                     @endforeach
                                 </select>
                             </div>
-
                             <label class="labelnew"><span style="color: red;">(*)</span> Tên Sản Phẩm :</label>
                             <input required value="{{ $data->sp_ten }}" type="text" name="sp_ten"
                                    placeholder="Tên sản phẩm">
                             @if ($errors->has('sp_ten'))
                                 <p class="erorr">{{ $errors->first('sp_ten') }}</p>
                             @endif
-
                             <label class="labelnew"><span style="color: red;">(*)</span> Thương hiệu :</label>
-                            <input required value="{{ $data->sp_thuong_hieu }}" type="text" name="sp_thuong_hieu" placeholder="Thương hiệu của sản phẩm">
+                            <input required value="{{ $data->sp_thuong_hieu }}" type="text" name="sp_thuong_hieu"
+                                   placeholder="Thương hiệu của sản phẩm">
                             @if ($errors->has('sp_thuong_hieu'))
                                 <p class="erorr">{{ $errors->first('sp_thuong_hieu') }}</p>
                             @endif
-
-                            {{--<label class="labelnew"><span style="color: red;">(*)</span> Số Lượng Trong Kho :</label>--}}
-                            {{--<input required value="{{ $data->sp_so_luong }}" type="text" name="sp_so_luong"--}}
-                                   {{--placeholder="Số lượng có trong của hàng">--}}
-                            {{--@if ($errors->has('sp_so_luong'))--}}
-                                {{--<p class="erorr">{{ $errors->first('sp_so_luong') }}</p>--}}
-                            {{--@endif--}}
-
                             <label class="labelnew" style="width: 100%;">Ảnh sản phẩm :</label>
                             <div style="display: flex;">
                                 @if(empty($data->sp_image))
@@ -111,23 +122,6 @@
                             @if ($errors->has('file'))
                                 <p class="erorr">{{ $errors->first('file') }}</p>
                             @endif
-
-                            {{--<label class="labelnew"><span style="color: red;">(*)</span> Giá Bán :</label>--}}
-                            {{--<input required value="{{ $data->gia_goc }}" type="text" name="gia_goc"--}}
-                                   {{--placeholder=" vd: {{ number_format(30000) }} vnđ">--}}
-                            {{--@if ($errors->has('gia_goc'))--}}
-                                {{--<p class="erorr">{{ $errors->first('gia_goc') }}</p>--}}
-                            {{--@endif--}}
-
-                            {{--<label class="labelnew">Giá Khuyến Mãi :</label>--}}
-                            {{--<p style="font-size: 12px;color: red;" class="help-block">Lưu ý : Giá khuyến mãi nhỏ hơn giá--}}
-                                {{--bán hoặc không nhập giá khuyến mãi !</p>--}}
-                            {{--<input value="{{ $data->gia_km }}" type="text" name="gia_km"--}}
-                                   {{--placeholder="vd: {{  number_format(25000) }} vnđ">--}}
-                            {{--@if ($errors->has('gia_goc'))--}}
-                                {{--<p class="erorr">{{ $errors->first('gia_goc') }}</p>--}}
-                            {{--@endif--}}
-
                             <br>
                             <input id="btnsm" type="submit" value="Cập nhật">
                         </form>
@@ -157,24 +151,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $().UItoTop({easingType: 'easeOutQuart'});
-    });
-</script>
-<script src="{{ url('userlayouts/webuser/js/minicart.js') }}"></script>
-<script>
-    paypal.minicart.render();
-    paypal.minicart.cart.on('checkout', function (evt) {
-        var items = this.items(),
-            len = items.length,
-            total = 0,
-            i;
-        for (i = 0; i < len; i++) {
-            total += items[i].get('quantity');
-        }
-
-        if (total < 3) {
-            alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-            evt.preventDefault();
-        }
     });
 </script>
 <script type="text/javascript">

@@ -126,7 +126,7 @@
                     </li>
 
                     <li class="has-submenu">
-                        <a href="#"><i class="ti-crown"></i>Quản Lý Sản Phẩm</a>
+                        <a href="#"><i class="ti-crown"></i>Quản Lý Danh Mục</a>
                         <ul class="submenu">
                             <li><a href="{{ route('sp.index') }}">Danh sách</a></li>
                             <li><a href="#">Cài đặt giá</a></li>

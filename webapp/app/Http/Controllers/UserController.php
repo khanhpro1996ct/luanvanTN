@@ -133,4 +133,10 @@ class UserController extends Controller
     {
         return view('userlayouts.nguoidung.sodiachi', compact('user'));
     }
+
+    // thêm sổ địa chỉ
+    public function themSoDiaChi()
+    {
+        return view('userlayouts.nguoidung.themsodiachi', compact('user'));
+    }
 }

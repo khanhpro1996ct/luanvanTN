@@ -39,10 +39,10 @@
                                                onclick="return confirm('Bạn muốn cập nhật danh mục sản phẩm này ?')">
                                                 <i class="mdi mdi-tooltip-edit"></i>Sửa
                                             </a>
-                                            <a href="{{ route('dm.destroy',$val->id) }}" class="btn btn-outline-danger waves-effect waves-light"
-                                               onclick="return confirm('Bạn có chắc chắn xóa danh mục sản phẩm này ?')">
-                                                <i class="mdi mdi-delete-sweep"></i> Xóa
-                                            </a>
+                                            {{--<a href="{{ route('dm.destroy',$val->id) }}" class="btn btn-outline-danger waves-effect waves-light"--}}
+                                               {{--onclick="return confirm('Bạn có chắc chắn xóa danh mục sản phẩm này ?')">--}}
+                                                {{--<i class="mdi mdi-delete-sweep"></i> Xóa--}}
+                                            {{--</a>--}}
                                         </td>
                                     </tr>
                                 @endforeach
