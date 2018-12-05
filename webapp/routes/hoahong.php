@@ -9,3 +9,7 @@ Route::group(['prefix' => 'phan-cap-hoa-hong'], function () {
     Route::get('destroy/{id}', 'PhanCapHoaHongController@destroy')->name('pchh.destroy')->middleware('admin');
     Route::get('status/{id}', 'PhanCapHoaHongController@status')->name('pchh.status')->middleware('admin');
 });
+
+Route::group(['prefix' => 'lich-su-hoa-hong'], function () {
+    Route::get('/', 'PhanCapHoaHongController@LichSuHH')->name('LichSuHH')->middleware('admin');
+});

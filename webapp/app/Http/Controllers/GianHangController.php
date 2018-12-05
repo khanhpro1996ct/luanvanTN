@@ -17,26 +17,6 @@ use Illuminate\Support\Facades\Hash;
 
 class GianHangController extends Controller
 {
-    // danh sách gian hàng ở backend
-    public function index()
-    {
-        $data = UsersModel::join('users_gian_hang', 'users_gian_hang.user_id', '=', 'users.id')
-            ->where('users.role', '=', 1)
-            ->select([
-                'users.id',
-                'users.phone',
-                'users.email',
-                'users_gian_hang.gh_ten',
-                'users_gian_hang.gh_dia_chi',
-                'users_gian_hang.gh_tien_loi_nhuan',
-            ])->get();
-        $count = count($data);
-        for ($i = 0; $i < $count; $i++) {
-            $data[$i]['stt'] = $i + 1;
-        }
-        return view('backend.gianhang.index', compact('data'));
-    }
-
     // view đăng ký gian hàng
     public function resgiterGH()
     {
@@ -55,7 +35,7 @@ class GianHangController extends Controller
                 'password' => Hash::make($pas),
                 'email' => $request->get('email'),
                 'role' => 1,
-                'code' => '',
+                'code' => 'Không có',
             ]);
             GianHangUserModel::create([
                 'user_id' => $user->id,

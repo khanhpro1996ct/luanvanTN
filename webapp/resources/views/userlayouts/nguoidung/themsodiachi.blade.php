@@ -100,20 +100,26 @@
                                    placeholder="Vui lòng nhập địa chỉ của bạn">
                             <label class="labelnew"><span style="color: red;">(*)</span> Tỉnh/Thành phố :</label>
                             <div class="form-group">
-                                <select class="form-control" name="dm_ten">
-                                        <option value="">Vui lòng chọn Tỉnh/Thành phố</option>
+                                <select class="form-control" name="tinhthanh" id="tinhthanh">
+                                    <option value="">Vui lòng chọn Tỉnh/Thành phố</option>
+                                    @foreach($tinhthanh as $key => $value)
+                                        <option value="{{ $value->id }}">{{ $value->tinhthanh }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <label class="labelnew"><span style="color: red;">(*)</span> Quận/Huyện :</label>
                             <div class="form-group">
-                                <select class="form-control" name="dm_ten" disabled>
-                                        <option value="">Vui lòng chọn Quận/Huyện</option>
+                                <select class="form-control" name="quanhuyen" id="quanhuyen">
+                                    <option value="">Vui lòng chọn Quận/Huyện</option>
+                                    @foreach($quanhuyen as $key => $value)
+                                        <option value="{{ $value->id }}">{{ $value->quanhuyen }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <label class="labelnew"><span style="color: red;">(*)</span> Phường/Xã :</label>
                             <div class="form-group">
-                                <select class="form-control" name="dm_ten" disabled>
-                                        <option value="">Vui lòng chọn Phường/Xã</option>
+                                <select class="form-control" name="phuongxa" id="phuongxa" disabled>
+                                    <option value="">Vui lòng chọn Phường/Xã</option>
                                 </select>
                             </div>
 
@@ -141,6 +147,24 @@
                 $(this).toggleClass('open');
             }
         );
+
+
+        $("#tinhthanh").unbind('change').on('change', function () {
+            $.ajax({
+                url: "{{ route('ajaxQuanHuyen') }}",
+                data: {
+                    id: $('#tinhthanh').val()
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#quanhuyen").empty();
+                    data.map(function (val) {
+                        $("#quanhuyen").append(new Option(val.name, val.id));
+                        // $("#quanhuyen").removeClass(disabled());
+                    });
+                }
+            });
+        });
     });
 </script>
 <script type="text/javascript">
@@ -159,8 +183,8 @@
         }
     }
 </script>
-<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
-@include('userlayouts.messages')
+{{--<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">--}}
+{{--<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>--}}
+{{--@include('userlayouts.messages')--}}
 </body>
 </html>

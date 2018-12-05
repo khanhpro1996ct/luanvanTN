@@ -10,7 +10,6 @@ Route::get('/logout', 'HomeController@logout')->name('admin.logout');
 @include('frontend.php');
 @include('gianhang.php');
 @include('nguoidung.php');
-@include('sanpham.php');
 @include('danhmuc.php');
 @include('hoahong.php');
 @include('hoadon.php');

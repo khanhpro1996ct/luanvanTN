@@ -1,7 +1,5 @@
 <?php
 Route::group(['prefix' => 'gian-hang'], function () {
-    // danh sách ở backend
-    Route::get('/', 'GianHangController@index')->name('gh.index');
 
     // đăng ký gian hàng
     Route::get('/resgiter', 'GianHangController@resgiterGH')->name('gh.resgiterGH');

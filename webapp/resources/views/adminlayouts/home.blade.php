@@ -37,7 +37,7 @@
                             <span class="counter text-white">đ: 956,000</span>
                             Hoa hồng
                         </div>
-                        <p class="mb-0 m-t-20 text-light">Hoa hồng thanh toán: đ: 225,906</p>
+                        <p class="mb-0 m-t-20 text-light">Hoa hồng thanh toán: đ: {{$tong_hoa_hong}}</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-3">
@@ -87,32 +87,42 @@
                                         <td><a href="" data-toggle="modal"
                                                data-target=".bs-example-modal-center">{{ $value->kh_ten }}</a></td>
                                         <td>{{ $value->phone }}</td>
-                                        <td>
+                                        <td style="text-align: center">
                                             @if(!empty($value->ma_code_cha))
-                                                <?php
-                                                $cha = \App\UsersModel::join('users_profile', 'users_profile.user_id', '=', 'users.id')
-                                                    ->where('code', '=', $value->ma_code_cha)
+                                                {{ \App\UsersModel::join('users_profile', 'users_profile.user_id', '=', 'users.id')
+                                                    ->where('id', '=', $value->ma_code_cha)
                                                     ->select('users_profile.kh_ten as kh_ten')
                                                     ->get()
-                                                    ->first()->kh_ten;
-                                                //                                                dd($cha);
-                                                ?>
-                                                {{ $cha }}
+                                                    ->first()->kh_ten }}
                                             @else
-                                                Không có
+                                                <span style="color: red"><i class="mdi mdi-block-helper"></i></span>
                                             @endif
                                         </td>
                                         <td>{{ $value->code }}</td>
                                         <td>đ: {{ number_format($value->tien_hoa_hong) }}</td>
                                         <td>
-                                            <a href="" class="btn btn-outline-primary waves-effect waves-light"
-                                               onclick="return confirm('Bạn chắc muốn khóa tài khoản này ?')">
-                                                <i class="mdi mdi-key"></i>Khóa
-                                            </a>
-                                            <a href="" class="btn btn-outline-danger waves-effect waves-light"
-                                               onclick="return confirm('Bạn chắc muốn khóa tài khoản này ?')">
-                                                <i class="mdi mdi-cash-usd"></i>Thanh Toán
-                                            </a>
+                                            @if($value->active == 1)
+                                                <a href="{{ route('KhoaTK',$value->id) }}"
+                                                   class="btn btn-outline-primary waves-effect waves-light"
+                                                   onclick="return confirm('Bạn chắc muốn khóa tài khoản này ?')">
+                                                    <i class="mdi mdi-key-variant"></i>
+                                                </a>
+                                            @else
+                                                <a class="btn btn-outline-danger waves-effect waves-light">
+                                                    <i class="mdi mdi-block-helper"></i>
+                                                </a>
+                                            @endif
+                                            @if($value->tien_hoa_hong == 0)
+                                                <a class="btn btn-outline-danger waves-effect waves-light">
+                                                    <i class="mdi mdi-cash-usd"></i>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('ThanhToanHH',$value->id) }}"
+                                                   class="btn btn-outline-success waves-effect waves-light"
+                                                   onclick="return confirm('Bạn chắc muốn khóa tài khoản này ?')">
+                                                    <i class="mdi mdi-cash-usd"></i>
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

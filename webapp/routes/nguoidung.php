@@ -13,4 +13,7 @@ Route::group(['prefix' => 'nguoi-dung'], function () {
     // trang sổ đại chỉ
     Route::get('/so-dia-chi', 'UserController@SoDiaChi')->name('SoDiaChi');
     Route::get('/so-dia-chi/add', 'UserController@themSoDiaChi')->name('themSoDiaChi');
+
+    // ajax quan huyen
+    Route::get('/ajax/quan-huyen', 'UserController@ajaxQuanHuyen')->name('ajaxQuanHuyen');
 });

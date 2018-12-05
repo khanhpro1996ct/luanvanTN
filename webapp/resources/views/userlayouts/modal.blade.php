@@ -7,7 +7,8 @@
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #84c639;">
                     <h5 style="font-size: 22px;" class="modal-title" id="exampleModalLabel">Giỏ hàng của bạn</h5>
-                    <button style="margin-top: -52px;font-size: 36px;margin-right: -14px;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button style="margin-top: -52px;font-size: 36px;margin-right: -14px;" type="button" class="close"
+                            data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>

@@ -4,16 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class HoaHongKhachHangLogModel extends Model
+class PhuongXaModel extends Model
 {
-    protected $table = 'hoa_hong_khach_hang_log';
+    protected $table = 'phuongxa';
     protected $primarykey = 'id';
     protected $keyType = 'varchar';
     protected $fillable = [
         'id',
-        'user_id',
-        'so_tien_da_lanh',
-        'ngay_lanh',
+        'id_tinhthanh',
+        'id_quanhuyen',
+        'phuongxa',
         'created_at',
         'updated_at',
     ];

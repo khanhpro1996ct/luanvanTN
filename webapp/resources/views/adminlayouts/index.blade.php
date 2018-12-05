@@ -49,36 +49,34 @@
                         <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
                            role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="mdi mdi-bell-outline noti-icon"></i>
-                            <span class="badge badge-danger noti-icon-badge">3</span>
+                            <span class="badge badge-danger noti-icon-badge">
+                                @if(\App\HoaDonModel::where('status','=',0)->get() == null)
+                                    0
+                                @else
+                                    {{ count(\App\HoaDonModel::where('status','=',0)->get()) }}
+                                @endif
+                            </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg">
                             <!-- item-->
                             <div class="dropdown-item noti-title">
-                                <h5>Notification (3)</h5>
+                                <h5>Hóa Đơn Mới
+                                    @if(\App\HoaDonModel::where('status','=',0)->get() == null)
+                                        (0)
+                                    @else
+                                        ({{ count(\App\HoaDonModel::where('status','=',0)->get()) }})
+                                    @endif
+                                </h5>
                             </div>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item active">
+                            <a href="{{ route('hoadon.index') }}" class="dropdown-item notify-item active">
                                 <div class="notify-icon bg-success"><i class="mdi mdi-cart-outline"></i></div>
-                                <p class="notify-details"><b>Your order is placed</b>
-                                    <small class="text-muted">Dummy text of the printing and typesetting industry.
+                                <p class="notify-details"><b>Quản lý đơn hàng</b>
+                                    <small class="text-muted">   .
                                     </small>
                                 </p>
                             </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-warning"><i class="mdi mdi-message"></i></div>
-                                <p class="notify-details"><b>New Message received</b>
-                                    <small class="text-muted">You have 87 unread messages</small>
-                                </p>
-                            </a>
-
-                            <!-- All-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                View All
-                            </a>
-
                         </div>
                     </li>
                     <!-- User-->
@@ -128,8 +126,6 @@
                     <li class="has-submenu">
                         <a href="#"><i class="ti-crown"></i>Quản Lý Danh Mục</a>
                         <ul class="submenu">
-                            <li><a href="{{ route('sp.index') }}">Danh sách</a></li>
-                            <li><a href="#">Cài đặt giá</a></li>
                             <li><a href="{{ route('dm.index') }}">Quản lý danh mục</a></li>
                         </ul>
                     </li>
@@ -144,17 +140,15 @@
                     <li class="has-submenu">
                         <a href="#"><i class="ti-crown"></i>Quản Lý Hoa Hồng</a>
                         <ul class="submenu">
-                            <li><a href="#">Danh sách hoa hồng</a></li>
-                            <li><a href="#">Lịch sử nhận hoa hồng</a></li>
                             <li><a href="{{ route('pchh.index') }}">Phân cấp hoa hồng</a></li>
+                            <li><a href="{{ route('LichSuHH') }}">Lịch sử nhận hoa hồng</a></li>
                         </ul>
                     </li>
 
                     <li class="has-submenu">
                         <a href="#"><i class="ti-crown"></i>Quản Lý Gian Hàng</a>
                         <ul class="submenu">
-                            <li><a href="{{ route('gh.index') }}">Danh sách</a></li>
-                            <li><a href="#">% hoa hồng</a></li>
+                            <li><a href="{{ route('indexHG') }}">Danh sách</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -192,7 +186,8 @@
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/buttons.colVis.min.js') }}"></script>
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
 <script src="{{ url('adminlayouts/horizontal/assets/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
-<script type="text/javascript" src="{{ url('adminlayouts/horizontal/assets/plugins/parsleyjs/parsley.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url('adminlayouts/horizontal/assets/plugins/parsleyjs/parsley.min.js') }}"></script>
 <script src="{{ url('adminlayouts/horizontal/assets/js/app.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
 @include('adminlayouts.messages')

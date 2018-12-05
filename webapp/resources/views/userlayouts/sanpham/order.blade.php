@@ -118,7 +118,7 @@
                                     <p class="font-14 mb-0">
                                     <div class="information-wrapper">
                                         <label class="control-label">Chọn địa chỉ: </label>
-                                        <select class="form-control" name="ho_ten">
+                                        <select class="form-control" name="so_dia_chi">
                                             <option value="1">6A/1 Cái Răng,Ninh Kiều,TP Cần Thơ</option>
                                             <option value="1">sss</option>
                                         </select>
@@ -159,16 +159,6 @@
         if (newVal >= 1) divUpd.text(newVal);
     });
 </script>
-<!--quantity-->
-{{--<script>--}}
-    {{--$(document).ready(function (c) {--}}
-        {{--$('.close1').on('click', function (c) {--}}
-            {{--$('.rem1').fadeOut('slow', function (c) {--}}
-                {{--$('.rem1').remove();--}}
-            {{--});--}}
-        {{--});--}}
-    {{--});--}}
-{{--</script>--}}
 <script>
     $(document).ready(function () {
         var navoffeset = $(".agileits_header").offset().top;

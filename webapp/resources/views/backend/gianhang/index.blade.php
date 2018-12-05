@@ -27,7 +27,6 @@
                                     <th>Tên gian hàng</th>
                                     <th>Sđt</th>
                                     <th>Email</th>
-                                    <th>Tiền gian hàng</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -38,8 +37,19 @@
                                         <td>{{ $item->gh_ten }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->gh_tien_loi_nhuan }}</td>
-                                        <td></td>
+                                        <td>
+                                            @if($item->active == 1)
+                                                <a href="{{ route('KhoaTKGH',$item->id) }}"
+                                                   class="btn btn-outline-primary waves-effect waves-light"
+                                                   onclick="return confirm('Bạn chắc muốn khóa tài khoản này ?')">
+                                                    <i class="mdi mdi-key-variant"></i>
+                                                </a>
+                                            @else
+                                                <a class="btn btn-outline-danger waves-effect waves-light">
+                                                    <i class="mdi mdi-block-helper"></i>
+                                                </a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

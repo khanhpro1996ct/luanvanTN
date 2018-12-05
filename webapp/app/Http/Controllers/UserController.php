@@ -7,6 +7,9 @@ use App\HoaDonModel;
 use App\HoaHongKhachHangModel;
 use App\Http\Requests\UserAddRequest;
 use App\NguoiDungModel;
+use App\QuanHuyenModel;
+use App\TinhThanhModel;
+use App\TongTienHoaHongModel;
 use App\UsersModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +26,11 @@ class UserController extends Controller
         $code = strtoupper(uniqid());
         $macode = strtoupper($request->get('ma_code_cha'));
         $ma_code_cha = UsersModel::where('code', $macode)->first();
+//        dd($ma_code_cha);
         if ($ma_code_cha == null) {
-            $macodecha = '';
+            $macodecha = 0;
         } else {
-            $macodecha = $macode;
+            $macodecha = $ma_code_cha->id;
         }
         if ($pas == $pasre) {
             $user = UsersModel::create([
@@ -47,7 +51,11 @@ class UserController extends Controller
                 'ma_code_cha' => $macodecha,
                 'tien_hoa_hong' => 0,
             ]);
-            if ($macodecha == null) {
+            TongTienHoaHongModel::create([
+                'id_khachhang' => $user->id,
+                'tien_da_lanh' => 0,
+            ]);
+            if ($macodecha == 0) {
                 return redirect('user/login')->with('success', 'Đăng ký thành công !')
                     ->with('error', 'Mã người giới thiệu không tồn tại, vui lòng cập nhật lại trong thông tin cá nhân !');
             } else {
@@ -137,6 +145,16 @@ class UserController extends Controller
     // thêm sổ địa chỉ
     public function themSoDiaChi()
     {
-        return view('userlayouts.nguoidung.themsodiachi', compact('user'));
+        $tinhthanh = TinhThanhModel::all();
+        $quanhuyen = QuanHuyenModel::all();
+        return view('userlayouts.nguoidung.themsodiachi', compact('tinhthanh', 'quanhuyen'));
+    }
+
+    // ajax quan huỵen
+    public function ajaxQuanHuyen(Request $request)
+    {
+        $id_tinhthanh = $request->get('id');
+        $quan_huyen = QuanHuyenModel::where('id_tinhthanh', $id_tinhthanh)->get();
+        return $quan_huyen;
     }
 }

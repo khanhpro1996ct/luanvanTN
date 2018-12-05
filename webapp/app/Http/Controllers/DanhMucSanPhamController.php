@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\DanhMucSanPhamModel;
 use App\Http\Requests\DanhMucSanPhamRequest;
 use phpDocumentor\Reflection\Types\This;
+use App\QuanHuyenModel;
+use App\TinhThanhModel;
 
 class DanhMucSanPhamController extends Controller
 {
@@ -26,7 +28,9 @@ class DanhMucSanPhamController extends Controller
 
     public function create()
     {
-        return view('backend.danhmucsanpham.create');
+        $tinhthanh = TinhThanhModel::all();
+        $quanhuyen = QuanHuyenModel::all();
+        return view('backend.danhmucsanpham.create',compact('tinhthanh','quanhuyen'));
     }
 
     public function store(DanhMucSanPhamRequest $req)

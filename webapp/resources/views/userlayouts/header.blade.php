@@ -10,12 +10,6 @@
         </form>
     </div>
     <div class="product_list_header">
-        {{--<form action="{{ route('order') }}" method="post">--}}
-        {{--@csrf()--}}
-        {{--<fieldset>--}}
-        {{--<input type="submit" name="submit" value="Xem giỏ hàng" class="button"/>--}}
-        {{--</fieldset>--}}
-        {{--</form>--}}
         <fieldset>
             <input type="submit" name="submit" value="Xem giỏ hàng" class="button" id="submitOrder"/>
         </fieldset>
