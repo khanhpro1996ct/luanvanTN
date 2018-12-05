@@ -37,14 +37,19 @@ class BackEndController extends Controller
                 'ma_code_cha',
                 'tien_hoa_hong',
             ])->get();
+        $count = count($khachhang);
+        for ($i = 0; $i < $count; $i++) {
+            $khachhang[$i]['stt'] = $i + 1;
+        }
         $nguoidung = count(UsersModel::all());
         $nguoidungthuong = count(UsersModel::where('role', '=', 2)->get());
         $gianhang = count(UsersModel::where('role', '=', 1)->get());
         $gianhangkinhdoanh = count(UsersModel::where('role', '=', 1)->where('active', '=', 1)->get());
-        $hh = HoaHongKhachHangLogModel::all();
-        dd(count($hh['so_tien_da_lanh']));
-        $tong_hoa_hong = count($hh->so_tien_da_lanh);
-        return view('adminlayouts.home', compact('tong_hoa_hong', 'gianhangkinhdoanh', 'gianhang', 'khachhang', 'nguoidungthuong', 'order', 'tongtien', 'nguoidung'));
+        $hh = HoaHongKhachHangLogModel::select(['so_tien_da_lanh'])->get();
+        $tong_hoa_hong = $hh->sum('so_tien_da_lanh');
+        $hhh = HoaHongKhachHangModel::select('tien_hoa_hong')->get();
+        $hoa_hong = $hhh->sum('tien_hoa_hong');
+        return view('adminlayouts.home', compact('hoa_hong', 'tong_hoa_hong', 'gianhangkinhdoanh', 'gianhang', 'khachhang', 'nguoidungthuong', 'order', 'tongtien', 'nguoidung'));
     }
 
     // khóa tài khoản
@@ -98,5 +103,17 @@ class BackEndController extends Controller
             'active' => 0,
         ]);
         return redirect(route('indexHG'))->with('success', 'Bạn đã khoản tài khoản này !');
+    }
+
+    public function XemChiTietKH(Request $request)
+    {
+        $data = UsersModel::join('users_profile', 'users_profile.user_id', '=', 'users.id')
+            ->where('users.role', '=', 2)
+            ->where('users.id', $request->id)
+            ->first();
+        $gioithieu = HoaHongKhachHangModel::leftjoin('users_profile', 'users_profile.user_id', '=', 'hoa_hong_khach_hang.ma_code_cha')
+            ->where('hoa_hong_khach_hang.user_id', $request->id)
+            ->first();
+        return ['status' => 'success', 'data' => $data, 'gioithieu' => $gioithieu];
     }
 }

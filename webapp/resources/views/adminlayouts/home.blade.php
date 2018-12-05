@@ -34,10 +34,10 @@
                             <i class="mdi mdi-currency-usd text-success"></i>
                         </span>
                         <div class="mini-stat-info text-right text-white">
-                            <span class="counter text-white">đ: 956,000</span>
+                            <span class="counter text-white">đ: {{ number_format($hoa_hong) }}</span>
                             Hoa hồng
                         </div>
-                        <p class="mb-0 m-t-20 text-light">Hoa hồng thanh toán: đ: {{$tong_hoa_hong}}</p>
+                        <p class="mb-0 m-t-20 text-light">Hoa hồng thanh toán: đ: {{number_format($tong_hoa_hong)}}</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-3">
@@ -73,6 +73,7 @@
                             <table id="datatable" class="table table-bordered">
                                 <thead>
                                 <tr>
+                                    <th>Stt</th>
                                     <th>Họ & Tên</th>
                                     <th>SĐT</th>
                                     <th>Người GT</th>
@@ -84,8 +85,9 @@
                                 <tbody>
                                 @foreach($khachhang as $value)
                                     <tr>
-                                        <td><a href="" data-toggle="modal"
-                                               data-target=".bs-example-modal-center">{{ $value->kh_ten }}</a></td>
+                                        <td>{{ $value->stt }}</td>
+                                        <td><a href="#" el="{{ $value->id }}"
+                                               onclick="getDetails({{$value->id}})">{{ $value->kh_ten }}</a></td>
                                         <td>{{ $value->phone }}</td>
                                         <td style="text-align: center">
                                             @if(!empty($value->ma_code_cha))
@@ -98,7 +100,7 @@
                                                 <span style="color: red"><i class="mdi mdi-block-helper"></i></span>
                                             @endif
                                         </td>
-                                        <td>{{ $value->code }}</td>
+                                        <td style="color: #ff00f5">{{ $value->code }}</td>
                                         <td>đ: {{ number_format($value->tien_hoa_hong) }}</td>
                                         <td>
                                             @if($value->active == 1)
@@ -123,6 +125,10 @@
                                                     <i class="mdi mdi-cash-usd"></i>
                                                 </a>
                                             @endif
+                                            <a el="{{ $value->id }}" onclick="getDetails({{$value->id}})"
+                                               class="btn btn-outline-warning waves-effect waves-light">
+                                                <i class="mdi mdi-eye"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -134,7 +140,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    <div id="detailKhachHang" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog"
+         aria-labelledby="mySmallModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -145,45 +152,45 @@
                 <div class="modal-body">
                     <div style="width: 100%; text-align: center">
                         <div>
-                            Mã Giới Thiệu:<span style="color: red"> 5C01E245308EB</span>
+                            Mã Giới Thiệu: <span id="code" style="color: red"></span>
                         </div>
                     </div>
-                    <div style="text-align: center; width: 100%">
-                        <img style="width: 60px;height: 60px;border-radius: 68px;" src="{{ url('upload/img-5.jpg') }}">
+                    <div style="text-align: center; width: 100%" id="avatar">
+                        <img style="width: 60px;height: 60px;border-radius: 68px;" alt="Chưa cập nhật">
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Họ & Tên: Cao Thị Tươi</span>
+                        Họ & Tên: <span id="ten" style="color: red"></span>
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Số Điện Thoại: 0971703022</span>
+                        Số Điện Thoại: <span id="sdt" style="color: red"></span>
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Email: tuoi2234@gmail.com</span>
+                        Email: <span id="email" style="color: red"></span>
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Giới Tinh: Nữ</span>
+                        Giới Tính: <span id="kh_gioi_tinh" style="color: red"></span>
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Ngày Sinh: 21-11-1996</span>
+                        Ngày Sinh: <span id="kh_ngay_sinh" style="color: red"></span>
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Số CMND: 362449235</span>
+                        Số CMND: <span id="kh_cmnd" style="color: red"></span>
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Ngày Cấp: 11/2/2011</span>
+                        Ngày Cấp: <span style="color: red" id="kh_ngay_cap"></span>
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Địa chỉ: 6Y/1 Bình Thủy, Ninh Kiều, TP Cần Thơ</span>
+                        Địa chỉ: <span id="kh_dia_chi" style="color: red"></span>
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Người Giới Thiệu: Trần Thanh Tâm</span>
+                        Người Giới Thiệu: <span id="gioithieu" style="color: red"></span>
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
-                        <span>Hoa Hồng: đ: 178,000</span>
+                        Hoa Hồng: đ: <span id="hoahong" style="color: red"></span>
                     </div>
-                    <div style="width: 100% ; text-align: center;margin: 10px;">
-                        Trạng Thái<span style="color: green">: Không khóa</span>
-                    </div>
+                    {{--<div style="width: 100% ; text-align: center;margin: 10px;">--}}
+                    {{--Trạng Thái<span style="color: green" id="active">: Không khóa</span>--}}
+                    {{--</div>--}}
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -194,5 +201,43 @@
         $(document).ready(function () {
             $('#datatable').DataTable();
         });
+    </script>
+    <script type="text/javascript">
+
+        function getDetails(id) {
+            // sessionStorage.setItem('id_temp', id);
+            $.ajax({
+                type: 'GET',
+                url: '{{route('detail')}}',
+                data: {
+                    _token: '{{csrf_token()}}',
+                    id: id
+                },
+                success: function (res) {
+                    // $("#id_kh").attr("value", res.data.id ? res.data.id : 'Chưa cập nhật');
+                    $("#avatar").attr("src", res.data.kh_image ? '../upload/' + res.data.kh_image : 'Chưa cập nhật')
+                    $("#ten").html(res.data.kh_ten ? res.data.kh_ten : 'Chưa cập nhật');
+                    // $("#tongtien").html(res.gioithieu.tien_hoa_hong ? res.gioithieu.tien_hoa_hong : 0);
+                    // $("#thoihan").html(res.gioithieu.danh_dau ? res.gioithieu.danh_dau : 'Chưa cập nhật');
+                    $("#kh_ngay_sinh").html(res.data.kh_ngay_sinh ? res.data.kh_ngay_sinh : 'Chưa cập nhật');
+                    $("#kh_gioi_tinh").html(res.data.kh_gioi_tinh ? res.data.kh_gioi_tinh : 'Chưa cập nhật');
+                    $("#email").html(res.data.email ? res.data.email : 'Chưa cập nhật');
+                    $("#code").html(res.data.code ? res.data.code : 'Chưa cập nhật');
+                    $("#sdt").html(res.data.phone ? res.data.phone : 'Chưa cập nhật');
+                    $("#active").html(res.data.active ? res.data.active : 'Đã khóa');
+                    $("#kh_cmnd").html(res.data.kh_cmnd ? res.data.kh_cmnd : 'Chưa cập nhật');
+                    $("#kh_ngay_cap").html(res.data.kh_ngay_cap ? res.data.kh_ngay_cap : 'Chưa cập nhật');
+                    $("#kh_dia_chi").html(res.data.kh_dia_chi ? res.data.kh_dia_chi : 'Chưa cập nhật');
+                    $("#hoahong").html(res.gioithieu.tien_hoa_hong ? res.gioithieu.tien_hoa_hong : 'Chưa cập nhật');
+                    $("#gioithieu").html(res.gioithieu.kh_ten ? res.gioithieu.kh_ten : 'Không có người giới thiệu');
+                    $("#detailKhachHang").modal('show');
+                }
+            });
+        }
+
+        // function changInput() {
+        //     $("#password").prop('readonly', false);
+        //     console.log('xong')
+        // }
     </script>
 @endsection

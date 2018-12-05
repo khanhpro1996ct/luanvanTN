@@ -8,4 +8,6 @@ Route::group(['prefix' => 'hoa-don'], function () {
     Route::get('/huy/{id}', 'HoaDonController@HuyHD')->name('HuyHD')->middleware('admin');
 
     Route::get('/duyet/{id}', 'HoaDonController@commission')->name('commission')->middleware('admin');
+
+    Route::get('xem', 'HoaDonController@XemChiTiet')->name('XemChiTiet');
 });

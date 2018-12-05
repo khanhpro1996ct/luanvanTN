@@ -12,3 +12,5 @@ Route::get('/thanh-toan-hoa-hong/{id}', 'BackEndController@ThanhToanHH')->name('
 
 // danh sách ở backend
 Route::get('/admin/gian-hang', 'BackEndController@indexHG')->name('indexHG')->middleware('admin');
+
+Route::get('/detail', 'BackEndController@XemChiTietKH')->name('detail');

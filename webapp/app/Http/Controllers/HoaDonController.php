@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\HoaDonChiTietModel;
 use App\HoaDonModel;
 use App\HoaHongKhachHangModel;
 use App\PhanCapHoaHongModel;
@@ -172,5 +173,45 @@ class HoaDonController extends Controller
         $contain['sum_money_customer']->save();
         $this->plusMoney($this->findFather($contain['customer']), $contain['money_plus'], 0, $contain['number'] - 1);
         return redirect(route('hoadon.index'));
+    }
+
+    // xem chi tiết
+    public function XemChiTiet(Request $request)
+    {
+        $hoadon = HoaDonModel::join('users', 'users.id', '=', 'hoa_don.id_kh')
+            ->select([
+                'users.id as idkh',
+                'hoa_don.id as idhh',
+                'hoa_don.tong_tien as tongtien',
+                'hoa_don.ma_hoa_don as mahoadon',
+                'hoa_don.ho_ten as hoten',
+                'hoa_don.sdt_kh as sdt',
+                'hoa_don.dia_chi_giao as diachi',
+            ])->where('hoa_don.id', $request->get('id'))
+            ->first();
+        $chitiethoadon = HoaDonChiTietModel::leftjoin('san_pham', 'san_pham.id', '=', 'hoa_don_chi_tiet.id_sp')
+            ->leftjoin('san_pham_gia', 'san_pham_gia.id_sp', '=', 'san_pham.id')
+            ->leftjoin('san_pham_danh_muc', 'san_pham_danh_muc.id', '=', 'san_pham.id_danh_muc')
+            ->where('hoa_don_chi_tiet.id_hoa_don', $request->get('id'))
+            ->select([
+                'hoa_don_chi_tiet.sl_mua as slmua',
+                'hoa_don_chi_tiet.gia_sp as giasp',
+                'hoa_don_chi_tiet.thanh_tien as thanhtien',
+                'san_pham.sp_ten as tensp',
+                'san_pham.sp_image as imagesp',
+                'san_pham.sp_thuong_hieu as thuonghieusp',
+                'san_pham_danh_muc.dm_ten',
+                'san_pham_gia.gia_goc as giagoc',
+                'san_pham_gia.gia_km as giakm',
+            ])->get();
+        $data = [
+            'hoadon' => $hoadon,
+            'chitiet' => $chitiethoadon
+        ];
+        if (isset($hoadon)) {
+            return ['status' => 'success', 'data' => $data];
+        } else {
+            return ['status' => 'error', 'data' => $data, 'message' => 'Không tìm thấy hóa đơn này'];
+        }
     }
 }

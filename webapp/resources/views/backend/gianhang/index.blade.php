@@ -27,6 +27,7 @@
                                     <th>Tên gian hàng</th>
                                     <th>Sđt</th>
                                     <th>Email</th>
+                                    <th>Địa chỉ</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -37,6 +38,7 @@
                                         <td>{{ $item->gh_ten }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
+                                        <td>{{ $item->gh_dia_chi }}</td>
                                         <td>
                                             @if($item->active == 1)
                                                 <a href="{{ route('KhoaTKGH',$item->id) }}"
