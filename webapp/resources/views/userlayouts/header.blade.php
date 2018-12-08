@@ -121,7 +121,7 @@
                                     </li>
                                 @else
                                     <li>
-                                        <a href="{{ route('nd.profileND') }}">
+                                        <a href="{{ route('profileCaNhan') }}">
                                             <i class="fa fa-user"></i> Profile
                                         </a>
                                     </li>

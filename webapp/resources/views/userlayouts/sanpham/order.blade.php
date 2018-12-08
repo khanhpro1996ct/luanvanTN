@@ -51,6 +51,7 @@
                                     <td class="invert">đ{{ number_format($value['gia'] * $value['soluong']) }}</td>
                                     <td>
                                         <input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"
+                                               id="sl-{{ $value['id'] }}" onclick="myFunction()"
                                                type="number" name="soluong[{{$value['id']}}]"
                                                value="{{ $value['soluong'] }}">
                                     </td>
@@ -65,7 +66,7 @@
                             </tbody>
                         </table>
                         <br>
-                        <div style="float: right;">Tổng tiền hóa đơn : </div>
+                        <div style="float: right;">Tổng tiền hóa đơn :</div>
                     @else
                         <p>Giỏ hàng của bạn hiện chưa có sản phẩm nào</p>
                     @endif
@@ -76,10 +77,12 @@
                         <section class="creditly-wrapper wthree, w3_agileits_wrapper">
                             <ul class="nav nav-pills nav-justified" role="tablist">
                                 <li class="nav-item waves-effect waves-light">
-                                    <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">Thêm địa chỉ mới</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">Thêm địa chỉ
+                                        mới</a>
                                 </li>
                                 <li class="nav-item waves-effect waves-light">
-                                    <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab">Chọn từ sổ địa chỉ</a>
+                                    <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab">Chọn từ sổ địa
+                                        chỉ</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -89,28 +92,28 @@
                                         <div class="first-row form-group">
                                             <div class="controls">
                                                 <label class="control-label">Họ & tên: </label>
-                                                <input required class="billing-address-name form-control" type="text"
+                                                <input class="billing-address-name form-control" type="text"
                                                        name="ho_ten" placeholder="Họ và tên ">
                                             </div>
                                             <div class="w3_agileits_card_number_grids">
                                                 <div class="w3_agileits_card_number_grid_left">
                                                     <div class="controls">
                                                         <label class="control-label">Số điện thoại:</label>
-                                                        <input required class="form-control" type="number" name="sdt_kh"
+                                                        <input class="form-control" type="number" name="sdt_kh"
                                                                placeholder="Số điện thoại">
                                                     </div>
                                                 </div>
                                                 <div class="w3_agileits_card_number_grid_right">
                                                     <div class="controls">
                                                         <label class="control-label">Địa chỉ giao: </label>
-                                                        <textarea required class="form-control" type="text" name="dia_chi_giao"
+                                                        <textarea class="form-control" type="text"
+                                                                  name="dia_chi_giao"
                                                                   placeholder="Địa chỉ giao hàng"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
                                         </div>
-                                        <button class="submit check_out">Đặt Hàng</button>
                                     </div>
                                     </p>
                                 </div>
@@ -118,45 +121,34 @@
                                     <p class="font-14 mb-0">
                                     <div class="information-wrapper">
                                         <label class="control-label">Chọn địa chỉ: </label>
-                                        <select class="form-control" name="so_dia_chi">
-                                            <option value="1">6A/1 Cái Răng,Ninh Kiều,TP Cần Thơ</option>
-                                            <option value="1">sss</option>
+                                        <select class="form-control" name="so_dia_chi" style="height: 55px;">
+                                            <option value="">Vui lòng chọn địa chỉ của bạn</option>
+                                            @foreach($dia_chi as $key => $value)
+                                                <option value="{{ $value->iddiachi }}">{{ $value->dia_chi }}
+                                                    , {{ $value->phuongxa }}
+                                                    , {{ $value->quanhuyen }}, {{ $value->tinhthanh }}</option>
+                                            @endforeach
                                         </select>
-                                        <button class="submit check_out">Đặt Hàng</button>
                                     </div>
                                     </p>
                                 </div>
                             </div>
+                            <button class="submit check_out">Đặt Hàng</button>
                         </section>
                     </div>
-
                     <div class="clearfix"></div>
-
                 </div>
-
             </div>
         </form>
-        <!-- //about -->
     </div>
     <div class="clearfix"></div>
 </div>
-<!-- //banner -->
-
 @include('userlayouts.footer')
 @yield('script')
-
-<!-- js -->
 <script src="{{ url('userlayouts/webuser/js/jquery-1.11.1.min.js') }}"></script>
-<!--quantity-->
 <script>
-    $('.value-plus').on('click', function () {
-        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
-        divUpd.text(newVal);
-    });
-
-    $('.value-minus').on('click', function () {
-        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
-        if (newVal >= 1) divUpd.text(newVal);
+    $(document).ready(function () {
+        $('.select2').select2();
     });
 </script>
 <script>
@@ -173,6 +165,8 @@
 
     });
 </script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript" src="{{ url('userlayouts/webuser/js/move-top.js') }}"></script>
 <script type="text/javascript" src="{{ url('userlayouts/webuser/js/easing.js') }}"></script>
 <script type="text/javascript">
@@ -259,74 +253,6 @@
         else {
             sp = [];
         }
-        // var gia = gia_km == 0 ? gia_goc : gia_km;
-        // if ($('#sl_' + id).val() != undefined) {
-        //     var temp = $('#sl_' + id).val();
-        //     temp++;
-        //     $('#sl_' + id).val(temp);
-        //     var tongtien = $('#sl_' + id).val() * gia;
-        //     // var newtongtien = tongtien.toLocaleString('en');
-        //     $('#tt_' + id).html('đ:' + Number(tongtien));
-        //     sp.find(function (element) {
-        //         if (element.id == id) {
-        //             Number(element.soluong++);
-        //             element.thanhtien = Number(element.soluong * element.gia);
-        //         }
-        //     });
-        //     sessionStorage.setItem('list_order', JSON.stringify(sp));
-        // }
-        // else {
-        //     html = "";
-        //     html =
-        //         '<div id="item' + id + '"> ' +
-        //         '<div class="row">' +
-        //         '<div class="col-sm-12" style="font-size: 14px">' +
-        //         '<div class="col-sm-7">' +
-        //         '<p style="font-weight: bold" > ' + name + '</p>\n' +
-        //         '<p style="font-weight: 300;color: #999"> Đơn giá:đ:' + Number(gia).toLocaleString('en') + '</p>\n' +
-        //         '</div>' +
-        //         '<div class="col-sm-2">' +
-        //         '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"name=soluong[] id="sl_' + id + '" class="form-control" type="number" placeholder="nhập số lượng" value="1">\n' +
-        //         '</div>' +
-        //         '<div class="col-sm-2">' +
-        //         '<p id="tt_' + id + '">đ:' + Number(gia).toLocaleString('en') + '</p>' +
-        //         '</div>' +
-        //         '<div class="col-sm-1">' +
-        //         '<button id="del_' + id + '" onclick="deleteItem(' + id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +
-        //         '</div>' +
-        //         '</div>' +
-        //         '</div>' +
-        //         '<input type="hidden" name=id[] value="' + id + '"> ' +
-        //         '<input type="hidden" name=name[] value="' + name + '"> ' +
-        //         '<input type="hidden" name=gia[] value="' + gia + '"> ' +
-        //         '<hr>' +
-        //         '</div> ';
-        //     item.append(html);
-        //
-        //     $('#sl_' + id).on('input', function () {
-        //         var tongtien = $('#sl_' + id).val() * gia;
-        //         // var newtongtien = tongtien.toLocaleString('en');
-        //         $('#tt_' + id).html('đ:' + Number(tongtien));
-        //         sp.find(function (element) {
-        //             if (element.id == id) {
-        //                 element.soluong = Number($('#sl_' + id).val());
-        //                 element.thanhtien = Number($('#sl_' + id).val() * gia);
-        //             }
-        //         });
-        //         sessionStorage.setItem('list_order', JSON.stringify(sp));
-        //     });
-        //     sp.push({
-        //         id: id,
-        //         name: name,
-        //         soluong: 1,
-        //         gia: gia,
-        //         thanhtien: gia
-        //     });
-        //     sessionStorage.setItem('list_order', JSON.stringify(sp));
-        //
-        // }
-        // $('#orderModal').modal('show');
-
     }
 
     function deleteItem2(id) {
@@ -342,7 +268,7 @@
             sp.splice(index, 1);
             sessionStorage.setItem('list_order', JSON.stringify(sp));
             //Xoa giao dien
-            $('#tr'+id).remove();
+            $('#tr' + id).remove();
             getCart();
             $('#orderForm').submit();
         }

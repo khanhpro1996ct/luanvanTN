@@ -45,7 +45,7 @@
                 <ul class="nav navbar-nav nav_1">
                     <li>
                         <a href="{{ route('profileCaNhan') }}">Thông tin cá nhân</a>
-                        <a href="#">Đơn hàng của tôi</a>
+                        <a href="{{ route('XemDH') }}">Đơn hàng của tôi</a>
                         <a href="{{ route('SoDiaChi') }}">Sổ địa chỉ</a>
                         <a href="#">Mã giảm giá</a>
                         <a href="#">Thông báo của tôi</a>
@@ -70,17 +70,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Quốc Khánh</td>
-                        <td>0972705703</td>
-                        <td>6Y/1 Bình Thủy, Ninh Kiều, TP Cần Thơ</td>
-                        <td>
-                            <a class="btn btn-warning">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    @foreach($dia_chi as $value)
+                        <tr>
+                            <td>{{ $value->stt }}</td>
+                            <td>{{ $value->hotenkh }}</td>
+                            <td>{{ $value->sdtkh }}</td>
+                            <td>{{ $value->dia_chi }}, {{ $value->phuongxa }}, {{ $value->quanhuyen }}
+                                , {{ $value->tinhthanh }}</td>
+                            <td>
+                                <a href="{{ route('ThemDiaChiEdit',$value->iddiachi) }}" class="btn btn-warning">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -88,10 +91,10 @@
                 <div class="col-md-4 checkout-left-basket"></div>
                 <div class="col-md-8 address_form_agile">
                     <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                    <div class="information-wrapper">
-                        <button class=" submit check_out" style="text-transform: none"><a
-                                    href="{{ route('themSoDiaChi') }}">+ Thêm địa chỉ mới</a></button>
-                    </div>
+                        <div class="information-wrapper">
+                            <button class=" submit check_out" style="text-transform: none"><a
+                                        href="{{ route('themSoDiaChi') }}">+ Thêm địa chỉ mới</a></button>
+                        </div>
                     </section>
                 </div>
                 <div class="clearfix"></div>

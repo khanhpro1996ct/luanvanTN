@@ -12,11 +12,19 @@
         border: 0.5px solid !important;
     }
 
-    .rownew {
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-top: 15px;
-        margin-bottom: 15px;
+    .imgnew2 {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px
+    }
+    .imgnew {
+        width: 41px;
+        height: 41px;
+        border-radius: 41px;
+    }
+    .ttcn {
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 </style>
 <body>
@@ -41,9 +49,21 @@
         <nav class="navbar nav_bottom">
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav nav_1">
+                    <li>
+                        <a style="color: red">
+                            <img class="imgnew" src="{{ url('upload/shop.jpg') }}">
+                            Xin chào, <b>{{ \App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_ten }}</b>
+                        </a>
+                    </li>
+                    <li><a>{{ Auth::user()->phone }}</a></li>
+                    <li><a>{{ Auth::user()->email }}</a></li>
+                </ul>
+                <ul class="nav navbar-nav nav_1">
                     <li><a style="color: red"><b>Quản Lý Sản Phẩm</b></a></li>
                     <li><a href="{{ route('gh.qlsanpham') }}">Danh sách sản phẩm</a></li>
                     <li><a href="{{ route('gh.tmsanpham') }}">Thêm sản phẩm mới</a></li>
+                    <li><a href="{{ route('gh.profileGianHang') }}">Thông tin gian hàng</a></li>
+                    <li><a href="">Lịch sử bán các sản phẩm</a></li>
                 </ul>
             </div>
         </nav>
@@ -55,42 +75,54 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="col-md-6">
-                            <p>Tên Shop</p>
-                            <p>Số điện thoại</p>
-                            <p>Email</p>
-                            <p>Địa chỉ</p>
-                            <p>Tiền lợi nhuận đã tích lũy</p>
+                        <div class="col-md-4" style="font-size: 14px">
+                            <div class="ttcn" style="font-weight: bold;">Tên</div>
+                            <div class="ttcn"
+                                 style="font-style: italic;">{{ \App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_ten }}</div>
+                            <div class="ttcn" style="font-weight: bold;">Địa chỉ email</div>
+                            <div class="ttcn" style="font-style: italic;">{{ Auth::user()->email }}</div>
                         </div>
-                        <div class="col-md-6">
-                            <p>{{ $data['gh_ten'] }}</p>
-                            <p>{{ $data['phone'] }}</p>
-                            <p>{{ $data['email'] }}</p>
-                            <p>{{ $data['gh_dia_chi'] }}</p>
-                            <p>{{ $data['gh_tien_loi_nhuan'] }} vnđ</p>
+                        <div class="col-md-4" style="font-size: 14px">
+                            <div class="ttcn" style="font-weight: bold;">Số điện thoại</div>
+                            <div class="ttcn" style="font-style: italic;">{{ Auth::user()->phone }}</div>
+                            <div class="ttcn" style="font-weight: bold;">Địa chỉ</div>
+                            @if(\App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_dia_chi == null)
+                                <div class="ttcn" style="color: red;font-style: italic;">Chưa cập nhật</div>
+                            @else
+                                <div class="ttcn"
+                                     style="font-style: italic;">{{ \App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_dia_chi }}</div>
+                            @endif
+                        </div>
+                        <div class="col-md-4" style="margin-top: 10px;display: block;">
+                            <img class="imgnew2" src="{{ url('upload/shop.jpg') }}">
+                            <div>
+                                <a style="width: 200px; margin-top: 10px" href="" class="btn btn-primary">Sửa thông
+                                    tin</a>
+                                <a style="width: 200px;margin-top: 10px;" class="btn btn-primary">Thay đổi mật khẩu</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div><b>Danh sách lợi nhuận đã thanh toán</b></div>
-                        <br>
-                        <table class="table table-bordered khanh">
-                            <thead>
-                            <tr>
-                                <th class="khanh">Stt</th>
-                                <th class="khanh">Ngày thanh toán</th>
-                                <th class="khanh">Số tiền đã thanh toán</th>
-                                <th class="khanh">Ai thanh toán</th>
-                                <th class="khanh">Ghi chú</th>
-                                <th class="khanh"></th>
-                            </tr>
-                            </thead>
+                {{--<br>--}}
+                {{--<div class="row">--}}
+                    {{--<div class="col-md-12">--}}
+                        {{--<div><b>Danh sách lợi nhuận đã thanh toán</b></div>--}}
+                        {{--<br>--}}
+                        {{--<table class="table table-bordered khanh">--}}
+                            {{--<thead>--}}
+                            {{--<tr>--}}
+                                {{--<th class="khanh">Stt</th>--}}
+                                {{--<th class="khanh">Ngày thanh toán</th>--}}
+                                {{--<th class="khanh">Số tiền đã thanh toán</th>--}}
+                                {{--<th class="khanh">Ai thanh toán</th>--}}
+                                {{--<th class="khanh">Ghi chú</th>--}}
+                                {{--<th class="khanh"></th>--}}
+                            {{--</tr>--}}
+                            {{--</thead>--}}
 
-                        </table>
-                    </div>
-                </div>
+                        {{--</table>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
     </div>

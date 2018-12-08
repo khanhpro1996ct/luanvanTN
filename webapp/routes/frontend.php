@@ -24,6 +24,8 @@ Route::get('/about', 'FrontEndController@about')->name('about');
 Route::get('/services', 'FrontEndController@services')->name('services');
 Route::get('/secret', 'FrontEndController@secret')->name('secret');
 
+Route::get('/changepassword', 'FrontEndController@changePassword')->name('changePassword');
+
 // trang đơm hàng
 Route::post('/order', 'FrontEndController@order')->name('order');
 Route::post('/orderStore', 'FrontEndController@orderStore')->name('orderStore');

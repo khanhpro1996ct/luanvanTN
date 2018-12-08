@@ -8,6 +8,7 @@ use App\HoaDonModel;
 use App\PhanCapHoaHongModel;
 use App\SanPhamGiaModel;
 use App\SanPhamModel;
+use App\SoDiaChiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -54,6 +55,7 @@ class FrontEndController extends Controller
     // trang giỏ hàng
     public function order(Request $request)
     {
+//        dd($request->all());
         if ($request->id != null) {
             $order = [];
             foreach ($request->id as $key => $value) {
@@ -68,27 +70,70 @@ class FrontEndController extends Controller
             $order = [];
         }
         $data = $this->data();
-        return view('userlayouts.sanpham.order', compact('data', 'order'));
+        $dia_chi = SoDiaChiModel::leftjoin('tinhthanh', 'tinhthanh.id', 'so_dia_chi.id_tinhthanh')
+            ->leftjoin('quanhuyen', 'quanhuyen.id', 'so_dia_chi.id_quanhuyen')
+            ->leftjoin('phuongxa', 'phuongxa.id', 'so_dia_chi.id_phuongxa')
+            ->where('so_dia_chi.id_kh', '=', Auth::user()->id)
+            ->select([
+                'so_dia_chi.id as iddiachi',
+                'so_dia_chi.ho_ten as hotenkh',
+                'so_dia_chi.sdt_kh as sdtkh',
+                'so_dia_chi.dia_chi as dia_chi',
+                'tinhthanh.tinhthanh as tinhthanh',
+                'quanhuyen.quanhuyen as quanhuyen',
+                'phuongxa.phuongxa as phuongxa',
+            ])
+            ->get();
+        return view('userlayouts.sanpham.order', compact('data', 'order', 'dia_chi'));
     }
 
     // du lieu gio hang
     public function orderStore(Request $request)
     {
+//        dd($request->get('so_dia_chi'));
         if ($request->soluong == null) {
             return redirect('user')->with('error', 'Giỏ hàng của bạn trống !');
         } else {
             if (Auth::user() != null && Auth::user()->role == 2) {
                 $phan_cap = PhanCapHoaHongModel::where('status', '=', 1)->get()->first()->id;
-                $hoadon = HoaDonModel::create([
-                    'id_kh' => Auth::user()->id,
-                    'tong_tien' => 0,
-                    'phan_cap' => $phan_cap,
-                    'status' => 0,
-                    'ma_hoa_don' => time(),
-                    'ho_ten' => $request->get('ho_ten'),
-                    'sdt_kh' => $request->get('sdt_kh'),
-                    'dia_chi_giao' => $request->get('dia_chi_giao'),
-                ]);
+
+                if ($request->get('so_dia_chi') == null) {
+                    $hoadon = HoaDonModel::create([
+                        'id_kh' => Auth::user()->id,
+                        'tong_tien' => 0,
+                        'phan_cap' => $phan_cap,
+                        'status' => 0,
+                        'ma_hoa_don' => time(),
+                        'ho_ten' => $request->get('ho_ten'),
+                        'sdt_kh' => $request->get('sdt_kh'),
+                        'dia_chi_giao' => $request->get('dia_chi_giao'),
+                    ]);
+                } else {
+                    $so_dia_chi = SoDiaChiModel::leftjoin('tinhthanh', 'tinhthanh.id', 'so_dia_chi.id_tinhthanh')
+                        ->leftjoin('quanhuyen', 'quanhuyen.id', 'so_dia_chi.id_quanhuyen')
+                        ->leftjoin('phuongxa', 'phuongxa.id', 'so_dia_chi.id_phuongxa')
+                        ->where('so_dia_chi.id', '=', $request->get('so_dia_chi'))
+                        ->select([
+                            'so_dia_chi.id as iddiachi',
+                            'so_dia_chi.ho_ten as hotenkh',
+                            'so_dia_chi.sdt_kh as sdtkh',
+                            'so_dia_chi.dia_chi as dia_chi',
+                            'tinhthanh.tinhthanh as tinhthanh',
+                            'quanhuyen.quanhuyen as quanhuyen',
+                            'phuongxa.phuongxa as phuongxa',
+                        ])->first();
+//                    dd($so_dia_chi);
+                    $hoadon = HoaDonModel::create([
+                        'id_kh' => Auth::user()->id,
+                        'tong_tien' => 0,
+                        'phan_cap' => $phan_cap,
+                        'status' => 0,
+                        'ma_hoa_don' => time(),
+                        'ho_ten' => $so_dia_chi->hotenkh,
+                        'sdt_kh' => $so_dia_chi->sdtkh,
+                        'dia_chi_giao' => $so_dia_chi->dia_chi . ',' . $so_dia_chi->phuongxa . ',' . $so_dia_chi->quanhuyen . ',' . $so_dia_chi->tinhthanh,
+                    ]);
+                }
                 foreach ($request->soluong as $sp => $sl) {
                     $gia = SanPhamGiaModel::where('id_sp', '=', $sp)->get()->first();
                     if ($gia->gia_km > 0) {
@@ -109,7 +154,7 @@ class FrontEndController extends Controller
                 $hoadon->tong_tien = HoaDonChiTietModel::where('id_hoa_don', $hoadon->id)->sum('thanh_tien');
                 $hoadon->save();
                 Session::flash('clear_session', 1);
-                return redirect('nguoi-dung/profile')->with('success', 'Đặt hàng thành công !');
+                return redirect(route('XemDH'))->with('success', 'Đặt hàng thành công !');
 
             } else {
                 return redirect('user/login')->with('error', 'Vui lòng đăng nhập trước khi đặt hàng !');
@@ -202,5 +247,11 @@ class FrontEndController extends Controller
     public function secret()
     {
         return view('userlayouts.secret', compact('data'));
+    }
+
+    // đổi mật khẩu
+    public function changePassword()
+    {
+        return view('userlayouts.changepassword');
     }
 }

@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\DanhMucSanPhamModel;
 use App\HoaDonModel;
 use App\HoaHongKhachHangModel;
+use App\Http\Requests\SoDiaChiRequest;
 use App\Http\Requests\UserAddRequest;
 use App\NguoiDungModel;
+use App\PhuongXaModel;
 use App\QuanHuyenModel;
+use App\SanPhamModel;
+use App\SoDiaChiModel;
 use App\TinhThanhModel;
 use App\TongTienHoaHongModel;
 use App\UsersModel;
@@ -66,51 +70,6 @@ class UserController extends Controller
         }
     }
 
-    // xem thông tin người dùng
-    public function profileND()
-    {
-        $data = DanhMucSanPhamModel::all();
-        $user = UsersModel::join('users_profile', 'users_profile.user_id', '=', 'users.id')
-            ->join('hoa_hong_khach_hang', 'hoa_hong_khach_hang.user_id', '=', 'users.id')
-            ->where('users.role', '=', 2)
-            ->where('users.id', '=', Auth::user()->id)
-            ->select([
-                'users.id as id',
-                'users.phone as phone',
-                'users.email as email',
-                'users.code as code',
-                'users_profile.kh_ten as ten',
-                'users_profile.kh_gioi_tinh as gioitinh',
-                'users_profile.kh_ngay_sinh as ngaysinh',
-                'users_profile.kh_dia_chi as diachi',
-                'users_profile.kh_cmnd as cmnd',
-                'users_profile.kh_ngay_cap as ngaycap',
-                'users_profile.kh_image as image',
-                'hoa_hong_khach_hang.ma_code_cha as codecha',
-                'hoa_hong_khach_hang.tien_hoa_hong as tienhoahong',
-            ])->get()->first()->toArray();
-//        dd($user);
-        $order = HoaDonModel::join('users', 'users.id', 'hoa_don.id_kh')
-            ->join('users_profile', 'users_profile.user_id', 'hoa_don.id_kh')
-            ->where('hoa_don.id_kh', '=', Auth::user()->id)
-            ->orderByRaw('hoa_don.created_at asc')
-            ->select([
-                'hoa_don.id as idhoadon',
-                'hoa_don.tong_tien as tongtien',
-                'hoa_don.status as status',
-                'hoa_don.ma_hoa_don as mahoadon',
-                'hoa_don.ho_ten as hoten',
-                'hoa_don.sdt_kh as sdt',
-                'hoa_don.dia_chi_giao as diachi',
-            ])->get();
-        $count = count($order);
-        for ($i = 0; $i < $count; $i++) {
-            $order[$i]['stt'] = $i + 1;
-        }
-//        dd($order->toArray());
-        return view('userlayouts.nguoidung.profile', compact('data', 'user', 'order'));
-    }
-
     // trang cá nhân người dùng
     public function profileCaNhan()
     {
@@ -139,14 +98,32 @@ class UserController extends Controller
     // trang sổ địa chỉ
     public function SoDiaChi()
     {
-        return view('userlayouts.nguoidung.sodiachi', compact('user'));
+        $dia_chi = SoDiaChiModel::leftjoin('tinhthanh', 'tinhthanh.id', 'so_dia_chi.id_tinhthanh')
+            ->leftjoin('quanhuyen', 'quanhuyen.id', 'so_dia_chi.id_quanhuyen')
+            ->leftjoin('phuongxa', 'phuongxa.id', 'so_dia_chi.id_phuongxa')
+            ->where('so_dia_chi.id_kh', '=', Auth::user()->id)
+            ->select([
+                'so_dia_chi.id as iddiachi',
+                'so_dia_chi.ho_ten as hotenkh',
+                'so_dia_chi.sdt_kh as sdtkh',
+                'so_dia_chi.dia_chi as dia_chi',
+                'tinhthanh.tinhthanh as tinhthanh',
+                'quanhuyen.quanhuyen as quanhuyen',
+                'phuongxa.phuongxa as phuongxa',
+            ])
+            ->get();
+        $count = count($dia_chi);
+        for ($i = 0; $i < $count; $i++) {
+            $dia_chi[$i]['stt'] = $i + 1;
+        }
+//        dd($dia_chi->toArray());
+        return view('userlayouts.nguoidung.sodiachi', compact('dia_chi'));
     }
 
     // thêm sổ địa chỉ
     public function themSoDiaChi()
     {
         $tinhthanh = TinhThanhModel::all();
-        $quanhuyen = QuanHuyenModel::all();
         return view('userlayouts.nguoidung.themsodiachi', compact('tinhthanh', 'quanhuyen'));
     }
 
@@ -156,5 +133,167 @@ class UserController extends Controller
         $id_tinhthanh = $request->get('id');
         $quan_huyen = QuanHuyenModel::where('id_tinhthanh', $id_tinhthanh)->get();
         return $quan_huyen;
+    }
+
+    // ajax quan huỵen
+    public function ajaxPhuongXa(Request $request)
+    {
+        $id_quanhuyen = $request->get('id');
+        $phuong_xa = PhuongXaModel::where('id_quanhuyen', $id_quanhuyen)->get();
+        return $phuong_xa;
+    }
+
+    public function ThemDiaChiStore(SoDiaChiRequest $request)
+    {
+//        dd($request->all());
+        SoDiaChiModel::create([
+            'id_kh' => Auth::user()->id,
+            'ho_ten' => $request->get('ten_kh'),
+            'sdt_kh' => $request->get('sdt_kh'),
+            'dia_chi' => $request->get('dia_chi'),
+            'id_tinhthanh' => $request->get('tinhthanh'),
+            'id_quanhuyen' => $request->get('quanhuyen'),
+            'id_phuongxa' => $request->get('phuongxa'),
+        ]);
+        return redirect(route('SoDiaChi'));
+    }
+
+    public function ThemDiaChiEdit($id)
+    {
+        $dia_chi = SoDiaChiModel::leftjoin('tinhthanh', 'tinhthanh.id', 'so_dia_chi.id_tinhthanh')
+            ->leftjoin('quanhuyen', 'quanhuyen.id', 'so_dia_chi.id_quanhuyen')
+            ->leftjoin('phuongxa', 'phuongxa.id', 'so_dia_chi.id_phuongxa')
+            ->where('so_dia_chi.id', '=', $id)
+            ->select([
+                'so_dia_chi.id as iddiachi',
+                'so_dia_chi.ho_ten as hotenkh',
+                'so_dia_chi.sdt_kh as sdtkh',
+                'so_dia_chi.dia_chi as dia_chi',
+                'so_dia_chi.id_tinhthanh',
+                'so_dia_chi.id_quanhuyen',
+                'so_dia_chi.id_phuongxa',
+                'tinhthanh.tinhthanh as tinhthanh',
+                'quanhuyen.quanhuyen as quanhuyen',
+                'phuongxa.phuongxa as phuongxa',
+            ])
+            ->get()->first();
+//        dd($dia_chi);
+        $tinhthanh = TinhThanhModel::all();
+        $quanhuyen = QuanHuyenModel::all();
+        $phuongxa = PhuongXaModel::all();
+        return view('userlayouts.nguoidung.sodiachiedit', compact('dia_chi', 'tinhthanh', 'quanhuyen', 'phuongxa'));
+    }
+
+    public function ThemDiaChiUpdate(SoDiaChiRequest $request, $id)
+    {
+        SoDiaChiModel::where('so_dia_chi.id', '=', $id)
+            ->update([
+                'ho_ten' => $request->get('ten_kh'),
+                'sdt_kh' => $request->get('sdt_kh'),
+                'dia_chi' => $request->get('dia_chi'),
+                'id_tinhthanh' => $request->get('tinhthanh'),
+                'id_quanhuyen' => $request->get('quanhuyen'),
+                'id_phuongxa' => $request->get('phuongxa'),
+            ]);
+        return redirect(route('SoDiaChi'));
+    }
+
+    public function XemDH()
+    {
+        $order_cd = HoaDonModel::join('users', 'users.id', '=', 'hoa_don.id_kh')
+            ->join('users_profile', 'users_profile.user_id', '=', 'hoa_don.id_kh')
+            ->where('hoa_don.status', '=', 0)
+            ->where('users.id', '=', Auth::user()->id)
+            ->select([
+                'hoa_don.id as idhoadon',
+                'hoa_don.ma_hoa_don as mahoadon',
+                'hoa_don.ho_ten as tennguoinhan',
+                'hoa_don.sdt_kh as sdtnguoinhan',
+                'hoa_don.tong_tien as tongtien',
+                'hoa_don.dia_chi_giao as diachigiao',
+                'users_profile.kh_ten as tennguoidat',
+            ])
+            ->get();
+        $count = count($order_cd);
+        for ($i = 0; $i < $count; $i++) {
+            $order_cd[$i]['stt'] = $i + 1;
+        }
+        $sl_order_cd = count($order_cd);
+
+        // hoa don van chuyen
+        $order_vc = HoaDonModel::join('users', 'users.id', '=', 'hoa_don.id_kh')
+            ->join('users_profile', 'users_profile.user_id', '=', 'hoa_don.id_kh')
+            ->where('hoa_don.status', '=', 1)
+            ->where('users.id', '=', Auth::user()->id)
+            ->select([
+                'hoa_don.id as idhoadon',
+                'hoa_don.ma_hoa_don as mahoadon',
+                'hoa_don.ho_ten as tennguoinhan',
+                'hoa_don.sdt_kh as sdtnguoinhan',
+                'hoa_don.tong_tien as tongtien',
+                'hoa_don.dia_chi_giao as diachigiao',
+                'users_profile.kh_ten as tennguoidat',
+            ])
+            ->get();
+        $count = count($order_vc);
+        for ($i = 0; $i < $count; $i++) {
+            $order_vc[$i]['stt'] = $i + 1;
+        }
+
+        // hoa don hon thành
+        $order_ht = HoaDonModel::join('users', 'users.id', '=', 'hoa_don.id_kh')
+            ->join('users_profile', 'users_profile.user_id', '=', 'hoa_don.id_kh')
+            ->where('hoa_don.status', '=', 2)
+            ->where('users.id', '=', Auth::user()->id)
+            ->select([
+                'hoa_don.id as idhoadon',
+                'hoa_don.ma_hoa_don as mahoadon',
+                'hoa_don.ho_ten as tennguoinhan',
+                'hoa_don.sdt_kh as sdtnguoinhan',
+                'hoa_don.tong_tien as tongtien',
+                'hoa_don.dia_chi_giao as diachigiao',
+                'users_profile.kh_ten as tennguoidat',
+            ])
+            ->get();
+        $count = count($order_ht);
+        for ($i = 0; $i < $count; $i++) {
+            $order_ht[$i]['stt'] = $i + 1;
+        }
+        // hoa don da huy
+        $order_h = HoaDonModel::join('users', 'users.id', '=', 'hoa_don.id_kh')
+            ->join('users_profile', 'users_profile.user_id', '=', 'hoa_don.id_kh')
+            ->where('hoa_don.status', '=', 3)
+            ->where('users.id', '=', Auth::user()->id)
+            ->select([
+                'hoa_don.id as idhoadon',
+                'hoa_don.ma_hoa_don as mahoadon',
+                'hoa_don.ho_ten as tennguoinhan',
+                'hoa_don.sdt_kh as sdtnguoinhan',
+                'hoa_don.tong_tien as tongtien',
+                'hoa_don.dia_chi_giao as diachigiao',
+                'users_profile.kh_ten as tennguoidat',
+            ])
+            ->get();
+        $count = count($order_h);
+        for ($i = 0; $i < $count; $i++) {
+            $order_h[$i]['stt'] = $i + 1;
+        }
+        return view('userlayouts.nguoidung.thongtindonhang', compact('order_cd', 'order_ht', 'sl_order_cd', 'order_vc', 'order_h'));
+    }
+
+    // huy hoa don
+    public function HuyHDND($id)
+    {
+        HoaDonModel::where('id', $id)->update([
+            'status' => 3
+        ]);
+        return redirect(route('XemDH'));
+
+    }
+
+    // cập nhật thông tin các nhân
+    public function profileEdit()
+    {
+        return view('userlayouts.nguoidung.profileupdate');
     }
 }

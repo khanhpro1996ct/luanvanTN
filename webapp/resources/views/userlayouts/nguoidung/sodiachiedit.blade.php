@@ -8,20 +8,6 @@
         font-size: 14px;
     }
 
-    .imgnew {
-        width: 100px;
-        height: 100px;
-        margin: auto;
-        border-radius: 30px;
-    }
-
-    .erorr {
-        margin-top: -15px;
-        font-size: 12px;
-        color: red;
-        margin-bottom: 10px;
-    }
-
     .imgnew1 {
         width: 41px;
         height: 41px;
@@ -42,7 +28,7 @@
                 <a href="{{ url('user') }}">Sổ địa chỉ</a>
                 <span>|</span>
             </li>
-            <li>Thêm sổ địa chỉ</li>
+            <li>Cập nhật địa chỉ</li>
         </ul>
     </div>
 </div>
@@ -81,42 +67,55 @@
     </div>
     <div class="w3l_banner_nav_right">
         <div class="w3_login" style="padding-top: 1em">
-            <h3 style="font-size: 26px;">Thêm Địa Chỉ Mới</h3>
+            <h3 style="font-size: 26px;">Cập Nhật Địa Chỉ</h3>
             <div class="w3_login_module">
                 <div class="module form-module">
                     <div class="">
                     </div>
                     <div class="form">
-                        <form action="{{ route('ThemDiaChiStore') }}" method="post">
+                        <form action="{{ route('ThemDiaChiUpdate',$dia_chi->iddiachi) }}" method="post">
                             @csrf
                             <label class="labelnew"><span style="color: red;">(*)</span> Họ Tên :</label>
-                            <input value="{{ old('sp_ten') }}" type="text" name="ten_kh"
+                            <input value="{{ $dia_chi->hotenkh }}" type="text" name="ten_kh"
                                    placeholder="Họ tên">
                             <label class="labelnew"><span style="color: red;">(*)</span> Số điện thoại :</label>
-                            <input value="{{ old('sp_ten') }}" type="text" name="sdt_kh"
+                            <input value="{{ $dia_chi->sdtkh }}" type="text" name="sdt_kh"
                                    placeholder="Vui lòng nhập số điện thoại của bạn">
                             <label class="labelnew"><span style="color: red;">(*)</span> Địa chỉ :</label>
-                            <input value="{{ old('sp_ten') }}" type="text" name="dia_chi"
+                            <input value="{{ $dia_chi->dia_chi }}" type="text" name="dia_chi"
                                    placeholder="Vui lòng nhập địa chỉ của bạn">
                             <label class="labelnew"><span style="color: red;">(*)</span> Tỉnh/Thành phố :</label>
                             <div class="form-group">
                                 <select class="form-control" name="tinhthanh" id="tinhthanh">
-                                    <option value="">Vui lòng chọn Tỉnh/Thành phố</option>
                                     @foreach($tinhthanh as $key => $value)
-                                        <option value="{{ $value->id }}">{{ $value->tinhthanh }}</option>
+                                        @if($value->id == $dia_chi->id_tinhthanh)
+                                            <option value="{{ $value->id }}" selected>{{ $value->tinhthanh }}</option>
+                                        @else
+                                            <option value="{{ $value->id }}">{{ $value->tinhthanh }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             <label class="labelnew"><span style="color: red;">(*)</span> Quận/Huyện :</label>
                             <div class="form-group">
-                                <select class="form-control" name="quanhuyen" id="quanhuyen" disabled>
-                                    <option value="">Vui lòng chọn Quận/Huyện</option>
+                                <select class="form-control" name="quanhuyen" id="quanhuyen">
+                                    @foreach($quanhuyen as $key => $value)
+                                        @if($value->id == $dia_chi->id_quanhuyen)
+                                            <option value="{{ $value->id }}" selected>{{ $value->quanhuyen }}</option>
+                                        @else
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <label class="labelnew"><span style="color: red;">(*)</span> Phường/Xã :</label>
                             <div class="form-group">
-                                <select class="form-control" name="phuongxa" id="phuongxa" disabled>
-                                    <option value="">Vui lòng chọn Phường/Xã</option>
+                                <select class="form-control" name="phuongxa" id="phuongxa">
+                                    @foreach($phuongxa as $key => $value)
+                                        @if($value->id == $dia_chi->id_phuongxa)
+                                            <option value="{{ $value->id }}" selected>{{ $value->phuongxa }}</option>
+                                        @else
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -154,6 +153,7 @@
                 },
                 success: function (data) {
                     $("#quanhuyen").empty();
+                    $("#phuongxa").empty();
                     $("#quanhuyen").append(new Option('Vui lòng chọn Quận/Huyện',''));
                     data.map(function (val) {
                         $("#quanhuyen").append(new Option(val.quanhuyen, val.id));

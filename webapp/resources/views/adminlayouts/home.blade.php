@@ -156,7 +156,7 @@
                         </div>
                     </div>
                     <div style="text-align: center; width: 100%" id="avatar">
-                        <img style="width: 60px;height: 60px;border-radius: 68px;" alt="Chưa cập nhật">
+                        <img style="width: 60px;height: 60px;border-radius: 68px;" src="{{ url('upload/img-5.jpg') }}" alt="Chưa cập nhật">
                     </div>
                     <div style="width: 100% ; text-align: center;margin: 10px;">
                         Họ & Tên: <span id="ten" style="color: red"></span>
@@ -215,7 +215,7 @@
                 },
                 success: function (res) {
                     // $("#id_kh").attr("value", res.data.id ? res.data.id : 'Chưa cập nhật');
-                    $("#avatar").attr("src", res.data.kh_image ? '../upload/' + res.data.kh_image : 'Chưa cập nhật')
+                    // $("#avatar").attr("src", res.data.kh_image ? '../upload/' + res.data.kh_image : 'Chưa cập nhật')
                     $("#ten").html(res.data.kh_ten ? res.data.kh_ten : 'Chưa cập nhật');
                     // $("#tongtien").html(res.gioithieu.tien_hoa_hong ? res.gioithieu.tien_hoa_hong : 0);
                     // $("#thoihan").html(res.gioithieu.danh_dau ? res.gioithieu.danh_dau : 'Chưa cập nhật');
@@ -228,7 +228,7 @@
                     $("#kh_cmnd").html(res.data.kh_cmnd ? res.data.kh_cmnd : 'Chưa cập nhật');
                     $("#kh_ngay_cap").html(res.data.kh_ngay_cap ? res.data.kh_ngay_cap : 'Chưa cập nhật');
                     $("#kh_dia_chi").html(res.data.kh_dia_chi ? res.data.kh_dia_chi : 'Chưa cập nhật');
-                    $("#hoahong").html(res.gioithieu.tien_hoa_hong ? res.gioithieu.tien_hoa_hong : 'Chưa cập nhật');
+                    $("#hoahong").html(res.gioithieu.tien_hoa_hong ? res.gioithieu.tien_hoa_hong : '0');
                     $("#gioithieu").html(res.gioithieu.kh_ten ? res.gioithieu.kh_ten : 'Không có người giới thiệu');
                     $("#detailKhachHang").modal('show');
                 }
