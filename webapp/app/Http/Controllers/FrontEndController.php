@@ -56,6 +56,7 @@ class FrontEndController extends Controller
     public function order(Request $request)
     {
 //        dd($request->all());
+
         if ($request->id != null) {
             $order = [];
             foreach ($request->id as $key => $value) {
@@ -70,27 +71,31 @@ class FrontEndController extends Controller
             $order = [];
         }
         $data = $this->data();
-        $dia_chi = SoDiaChiModel::leftjoin('tinhthanh', 'tinhthanh.id', 'so_dia_chi.id_tinhthanh')
-            ->leftjoin('quanhuyen', 'quanhuyen.id', 'so_dia_chi.id_quanhuyen')
-            ->leftjoin('phuongxa', 'phuongxa.id', 'so_dia_chi.id_phuongxa')
-            ->where('so_dia_chi.id_kh', '=', Auth::user()->id)
-            ->select([
-                'so_dia_chi.id as iddiachi',
-                'so_dia_chi.ho_ten as hotenkh',
-                'so_dia_chi.sdt_kh as sdtkh',
-                'so_dia_chi.dia_chi as dia_chi',
-                'tinhthanh.tinhthanh as tinhthanh',
-                'quanhuyen.quanhuyen as quanhuyen',
-                'phuongxa.phuongxa as phuongxa',
-            ])
-            ->get();
+        if (empty(Auth::user())) {
+            $dia_chi = [];
+        } else {
+            $dia_chi = SoDiaChiModel::leftjoin('tinhthanh', 'tinhthanh.id', 'so_dia_chi.id_tinhthanh')
+                ->leftjoin('quanhuyen', 'quanhuyen.id', 'so_dia_chi.id_quanhuyen')
+                ->leftjoin('phuongxa', 'phuongxa.id', 'so_dia_chi.id_phuongxa')
+                ->where('so_dia_chi.id_kh', '=', Auth::user()->id)
+                ->select([
+                    'so_dia_chi.id as iddiachi',
+                    'so_dia_chi.ho_ten as hotenkh',
+                    'so_dia_chi.sdt_kh as sdtkh',
+                    'so_dia_chi.dia_chi as dia_chi',
+                    'tinhthanh.tinhthanh as tinhthanh',
+                    'quanhuyen.quanhuyen as quanhuyen',
+                    'phuongxa.phuongxa as phuongxa',
+                ])
+                ->get();
+        }
         return view('userlayouts.sanpham.order', compact('data', 'order', 'dia_chi'));
     }
 
     // du lieu gio hang
     public function orderStore(Request $request)
     {
-//        dd($request->get('so_dia_chi'));
+//        dd($request->soluong);
         if ($request->soluong == null) {
             return redirect('user')->with('error', 'Giỏ hàng của bạn trống !');
         } else {
@@ -171,10 +176,10 @@ class FrontEndController extends Controller
             ->join('users', 'users.id', '=', 'san_pham.id_gian_hang')
             ->join('users_gian_hang', 'users.id', '=', 'users_gian_hang.user_id')
             ->where('san_pham_danh_muc.id', '=', $id)
+            ->where('san_pham.status', '<>', 0)
             ->select([
                 'san_pham.id as id_sp',
                 'san_pham.sp_ten as ten_sp',
-                'san_pham.sp_so_luong as so_luong_sp',
                 'san_pham.sp_image as image_sp',
                 'san_pham_gia.gia_goc as gia_goc_sp',
                 'san_pham_gia.gia_km as gia_km_sp',
@@ -196,13 +201,13 @@ class FrontEndController extends Controller
             ->join('users', 'users.id', '=', 'san_pham.id_gian_hang')
             ->join('users_gian_hang', 'users.id', '=', 'users_gian_hang.user_id')
             ->where('san_pham.id', '=', $id)
+            ->where('san_pham.status', '<>', 0)
             ->select([
                 'san_pham.id as id_sp',
                 'san_pham.id_danh_muc as id_danh_muc_sp',
                 'san_pham.sp_ten as ten_sp',
-                'san_pham.sp_so_luong as so_luong_sp',
                 'san_pham.sp_image as image_sp',
-                'san_pham.sp_description as description_sp',
+                'san_pham_gia.sp_description as description_sp',
                 'san_pham_gia.gia_goc as gia_goc_sp',
                 'san_pham_gia.gia_km as gia_km_sp',
                 'san_pham_danh_muc.dm_ten as dm_sp',
@@ -215,10 +220,10 @@ class FrontEndController extends Controller
             ->join('users_gian_hang', 'users.id', '=', 'users_gian_hang.user_id')
             ->where('san_pham.id_danh_muc', '=', $sanphamsigle['id_danh_muc_sp'])
             ->where('san_pham.id', '<>', $id)
+            ->where('san_pham.status', '<>', 0)
             ->select([
                 'san_pham.id as id_sp',
                 'san_pham.sp_ten as ten_sp',
-                'san_pham.sp_so_luong as so_luong_sp',
                 'san_pham.sp_image as image_sp',
                 'san_pham_gia.gia_goc as gia_goc_sp',
                 'san_pham_gia.gia_km as gia_km_sp',

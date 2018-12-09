@@ -1,3 +1,18 @@
+<div class="newsletter">
+    <div class="container">
+        <div class="w3agile_newsletter_left">
+            <h3>Đăng ký nhận bản tin của chúng tôi</h3>
+        </div>
+        <div class="w3agile_newsletter_right">
+            <form action="#" method="post">
+                <input type="email" name="Email" value="Email của bạn là" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                <input type="submit" value="Đăng ký">
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
 <div class="footer">
     <div class="container">
         <div class="col-md-3 w3_footer_grid">

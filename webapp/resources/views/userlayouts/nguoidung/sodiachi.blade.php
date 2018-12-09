@@ -104,21 +104,6 @@
     </div>
     <div class="clearfix"></div>
 </div>
-<div class="newsletter">
-    <div class="container">
-        <div class="w3agile_newsletter_left">
-            <h3>Đăng ký nhận bản tin của chúng tôi</h3>
-        </div>
-        <div class="w3agile_newsletter_right">
-            <form action="#" method="post">
-                <input type="email" name="Email" value="Email của bạn là" onfocus="this.value = '';"
-                       onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                <input type="submit" value="Đăng ký">
-            </form>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
 @include('userlayouts.footer')
 @if(\Illuminate\Support\Facades\Session::get('clear_session')==1)
     <script>

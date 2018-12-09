@@ -70,7 +70,8 @@
             <h3 style="font-size: 26px;">Cập nhật thông tin cá nhân</h3>
             <div class="w3_login_module">
                 <br>
-                <form action="">
+                <form action="{{ route('profileUppdate') }}" method="post" enctype="multipart/form-data">
+                    @csrf
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-4" style="font-size: 14px">
@@ -113,8 +114,15 @@
                                        type="text"
                                        style="font-style: italic;">
                                 <div class="ttcn" style="font-weight: bold;">Giới tính</div>
-                                <div class="ttcn"
-                                     style="font-style: italic;">{{ \App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_gioi_tinh }}</div>
+                                <select class="ttcn form-control" style="font-style: italic;" name="gioi_tinh_kh">
+                                    @if(\App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_gioi_tinh == 'Nam')
+                                        <option value="Nam" selected>Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                    @else
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ" selected>Nữ</option>
+                                    @endif
+                                </select>
                                 <div class="ttcn" style="font-weight: bold;">Mã giới thiệu</div>
                                 <div class="ttcn"
                                      style="color: #fb02e6;font-style: italic;">{{ Auth::user()->code }}</div>
@@ -138,9 +146,14 @@
 
                             </div>
                             <div class="col-md-4" style="margin-top: 10px;display: block;">
-                                <img class="imgnew2" src="{{ url('imageKH/images.png') }}">
+                                @if(\App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_image == null)
+                                    <img class="imgnew2" src="{{ url('imageKH/images.png') }}">
+                                @else
+                                    <img class="imgnew2"
+                                         src="{{ url('imageKH',\App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_image) }}">
+                                @endif
                                 <br>
-                                <input type="file" name="image_kh">
+                                <input type="file" name="file" onchange="readURL(this)">
                                 <div>
                                     <button type="submit" style="width: 200px; margin-top: 10px"
                                             class="btn btn-primary">Lưu
@@ -157,21 +170,6 @@
     </div>
     <div class="clearfix"></div>
 </div>
-<div class="newsletter">
-    <div class="container">
-        <div class="w3agile_newsletter_left">
-            <h3>Đăng ký nhận bản tin của chúng tôi</h3>
-        </div>
-        <div class="w3agile_newsletter_right">
-            <form action="#" method="post">
-                <input type="email" name="Email" value="Email của bạn là" onfocus="this.value = '';"
-                       onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                <input type="submit" value="Đăng ký">
-            </form>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
 @include('userlayouts.footer')
 @if(\Illuminate\Support\Facades\Session::get('clear_session')==1)
     <script>
@@ -182,6 +180,17 @@
     $(document).ready(function () {
         $().UItoTop({easingType: 'easeOutQuart'});
     });
+</script>
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#avatar").attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 <script src="{{ url('userlayouts/webuser/js/bootstrap.min.js') }}"></script>
 <script>

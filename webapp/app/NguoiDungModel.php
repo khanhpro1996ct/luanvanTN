@@ -14,7 +14,7 @@ class NguoiDungModel extends Model
         'kh_ten',
         'kh_gioi_tinh',
         'kh_ngay_sinh',
-        'kh_diachi',
+        'kh_dia_chi',
         'kh_cmnd',
         'kh_ngay_cap',
         'kh_image',

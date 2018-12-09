@@ -9,10 +9,9 @@ class store
 {
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+        if (!empty(Auth::user()) && Auth::user()->role == 1) {
+            return $next($request);
         }
-
-        return $next($request);
+        return redirect('/');
     }
 }

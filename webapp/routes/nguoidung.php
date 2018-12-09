@@ -5,15 +5,15 @@ Route::group(['prefix' => 'nguoi-dung'], function () {
     Route::post('/resgiter', 'UserController@registerNDstore')->name('registerNDstore');
 
     // thông tin nguoi dùng cá nhân
-    Route::get('/ca-nhan', 'UserController@profileCaNhan')->name('profileCaNhan');
+    Route::get('/ca-nhan', 'UserController@profileCaNhan')->name('profileCaNhan')->middleware('user');
 
     // trang sổ đại chỉ
-    Route::get('/so-dia-chi', 'UserController@SoDiaChi')->name('SoDiaChi');
-    Route::get('/so-dia-chi/add', 'UserController@themSoDiaChi')->name('themSoDiaChi');
-    Route::post('/so-dia-chi/add', 'UserController@ThemDiaChiStore')->name('ThemDiaChiStore');
+    Route::get('/so-dia-chi', 'UserController@SoDiaChi')->name('SoDiaChi')->middleware('user');
+    Route::get('/so-dia-chi/add', 'UserController@themSoDiaChi')->name('themSoDiaChi')->middleware('user');
+    Route::post('/so-dia-chi/add', 'UserController@ThemDiaChiStore')->name('ThemDiaChiStore')->middleware('user');
 
-    Route::get('/so-dia-chi/edit/{id}', 'UserController@ThemDiaChiEdit')->name('ThemDiaChiEdit');
-    Route::post('/so-dia-chi/edit{id}', 'UserController@ThemDiaChiUpdate')->name('ThemDiaChiUpdate');
+    Route::get('/so-dia-chi/edit/{id}', 'UserController@ThemDiaChiEdit')->name('ThemDiaChiEdit')->middleware('user');
+    Route::post('/so-dia-chi/edit{id}', 'UserController@ThemDiaChiUpdate')->name('ThemDiaChiUpdate')->middleware('user');
 
     // ajax quan huyen
     Route::get('/ajax/quan-huyen', 'UserController@ajaxQuanHuyen')->name('ajaxQuanHuyen');
@@ -26,7 +26,8 @@ Route::group(['prefix' => 'nguoi-dung'], function () {
     Route::get('/huy/{id}', 'UserController@HuyHDND')->name('HuyHDND');
 
     // cập nhật thông tin cá nhân
-    Route::get('/edit', 'UserController@profileEdit')->name('profileEdit');
+    Route::get('/edit', 'UserController@profileEdit')->name('profileEdit')->middleware('user');
+    Route::post('/edit', 'UserController@profileUppdate')->name('profileUppdate')->middleware('user');
 
 
 });

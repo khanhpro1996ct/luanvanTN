@@ -296,4 +296,33 @@ class UserController extends Controller
     {
         return view('userlayouts.nguoidung.profileupdate');
     }
+
+    // cập nhật thông tin khách hàng
+    public function profileUppdate(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $new_file_name = time() . '.' . $file->getClientOriginalExtension();
+            $file->move('imageKH', $new_file_name);
+            $image_kh = $new_file_name;
+        } else {
+            $image_kh = NguoiDungModel::where('user_id', '=', Auth::user()->id)->first()->kh_image;
+        }
+        NguoiDungModel::where('user_id', '=', Auth::user()->id)
+            ->update([
+                'kh_ten' => $request->get('ten_kh'),
+                'kh_gioi_tinh' => $request->get('gioi_tinh_kh'),
+                'kh_ngay_sinh' => $request->get('ngay_sinh_kh'),
+                'kh_dia_chi' => $request->get('dia_chi_kh'),
+                'kh_cmnd' => $request->get('cmnd_kh'),
+                'kh_ngay_cap' => $request->get('ngay_cap_kh'),
+                'kh_image' => $image_kh,
+            ]);
+        UsersModel::where('id', '=', Auth::user()->id)
+            ->update([
+                'phone' => $request->get('phone'),
+                'email' => $request->get('email_kh'),
+            ]);
+        return redirect(route('logout'));
+    }
 }

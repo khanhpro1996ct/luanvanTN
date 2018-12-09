@@ -121,11 +121,18 @@
 
                         </div>
                         <div class="col-md-4" style="margin-top: 10px;display: block;">
-                            <img class="imgnew2" src="{{ url('imageKH/images.png') }}">
+                            @if(\App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_image == null)
+                                <img class="imgnew2" src="{{ url('imageKH/images.png') }}">
+                            @else
+                                <img class="imgnew2"
+                                     src="{{ url('imageKH',\App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_image) }}">
+                            @endif
                             <div>
-                                <a style="width: 200px; margin-top: 10px" href="{{ route('profileEdit') }}" class="btn btn-primary">Sửa thông
+                                <a style="width: 200px; margin-top: 10px" href="{{ route('profileEdit') }}"
+                                   class="btn btn-primary">Sửa thông
                                     tin</a>
-                                <a style="width: 200px;margin-top: 10px;" class="btn btn-primary">Thay đổi mật khẩu</a>
+                                <a href="{{ route('changePassword') }}" style="width: 200px;margin-top: 10px;"
+                                   class="btn btn-primary">Thay đổi mật khẩu</a>
                             </div>
                         </div>
                     </div>
@@ -135,21 +142,6 @@
         </div>
     </div>
     <div class="clearfix"></div>
-</div>
-<div class="newsletter">
-    <div class="container">
-        <div class="w3agile_newsletter_left">
-            <h3>Đăng ký nhận bản tin của chúng tôi</h3>
-        </div>
-        <div class="w3agile_newsletter_right">
-            <form action="#" method="post">
-                <input type="email" name="Email" value="Email của bạn là" onfocus="this.value = '';"
-                       onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                <input type="submit" value="Đăng ký">
-            </form>
-        </div>
-        <div class="clearfix"></div>
-    </div>
 </div>
 @include('userlayouts.footer')
 @if(\Illuminate\Support\Facades\Session::get('clear_session')==1)

@@ -101,7 +101,7 @@
     <div class="wthree_banner_bottom_left_grid_sub1">
         <div class="col-md-4 wthree_banner_bottom_left">
             <div class="wthree_banner_bottom_left_grid">
-                <img src="{{ url('userlayouts/webuser/images/4.jpg') }}" alt=" " class="img-responsive"/>
+                <img style="width: 345px;height: 276px;" src="{{ url('userlayouts/webuser/images/hinh1.jpg') }}" alt=" " class="img-responsive"/>
                 <div class="wthree_banner_bottom_left_grid_pos">
                     <h4>Ưu đãi giảm giá <span>25%</span></h4>
                 </div>
@@ -117,7 +117,7 @@
         </div>
         <div class="col-md-4 wthree_banner_bottom_left">
             <div class="wthree_banner_bottom_left_grid">
-                <img src="{{ url('userlayouts/webuser/images/6.jpg') }}" alt=" " class="img-responsive"/>
+                <img style="width: 345px;height: 276px;" src="{{ url('userlayouts/webuser/images/hinh2.jpg') }}" alt=" " class="img-responsive"/>
                 <div class="wthree_banner_btm_pos1">
                     {{--<h3>Save <span>Upto</span> $10</h3>--}}
                 </div>
@@ -196,7 +196,7 @@
             <div class="col-md-9 w3l_fresh_vegetables_grid_right">
                 <div class="col-md-4 w3l_fresh_vegetables_grid">
                     <div class="w3l_fresh_vegetables_grid1">
-                        <img src="{{ url('userlayouts/webuser/images/8.jpg') }}" alt=" " class="img-responsive"/>
+                        <img style="width: 266px;height: 366px" src="{{ url('userlayouts/webuser/images/hinh3.jpg') }}" alt=" " class="img-responsive"/>
                     </div>
                 </div>
                 <div class="col-md-4 w3l_fresh_vegetables_grid">
@@ -242,28 +242,8 @@
         </div>
     </div>
 </div>
-<div class="newsletter">
-    <div class="container">
-        <div class="w3agile_newsletter_left">
-            <h3>Đăng ký nhận bản tin của chúng tôi</h3>
-        </div>
-        <div class="w3agile_newsletter_right">
-            <form action="#" method="post">
-                <input type="email" name="Email" value="Email của bạn là" onfocus="this.value = '';"
-                       onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                <input type="submit" value="Đăng ký">
-            </form>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
 @include('userlayouts.footer')
 @yield('script')
-@if(\Illuminate\Support\Facades\Session::get('clear_session')==1)
-    <script>
-        sessionStorage.clear();
-    </script>
-@endif
 <script src="{{ url('userlayouts/webuser/js/bootstrap.min.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -286,144 +266,6 @@
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
 @include('userlayouts.messages')
-@include('userlayouts.modal');
-<script>
-    function getCart(id, name, gia_km, gia_goc) {
-        var item = $('#item');
-        var sp = sessionStorage.getItem('list_order');
-        sp = JSON.parse(sp);
-        if (sp != undefined && sp != []) {
-            html = '';
-            sp.forEach(function (element) {
-                html = html +
-                    '<div id="item' + element.id + '"> ' +
-                    '<div class="row">' +
-                    '<div class="col-sm-12" style="font-size: 14px">' +
-                    '<div class="col-sm-7">' +
-                    '<p style="font-weight: bold" >' + element.name + '</p>\n' +
-                    '<p style="font-weight: 300;color: #999"> Đơn giá: đ:' + Number(element.gia).toLocaleString('en') + '</p>\n' +
-                    '</div>' +
-                    '<div class="col-sm-2">' +
-                    '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"name=soluong[] id="sl_' + element.id + '" class="form-control" type="number" placeholder="nhập số lượng" value="' + element.soluong + '">\n' +
-                    '</div>' +
-                    '<div class="col-sm-2">' +
-                    '<p id="tt_' + element.id + '">đ:' + Number(element.thanhtien).toLocaleString('en') + '</p>' +
-                    '</div>' +
-                    '<div class="col-sm-1">' +
-                    '<button  id="del_' + element.id + '" onclick="deleteItem(' + element.id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<input type="hidden" name=id[] value="' + element.id + '"> ' +
-                    '<input type="hidden" name=name[] value="' + element.name + '"> ' +
-                    '<input type="hidden" name=gia[] value="' + element.gia + '"> ' +
-                    '<hr>' +
-                    '</div> ';
-                item.html(html);
-            });
-            sp.forEach(function (element) {
-                $('#sl_' + element.id).on('input', function () {
-                    var tongtien = $('#sl_' + element.id).val() * element.gia;
-                    // var newtongtien= tongtien.toLocaleString('en');
-                    $('#tt_' + element.id).html('đ:' + Number(tongtien));
-                    sp.find(function (element2) {
-                        if (element2.id == id) {
-                            element2.soluong = Number($('#sl_' + element.id).val());
-                            element2.thanhtien = Number($('#sl_' + element.id).val() * element.gia);
-                        }
-                    });
-                    sessionStorage.setItem('list_order', JSON.stringify(sp));
-                });
-            });
-        }
-        else {
-            sp = [];
-        }
-        var gia = gia_km == 0 ? gia_goc : gia_km;
-        if ($('#sl_' + id).val() != undefined) {
-            var temp = $('#sl_' + id).val();
-            temp++;
-            $('#sl_' + id).val(temp);
-            var tongtien = $('#sl_' + id).val() * gia;
-            // var newtongtien = tongtien.toLocaleString('en');
-            $('#tt_' + id).html('đ:' + Number(tongtien));
-            sp.find(function (element) {
-                if (element.id == id) {
-                    Number(element.soluong++);
-                    element.thanhtien = Number(element.soluong * element.gia);
-                }
-            });
-            sessionStorage.setItem('list_order', JSON.stringify(sp));
-        }
-        else {
-            html = "";
-            html =
-                '<div id="item' + id + '"> ' +
-                '<div class="row">' +
-                '<div class="col-sm-12" style="font-size: 14px">' +
-                '<div class="col-sm-7">' +
-                '<p style="font-weight: bold" > ' + name + '</p>\n' +
-                '<p style="font-weight: 300;color: #999"> Đơn giá:đ:' + Number(gia).toLocaleString('en') + '</p>\n' +
-                '</div>' +
-                '<div class="col-sm-2">' +
-                '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"name=soluong[] id="sl_' + id + '" class="form-control" type="number" placeholder="nhập số lượng" value="1">\n' +
-                '</div>' +
-                '<div class="col-sm-2">' +
-                '<p id="tt_' + id + '">đ:' + Number(gia).toLocaleString('en') + '</p>' +
-                '</div>' +
-                '<div class="col-sm-1">' +
-                '<button id="del_' + id + '" onclick="deleteItem(' + id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '<input type="hidden" name=id[] value="' + id + '"> ' +
-                '<input type="hidden" name=name[] value="' + name + '"> ' +
-                '<input type="hidden" name=gia[] value="' + gia + '"> ' +
-                '<hr>' +
-                '</div> ';
-            item.append(html);
-
-            $('#sl_' + id).on('input', function () {
-                var tongtien = $('#sl_' + id).val() * gia;
-                // var newtongtien = tongtien.toLocaleString('en');
-                $('#tt_' + id).html('đ:' + Number(tongtien));
-                sp.find(function (element) {
-                    if (element.id == id) {
-                        element.soluong = Number($('#sl_' + id).val());
-                        element.thanhtien = Number($('#sl_' + id).val() * gia);
-                    }
-                });
-                sessionStorage.setItem('list_order', JSON.stringify(sp));
-            });
-            sp.push({
-                id: id,
-                name: name,
-                soluong: 1,
-                gia: gia,
-                thanhtien: gia
-            });
-            sessionStorage.setItem('list_order', JSON.stringify(sp));
-
-        }
-        $('#orderModal').modal('show');
-
-    }
-
-    function deleteItem(id) {
-        var sp = sessionStorage.getItem('list_order');
-        sp = JSON.parse(sp);
-        if (sp != [] && sp != undefined) {
-            //Xoa mang
-            var index = sp.map(x => {
-                return x.id;
-            }).indexOf(id);
-            sp.splice(index, 1);
-            sessionStorage.setItem('list_order', JSON.stringify(sp));
-            //Xoa giao dien
-            $('#item' + id).remove();
-        }
-    }
-</script>
 </body>
 </html>
 
