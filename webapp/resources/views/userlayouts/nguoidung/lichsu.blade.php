@@ -2,10 +2,25 @@
 <html>
 @include('userlayouts.thehead')
 <style>
+    .labelnew {
+        margin-bottom: 5px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
     .imgnew1 {
         width: 41px;
         height: 41px;
         border-radius: 41px;
+    }
+
+    .khanh {
+        color: black !important;
+        border-bottom: 1px solid !important;
+    }
+
+    .khanh1 {
+        color: black !important;
     }
 </style>
 <body>
@@ -18,12 +33,17 @@
                 <a href="{{ url('user') }}">Trang chủ</a>
                 <span>|</span>
             </li>
-            <li>Sổ địa chỉ</li>
+            <li title="Trang chủ">
+                <a href="{{ url('user') }}">lịch sử giao dịch</a>
+                <span>|</span>
+            </li>
+            <li>danh sách</li>
         </ul>
     </div>
 </div>
 <div class="banner">
     <div class="w3l_banner_nav_left">
+        <br>
         <nav class="navbar nav_bottom">
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav nav_1">
@@ -55,52 +75,29 @@
         </nav>
     </div>
     <div class="w3l_banner_nav_right">
-        <div class="privacy about">
-            <h3>Sổ địa chỉ</h3>
-            <div class="checkout-right">
-                <h4>Lưu địa chỉ thanh toán và giao hàng</h4>
-                <table class="timetable_sub">
+        <div class="w3_login" style="padding-top: 1em">
+            <h3 style="font-size: 26px;">Lịch sử nhận tiền hoa hồng</h3>
+            <div class="w3_login_module">
+                <table id="datatable" class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Stt</th>
-                        <th>Họ tên</th>
-                        <th>Số điện thoại</th>
-                        <th>Địa chỉ</th>
-                        <th>Thao tác</th>
+                        <th class="khanh">Stt</th>
+                        <th class="khanh">Tổng tiền hoa hồng</th>
+                        <th class="khanh">Ngày lãnh</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($dia_chi as $value)
+                    @foreach($tienhoahong as $val)
                         <tr>
-                            <td>{{ $value->stt }}</td>
-                            <td>{{ $value->hotenkh }}</td>
-                            <td>{{ $value->sdtkh }}</td>
-                            <td>{{ $value->dia_chi }}, {{ $value->phuongxa }}, {{ $value->quanhuyen }}
-                                , {{ $value->tinhthanh }}</td>
-                            <td>
-                                <a href="{{ route('ThemDiaChiEdit',$value->iddiachi) }}" class="btn btn-warning">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                            </td>
+                            <td class="khanh1">{{ $val->stt }}</td>
+                            <td class="khanh1">đ: {{ number_format($val->so_tien_da_lanh) }}</td>
+                            <td class="khanh1">{{ $val->ngay_lanh }}</td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="checkout-left">
-                <div class="col-md-4 checkout-left-basket"></div>
-                <div class="col-md-8 address_form_agile">
-                    <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                        <div class="information-wrapper">
-                            <button class=" submit check_out" style="text-transform: none"><a
-                                        href="{{ route('themSoDiaChi') }}">+ Thêm địa chỉ mới</a></button>
-                        </div>
-                    </section>
-                </div>
-                <div class="clearfix"></div>
-            </div>
         </div>
-        <!-- //about -->
     </div>
     <div class="clearfix"></div>
 </div>

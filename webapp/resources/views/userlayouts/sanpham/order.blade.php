@@ -53,7 +53,7 @@
                                         <input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"
                                                id="sl_{{ $value['id'] }}"
                                                type="number" name="soluong[{{$value['id']}}]"
-                                               value="{{ $value['soluong'] }}" onchange="haha('{{ $value['id'] }}')">
+                                               value="1" onchange="haha('{{ $value['id'] }}')">
                                     </td>
                                     <td class="invert" id="tt_{{$value['id']}}"></td>
                                     <td class="invert">
@@ -150,7 +150,6 @@
 <script>
     function haha(id) {
         alert(id);
-        // console.log(e.id)
         console.log($('#tt_11').val())
     }
 </script>

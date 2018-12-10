@@ -28,4 +28,7 @@ Route::group(['prefix' => 'gian-hang'], function () {
 
     // xem san pham
     Route::get('/quan-ly-san-pham/chi-tiet/{id}', 'GianHangController@xemSanPham')->name('gh.xemSanPham');
+
+    Route::get('/profile-edit', 'GianHangController@profileEdit')->name('gh.profileEdit');
+    Route::post('/profile-edit', 'GianHangController@profileUpdate')->name('gh.profileUpdate');
 });

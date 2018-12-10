@@ -73,41 +73,49 @@
     </div>
     <div class="w3l_banner_nav_right">
         <div class="w3_login" style="padding-top: 1em">
-            <h3 style="font-size: 26px;">Thông Tin Gian Hàng</h3>
+            <h3 style="font-size: 26px;">Cập Nhật Thông Tin Gian Hàng</h3>
             <div class="w3_login_module">
                 <br>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-4" style="font-size: 14px">
-                            <div class="ttcn" style="font-weight: bold;">Tên</div>
-                            <div class="ttcn"
-                                 style="font-style: italic;">{{ \App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_ten }}</div>
-                            <div class="ttcn" style="font-weight: bold;">Địa chỉ email</div>
-                            <div class="ttcn" style="font-style: italic;">{{ Auth::user()->email }}</div>
-                        </div>
-                        <div class="col-md-4" style="font-size: 14px">
-                            <div class="ttcn" style="font-weight: bold;">Số điện thoại</div>
-                            <div class="ttcn" style="font-style: italic;">{{ Auth::user()->phone }}</div>
-                            <div class="ttcn" style="font-weight: bold;">Địa chỉ</div>
-                            @if(\App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_dia_chi == null)
-                                <div class="ttcn" style="color: red;font-style: italic;">Chưa cập nhật</div>
-                            @else
-                                <div class="ttcn"
-                                     style="font-style: italic;">{{ \App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_dia_chi }}</div>
-                            @endif
-                        </div>
-                        <div class="col-md-4" style="margin-top: 10px;display: block;">
-                            <img class="imgnew2" src="{{ url('upload/shop.jpg') }}">
-                            <div>
-                                <a style="width: 200px; margin-top: 10px" href="{{ route('gh.profileEdit') }}"
-                                   class="btn btn-primary">Sửa thông
-                                    tin</a>
-                                <a href="{{ route('changePassword') }}" style="width: 200px;margin-top: 10px;"
-                                   class="btn btn-primary">Thay đổi mật khẩu</a>
+                <form action="{{ route('gh.profileUpdate') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4" style="font-size: 14px">
+                                <div class="ttcn" style="font-weight: bold;">Tên</div>
+                                <input class="ttcn form-control" type="text"
+                                       value="{{ \App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_ten }}"
+                                       name="ten_gh"
+                                       style="font-style: italic;">
+                                <div class="ttcn" style="font-weight: bold;">Địa chỉ email</div>
+                                <input class="ttcn form-control" style="font-style: italic;" type="text"
+                                       value="{{ Auth::user()->email }}" name="email_gh">
+                            </div>
+                            <div class="col-md-4" style="font-size: 14px">
+                                <div class="ttcn" style="font-weight: bold;">Số điện thoại</div>
+                                <input class="ttcn form-control" value="{{ Auth::user()->phone }}" name="phone"
+                                       type="text"
+                                       style="font-style: italic;">
+                                <div class="ttcn" style="font-weight: bold;">Địa chỉ</div>
+                                @if(\App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_dia_chi == null)
+                                    <input class="ttcn form-control" style="color: red;font-style: italic;" value="" name="dia_chi_gh">
+                                @else
+                                    <input class="ttcn form-control" name="dia_chi_gh"
+                                           value="{{ \App\GianHangUserModel::where('user_id','=',Auth::user()->id)->first()->gh_dia_chi }}"
+                                         style="font-style: italic;">
+                                @endif
+                            </div>
+                            <div class="col-md-4" style="margin-top: 10px;display: block;">
+                                <img class="imgnew2" src="{{ url('upload/shop.jpg') }}">
+                                <div>
+                                    <button type="submit" style="width: 200px; margin-top: 10px"
+                                            class="btn btn-primary">Lưu
+                                        thay đổi
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

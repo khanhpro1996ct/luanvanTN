@@ -253,4 +253,25 @@ class GianHangController extends Controller
 //        dd($data);
         return view('userlayouts.gianhang.profile', compact('data'));
     }
+
+    public function profileEdit()
+    {
+        return view('userlayouts.gianhang.profileupdate');
+    }
+
+    public function profileUpdate(Request $request)
+    {
+//        dd($request->all());
+        GianHangUserModel::where('user_id', '=', Auth::user()->id)
+            ->update([
+                'gh_ten' => $request->get('ten_gh'),
+                'gh_dia_chi' => $request->get('dia_chi_gh'),
+            ]);
+        UsersModel::where('id', '=', Auth::user()->id)
+            ->update([
+                'phone' => $request->get('phone'),
+                'email' => $request->get('email_gh'),
+            ]);
+        return redirect(route('logout'))->with('success', 'Vui lòng đăng nhập lại !');
+    }
 }

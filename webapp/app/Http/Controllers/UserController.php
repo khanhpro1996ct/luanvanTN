@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DanhMucSanPhamModel;
 use App\HoaDonModel;
+use App\HoaHongKhachHangLogModel;
 use App\HoaHongKhachHangModel;
 use App\Http\Requests\SoDiaChiRequest;
 use App\Http\Requests\UserAddRequest;
@@ -300,6 +301,30 @@ class UserController extends Controller
     // cập nhật thông tin khách hàng
     public function profileUppdate(Request $request)
     {
+//        dd($request->all());
+        $cha = $request->get('ma_code_cha');
+        if (empty($cha)) {
+            $id_cha = HoaHongKhachHangModel::where('user_id', '=', Auth::user()->id)->first()->ma_code_cha;
+            HoaHongKhachHangModel::where('user_id', '=', Auth::user()->id)
+                ->update([
+                    'ma_code_cha' => $id_cha,
+                ]);
+        } else {
+
+            $id_cha2 = UsersModel::where('code', '=', $cha)->first()->id;
+            $id_cua_minh = UsersModel::where('id', '=', Auth::user()->id)->first()->id;
+            if ($id_cha2 == $id_cua_minh) {
+                HoaHongKhachHangModel::where('user_id', '=', Auth::user()->id)
+                    ->update([
+                        'ma_code_cha' => 0,
+                    ]);
+            } else {
+                HoaHongKhachHangModel::where('user_id', '=', Auth::user()->id)
+                    ->update([
+                        'ma_code_cha' => $id_cha2,
+                    ]);
+            }
+        }
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $new_file_name = time() . '.' . $file->getClientOriginalExtension();
@@ -323,6 +348,16 @@ class UserController extends Controller
                 'phone' => $request->get('phone'),
                 'email' => $request->get('email_kh'),
             ]);
-        return redirect(route('logout'));
+        return redirect(route('logout'))->with('success', 'Vui lòng đăng nhập lại !');
+    }
+
+    public function LichSu()
+    {
+        $tienhoahong = HoaHongKhachHangLogModel::where('user_id', '=', Auth::user()->id)->get();
+        $count = count($tienhoahong);
+        for ($i = 0; $i < $count; $i++) {
+            $tienhoahong[$i]['stt'] = $i + 1;
+        }
+        return view('userlayouts.nguoidung.lichsu', compact('tienhoahong'));
     }
 }

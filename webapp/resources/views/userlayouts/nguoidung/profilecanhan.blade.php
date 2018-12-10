@@ -58,7 +58,7 @@
                         <a href="{{ route('profileCaNhan') }}">Thông tin cá nhân</a>
                         <a href="{{ route('XemDH') }}">Đơn hàng của tôi</a>
                         <a href="{{ route('SoDiaChi') }}">Sổ địa chỉ</a>
-                        <a href="#">Mã giảm giá</a>
+                        <a href="{{ route('LichSu') }}">Lịch sử giao dịch</a>
                         <a href="#">Thông báo của tôi</a>
                     </li>
                 </ul>
@@ -69,6 +69,11 @@
         <div class="w3_login" style="padding-top: 1em">
             <h3 style="font-size: 26px;">Thông tin cá nhân</h3>
             <div class="w3_login_module">
+                <div class="row" style="display: -webkit-box">
+                    <div style="text-decoration: underline;color: #ff008b">Số Tiền Hoa Hồng Tích Lũy :</div>
+                    <div style="text-align: center;color: #2006e6;margin-left: 16px;">
+                        đ: {{ number_format(\App\HoaHongKhachHangModel::where('user_id','=',Auth::user()->id)->first()->tien_hoa_hong) }}</div>
+                </div>
                 <br>
                 <div class="row">
                     <div class="col-md-12">

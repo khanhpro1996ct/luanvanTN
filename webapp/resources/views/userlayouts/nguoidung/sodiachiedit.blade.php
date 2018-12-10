@@ -58,7 +58,7 @@
                         <a href="{{ route('profileCaNhan') }}">Thông tin cá nhân</a>
                         <a href="{{ route('XemDH') }}">Đơn hàng của tôi</a>
                         <a href="{{ route('SoDiaChi') }}">Sổ địa chỉ</a>
-                        <a href="#">Mã giảm giá</a>
+                        <a href="{{ route('LichSu') }}">Lịch sử giao dịch</a>
                         <a href="#">Thông báo của tôi</a>
                     </li>
                 </ul>

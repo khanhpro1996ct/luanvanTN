@@ -149,10 +149,10 @@
                                             </a>
                                             <p class="singlerow">{{ $value->ten_sp }}</p>
                                             @if($value->gia_km_sp == 0)
-                                                <h4 class="gia">đ{{ number_format($value->gia_goc_sp) }}</h4>
+                                                <h4 class="gia">đ: {{ number_format($value->gia_goc_sp) }}</h4>
                                             @else
-                                                <h4 class="gia">đ{{ number_format($value->gia_km_sp) }}
-                                                    <span>đ{{ number_format($value->gia_goc_sp) }}</span>
+                                                <h4 class="gia">đ: {{ number_format($value->gia_km_sp) }}
+                                                    <span>đ: {{ number_format($value->gia_goc_sp) }}</span>
                                                 </h4>
                                             @endif
                                         </div>

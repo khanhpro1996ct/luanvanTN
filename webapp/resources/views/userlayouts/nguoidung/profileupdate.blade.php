@@ -58,7 +58,7 @@
                         <a href="{{ route('profileCaNhan') }}">Thông tin cá nhân</a>
                         <a href="{{ route('XemDH') }}">Đơn hàng của tôi</a>
                         <a href="{{ route('SoDiaChi') }}">Sổ địa chỉ</a>
-                        <a href="#">Mã giảm giá</a>
+                        <a href="{{ route('LichSu') }}">Lịch sử giao dịch</a>
                         <a href="#">Thông báo của tôi</a>
                     </li>
                 </ul>
@@ -141,7 +141,7 @@
                                            type="text" name="ma_code_cha">
                                 @else
                                     <div class="ttcn"
-                                         style="font-style: italic;">{{ \App\NguoiDungModel::where('user_id','=',\App\HoaHongKhachHangModel::where('user_id','=',Auth::user()->id)->first()->ma_code_cha)->first()->kh_ten }}</div>
+                                         style="font-style: italic;color: red">{{ \App\NguoiDungModel::where('user_id','=',\App\HoaHongKhachHangModel::where('user_id','=',Auth::user()->id)->first()->ma_code_cha)->first()->kh_ten }}</div>
                                 @endif
 
                             </div>
@@ -149,7 +149,7 @@
                                 @if(\App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_image == null)
                                     <img class="imgnew2" src="{{ url('imageKH/images.png') }}">
                                 @else
-                                    <img class="imgnew2"
+                                    <img class="imgnew2" id="avatar"
                                          src="{{ url('imageKH',\App\NguoiDungModel::where('user_id','=',Auth::user()->id)->first()->kh_image) }}">
                                 @endif
                                 <br>
