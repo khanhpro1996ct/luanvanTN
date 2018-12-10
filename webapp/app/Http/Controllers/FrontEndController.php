@@ -22,7 +22,7 @@ class FrontEndController extends Controller
         return $data;
     }
 
-    public function trangchu()
+    public function trangchu(Request $req)
     {
         $data = $this->data();
         $sanpham = SanPhamModel::join('san_pham_gia', 'san_pham_gia.id_sp', '=', 'san_pham.id')
@@ -34,6 +34,7 @@ class FrontEndController extends Controller
             ->select([
                 'san_pham.id as id_sp',
                 'san_pham.sp_ten as ten_sp',
+                'san_pham.sp_thuong_hieu as sp_thuong_hieu',
                 'san_pham.sp_image as image_sp',
                 'san_pham_gia.gia_goc as gia_goc_sp',
                 'san_pham_gia.gia_km as gia_km_sp',
@@ -41,8 +42,13 @@ class FrontEndController extends Controller
                 'users_gian_hang.gh_ten as gh_sp',
                 'users_gian_hang.user_id as gh_id',
             ]);
-        $sanpham = $sanpham->paginate(8);
 //        dd($sanpham);
+        if ($req->has('q') && $req->get('q') != '')
+            $sanpham = $sanpham->where(function ($q) use ($req) {
+                return $q->where('san_pham.sp_ten', 'like', '%' . $req->get('q') . '%')
+                    ->orwhere('san_pham.sp_thuong_hieu', 'like', '%' . $req->get('q') . '%');
+            });
+        $sanpham = $sanpham->paginate(8);
         return view('userlayouts.index', compact('data', 'sanpham'));
     }
 
@@ -206,6 +212,7 @@ class FrontEndController extends Controller
                 'san_pham.id as id_sp',
                 'san_pham.id_danh_muc as id_danh_muc_sp',
                 'san_pham.sp_ten as ten_sp',
+                'san_pham.sp_thuong_hieu as sp_thuong_hieu',
                 'san_pham.sp_image as image_sp',
                 'san_pham_gia.sp_description as description_sp',
                 'san_pham_gia.gia_goc as gia_goc_sp',

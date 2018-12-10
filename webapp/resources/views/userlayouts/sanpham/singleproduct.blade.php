@@ -73,6 +73,7 @@
                 <div class="w3agile_description">
                     <h4>Chi Tiết :</h4>
                     <p>{{ $sanphamsigle['description_sp'] }}</p>
+                    <h4>Thương hiệu : {{ $sanphamsigle['sp_thuong_hieu'] }}</h4>
                 </div>
                 <div class="snipcart-item block">
                     <div class="snipcart-thumb agileinfo_single_right_snipcart">

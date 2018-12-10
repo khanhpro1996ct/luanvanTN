@@ -3,21 +3,20 @@
         <a href="{{ url('user') }}">Hãy đến với chúng tôi !</a>
     </div>
     <div class="w3l_search">
-        <form action="#" method="post">
-            <input type="text" name="Product" value="Tìm kiếm sản phẩm..." onfocus="this.value = '';"
-                   onblur="if (this.value == '') {this.value = 'Tìm kiếm sản phẩm...';}" required="">
-            <input type="submit" value=" ">
-        </form>
+        {!! Form::open(['method'=>'GET','class'=>'form-inline']) !!}
+        <input type="text" name="q"
+               value="{{\Illuminate\Support\Facades\Input::get('q','')}}"
+               placeholder="Tìm kiếm sản phẩm...">
+        <input type="submit" value=" ">
+        {!! Form::close() !!}
     </div>
     <div class="product_list_header">
         <fieldset>
             <input type="submit" name="submit" value="Xem giỏ hàng" class="button" id="submitOrder"/>
         </fieldset>
         <script>
-
             $("#submitOrder").click(function () {
                 GioHang();
-                // $('#orderForm').submit()
             });
         </script>
     </div>
