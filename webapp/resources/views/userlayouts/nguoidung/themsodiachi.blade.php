@@ -168,7 +168,7 @@
                             success: function (data) {
                                 console.log(data);
                                 $("#phuongxa").empty();
-                                $("#quanhuyen").append(new Option('Vui lòng chọn Phường/Xã',''));
+                                $("#phuongxa").append(new Option('Vui lòng chọn Phường/Xã',''));
                                 data.map(function (val) {
                                     $("#phuongxa").append(new Option(val.phuongxa, val.id));
                                     $("#phuongxa").removeAttr("disabled");
