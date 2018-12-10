@@ -153,11 +153,11 @@
                 $('#sl_' + element.id).on('input', function () {
                     var tongtien = $('#sl_' + element.id).val() * element.gia;
                     // var newtongtien= tongtien.toLocaleString('en');
-                    $('#tt_' + element.id).html('đ:' + Number(tongtien));
+                    $('#tt_' + element.id).html('đ:' + tongtien);
                     sp.find(function (element2) {
                         if (element2.id == id) {
-                            element2.soluong = Number($('#sl_' + element.id).val());
-                            element2.thanhtien = Number($('#sl_' + element.id).val() * element.gia).toLocaleString('en');
+                            element2.soluong = $('#sl_' + element.id).val();
+                            element2.thanhtien = $('#sl_' + element.id).val() * element.gia;
                         }
                     });
                     sessionStorage.setItem('list_order', JSON.stringify(sp));
@@ -174,11 +174,11 @@
             $('#sl_' + id).val(temp);
             var tongtien = $('#sl_' + id).val() * gia;
             // var newtongtien = tongtien.toLocaleString('en');
-            $('#tt_' + id).html('đ:' + Number(tongtien));
+            $('#tt_' + id).html('đ:' + tongtien);
             sp.find(function (element) {
                 if (element.id == id) {
                     Number(element.soluong++);
-                    element.thanhtien = Number(element.soluong * element.gia).toLocaleString('en');
+                    element.thanhtien = element.soluong * element.gia;
                 }
             });
             sessionStorage.setItem('list_order', JSON.stringify(sp));
@@ -214,11 +214,11 @@
             $('#sl_' + id).on('input', function () {
                 var tongtien = $('#sl_' + id).val() * gia;
                 // var newtongtien = tongtien.toLocaleString('en');
-                $('#tt_' + id).html('đ:' + Number(tongtien));
+                $('#tt_' + id).html('đ:' + tongtien);
                 sp.find(function (element) {
                     if (element.id == id) {
-                        element.soluong = Number($('#sl_' + id).val());
-                        element.thanhtien = Number($('#sl_' + id).val() * gia).toLocaleString('en');
+                        element.soluong = $('#sl_' + id).val();
+                        element.thanhtien = $('#sl_' + id).val() * gia;
                     }
                 });
                 sessionStorage.setItem('list_order', JSON.stringify(sp));
@@ -261,6 +261,7 @@
         if (sp != undefined && sp != []) {
             html = '';
             sp.forEach(function (element) {
+                console.log(element);
                 html = html +
                     '<div id="item' + element.id + '"> ' +
                     '<div class="row">' +
@@ -273,7 +274,8 @@
                     '<input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;" name=soluong[] id="sl_' + element.id + '" class="form-control" type="number" placeholder="nhập số lượng" value="' + element.soluong + '">\n' +
                     '</div>' +
                     '<div class="col-sm-2">' +
-                    '<p id="tt_' + element.id + '">đ:' + Number(element.thanhtien).toLocaleString('en') + '</p>' +
+                    // '<p id="tt_' + element.id + '">đ:' + Number(element.thanhtien).toLocaleString('en') + '</p>' +
+                    '<p id="tt_' + element.id + '">đ:' + element.thanhtien + '</p>' +
                     '</div>' +
                     '<div class="col-sm-1">' +
                     '<button  id="del_' + element.id + '" onclick="deleteItem(' + element.id + ')" type="button" style="color: white;background-color: red" class="minicart-remove">x</button>' +

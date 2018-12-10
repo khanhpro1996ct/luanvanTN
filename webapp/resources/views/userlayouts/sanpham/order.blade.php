@@ -48,17 +48,20 @@
                                         </a>
                                     </td>
                                     <td class="invert">{{ $value['name'] }}</td>
-                                    <td class="invert">đ: {{ number_format($value['gia'] * $value['soluong']) }}</td>
+                                    <td class="invert">
+                                        <input type="hidden"  id="gia_{{$value['id']}}" value="{{$value['gia']}}" />
+                                        đ: {{ number_format($value['gia']) }}
+                                    </td>
                                     <td>
                                         <input style="padding: 0px;width: 60px;border-radius: 36px;padding-left: 22px;"
                                                id="sl_{{ $value['id'] }}"
                                                type="number" name="soluong[{{$value['id']}}]"
-                                               value="1" onchange="haha('{{ $value['id'] }}')">
+                                               value="{{$value['soluong']}}" onchange="haha('{{ $value['id'] }}')">
                                     </td>
-                                    <td class="invert" id="tt_{{$value['id']}}"></td>
+                                    <td class="invert" id="tt_{{$value['id']}}">đ: {{ number_format($value['gia'] * $value['soluong']) }}</td>
                                     <td class="invert">
                                         {{--<a class="btn btn-success" onclick="deleteItem2('tr{{$value["id"]}}')">X</a>--}}
-                                        <div class="rem" onclick="deleteItem2('tr{{$value["id"]}}')">
+                                        <div class="rem" onclick="deleteItem2('xoa{{$value["id"]}}')">
                                             <div class="close1"></div>
                                         </div>
                                     </td>
@@ -66,8 +69,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <br>
-                        <div style="float: right;">Tổng tiền hóa đơn :</div>
                     @else
                         <p>Giỏ hàng của bạn hiện chưa có sản phẩm nào</p>
                     @endif
@@ -149,8 +150,12 @@
 <script src="{{ url('userlayouts/webuser/js/jquery-1.11.1.min.js') }}"></script>
 <script>
     function haha(id) {
-        alert(id);
-        console.log($('#tt_11').val())
+
+        var soluong = $('#sl_'+id).val();
+        var gia = $('#gia_'+id).val();
+        var thanhtien = soluong * gia;
+        console.log(thanhtien);
+        $('#tt_'+id).text(thanhtien);
     }
 </script>
 <script>
@@ -220,7 +225,7 @@
             sp.splice(index, 1);
             sessionStorage.setItem('list_order', JSON.stringify(sp));
             //Xoa giao dien
-            $('#tr' + id).remove();
+            $('#xoa' + id).remove();
             GioHang();
             $('#orderForm').submit();
         }
