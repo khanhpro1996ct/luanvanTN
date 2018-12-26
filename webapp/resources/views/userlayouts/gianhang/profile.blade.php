@@ -66,7 +66,7 @@
                     <li><a href="{{ route('gh.qlsanpham') }}">Danh sách sản phẩm</a></li>
                     <li><a href="{{ route('gh.tmsanpham') }}">Thêm sản phẩm mới</a></li>
                     <li><a href="{{ route('gh.profileGianHang') }}">Thông tin gian hàng</a></li>
-                    <li><a href="">Lịch sử bán các sản phẩm</a></li>
+                    {{--<li><a href="">Lịch sử bán các sản phẩm</a></li>--}}
                 </ul>
             </div>
         </nav>
@@ -102,8 +102,8 @@
                                 <a style="width: 200px; margin-top: 10px" href="{{ route('gh.profileEdit') }}"
                                    class="btn btn-primary">Sửa thông
                                     tin</a>
-                                <a href="{{ route('changePassword') }}" style="width: 200px;margin-top: 10px;"
-                                   class="btn btn-primary">Thay đổi mật khẩu</a>
+                                {{--<a href="{{ route('changePassword') }}" style="width: 200px;margin-top: 10px;"--}}
+                                   {{--class="btn btn-primary">Thay đổi mật khẩu</a>--}}
                             </div>
                         </div>
                     </div>

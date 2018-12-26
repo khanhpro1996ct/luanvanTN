@@ -66,7 +66,7 @@
                     <li><a href="{{ route('gh.qlsanpham') }}">Danh sách sản phẩm</a></li>
                     <li><a href="{{ route('gh.tmsanpham') }}">Thêm sản phẩm mới</a></li>
                     <li><a href="{{ route('gh.profileGianHang') }}">Thông tin gian hàng</a></li>
-                    <li><a href="">Lịch sử bán các sản phẩm</a></li>
+                    {{--<li><a href="">Lịch sử bán các sản phẩm</a></li>--}}
                 </ul>
             </div>
         </nav>

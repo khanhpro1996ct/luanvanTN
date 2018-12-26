@@ -30,6 +30,7 @@ class FrontEndController extends Controller
             ->join('users', 'users.id', '=', 'san_pham.id_gian_hang')
             ->join('users_gian_hang', 'users.id', '=', 'users_gian_hang.user_id')
             ->where('san_pham.status', '<>', 0)
+            ->where('users.active', '=', 1)
             ->orderByRaw('san_pham.created_at desc')
             ->select([
                 'san_pham.id as id_sp',
@@ -46,7 +47,8 @@ class FrontEndController extends Controller
         if ($req->has('q') && $req->get('q') != '')
             $sanpham = $sanpham->where(function ($q) use ($req) {
                 return $q->where('san_pham.sp_ten', 'like', '%' . $req->get('q') . '%')
-                    ->orwhere('san_pham.sp_thuong_hieu', 'like', '%' . $req->get('q') . '%');
+                    ->orwhere('san_pham.sp_thuong_hieu', 'like', '%' . $req->get('q') . '%')
+                    ->orwhere('users_gian_hang.gh_ten', 'like', '%' . $req->get('q') . '%');
             });
         $sanpham = $sanpham->paginate(8);
         return view('userlayouts.index', compact('data', 'sanpham'));
@@ -228,6 +230,7 @@ class FrontEndController extends Controller
             ->where('san_pham.id_danh_muc', '=', $sanphamsigle['id_danh_muc_sp'])
             ->where('san_pham.id', '<>', $id)
             ->where('san_pham.status', '<>', 0)
+            ->where('users.active', '=', 1)
             ->select([
                 'san_pham.id as id_sp',
                 'san_pham.sp_ten as ten_sp',

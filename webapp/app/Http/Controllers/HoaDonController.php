@@ -102,7 +102,7 @@ class HoaDonController extends Controller
         HoaDonModel::where('id', $id)->update([
             'status' => 1
         ]);
-        return redirect(route('hoadon.index'));
+        return redirect(route('hoadon.index'))->with('success', 'Duyệt hóa đơn thành công !');
     }
 
     // hủy hóa đơn
@@ -111,7 +111,7 @@ class HoaDonController extends Controller
         HoaDonModel::where('id', $id)->update([
             'status' => 3
         ]);
-        return redirect(route('hoadon.index'));
+        return redirect(route('hoadon.index'))->with('success', 'Hủy hóa đơn thành công !');
     }
 
 
@@ -172,7 +172,7 @@ class HoaDonController extends Controller
         $contain['sum_money_customer']->tien_da_lanh += $contain['money_plus'];
         $contain['sum_money_customer']->save();
         $this->plusMoney($this->findFather($contain['customer']), $contain['money_plus'], 0, $contain['number'] - 1);
-        return redirect(route('hoadon.index'));
+        return redirect(route('hoadon.index'))->with('success', 'Duyệt thành công !');
     }
 
     // xem chi tiết

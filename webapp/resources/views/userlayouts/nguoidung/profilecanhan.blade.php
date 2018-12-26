@@ -59,7 +59,7 @@
                         <a href="{{ route('XemDH') }}">Đơn hàng của tôi</a>
                         <a href="{{ route('SoDiaChi') }}">Sổ địa chỉ</a>
                         <a href="{{ route('LichSu') }}">Lịch sử giao dịch</a>
-                        <a href="#">Thông báo của tôi</a>
+                        {{--<a href="#">Thông báo của tôi</a>--}}
                     </li>
                 </ul>
             </div>
@@ -136,8 +136,8 @@
                                 <a style="width: 200px; margin-top: 10px" href="{{ route('profileEdit') }}"
                                    class="btn btn-primary">Sửa thông
                                     tin</a>
-                                <a href="{{ route('changePassword') }}" style="width: 200px;margin-top: 10px;"
-                                   class="btn btn-primary">Thay đổi mật khẩu</a>
+                                {{--<a href="{{ route('changePassword') }}" style="width: 200px;margin-top: 10px;"--}}
+                                   {{--class="btn btn-primary">Thay đổi mật khẩu</a>--}}
                             </div>
                         </div>
                     </div>

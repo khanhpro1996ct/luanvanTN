@@ -68,7 +68,7 @@
                         <a href="{{ route('XemDH') }}">Đơn hàng của tôi</a>
                         <a href="{{ route('SoDiaChi') }}">Sổ địa chỉ</a>
                         <a href="{{ route('LichSu') }}">Lịch sử giao dịch</a>
-                        <a href="#">Thông báo của tôi</a>
+                        {{--<a href="#">Thông báo của tôi</a>--}}
                     </li>
                 </ul>
             </div>
@@ -82,7 +82,7 @@
                     <thead>
                     <tr>
                         <th class="khanh">Stt</th>
-                        <th class="khanh">Tổng tiền hoa hồng</th>
+                        <th class="khanh">Tiền hoa hồng đã lãnh</th>
                         <th class="khanh">Ngày lãnh</th>
                     </tr>
                     </thead>

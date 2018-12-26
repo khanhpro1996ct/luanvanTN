@@ -121,7 +121,7 @@
                                             @else
                                                 <a href="{{ route('ThanhToanHH',$value->id) }}"
                                                    class="btn btn-outline-success waves-effect waves-light"
-                                                   onclick="return confirm('Bạn chắc muốn khóa tài khoản này ?')">
+                                                   onclick="return confirm('Bạn chắc muốn thanh toán hoa hồng cho tài khoản này ?')">
                                                     <i class="mdi mdi-cash-usd"></i>
                                                 </a>
                                             @endif
